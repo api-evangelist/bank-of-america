@@ -1,17 +1,15 @@
 aid: bank-of-america
-url: 
-  https://raw.githubusercontent.com/api-evangelist/bank-of-america/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/bank-of-america/refs/heads/main/apis.yml
 modified: '2026-03-21'
 apis:
   - aid: bank-of-america:bofa-api
     name: Bank of America API
     tags:
-      - Banking
-      - Payments
-      - Finance
       - Accounts
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Banking
+      - Finance
+      - Payments
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.bankofamerica.com
     humanURL: https://developer.bankofamerica.com/
     properties:
