@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-schema/errorresponse-schema.json",
+  "title": "ErrorResponse",
+  "type": "object",
+  "description": "API error response",
+  "properties": {
+    "errorCode": {
+      "type": "string",
+      "description": "Machine-readable error code"
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable error message"
+    },
+    "details": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Additional error details"
+    },
+    "requestId": {
+      "type": "string",
+      "description": "Request identifier for support"
+    }
+  }
+}

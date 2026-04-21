@@ -1,0 +1,120 @@
+rules:
+  info-title-required:
+    description: Info must have a title
+    severity: error
+    given: $.info
+    then:
+      field: title
+      function: truthy
+  info-version-required:
+    description: Info must have a version
+    severity: error
+    given: $.info
+    then:
+      field: version
+      function: truthy
+  openapi-version-3:
+    description: Must use OpenAPI 3.x
+    severity: error
+    given: $
+    then:
+      field: openapi
+      function: pattern
+      functionOptions:
+        match: "^3\\."
+  servers-https-only:
+    description: All server URLs must use HTTPS
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+  operation-summary-required:
+    description: Every operation must have a summary
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: summary
+      function: truthy
+  operation-id-required:
+    description: Every operation must have an operationId
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: operationId
+      function: truthy
+  operation-id-camel-case:
+    description: OperationIds should use camelCase
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+  operation-tags-required:
+    description: Every operation must have tags
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: tags
+      function: truthy
+  response-description-required:
+    description: Every response must have a description
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].responses[*]
+    then:
+      field: description
+      function: truthy
+  response-401-defined:
+    description: Operations should define 401 response
+    severity: warn
+    given: $.paths[*][post,put,patch,delete]
+    then:
+      field: responses.401
+      function: truthy
+  security-schemes-defined:
+    description: Security schemes must be defined
+    severity: error
+    given: $.components
+    then:
+      field: securitySchemes
+      function: truthy
+  oauth2-required:
+    description: CashPro APIs must use OAuth2 authentication
+    severity: error
+    given: $.components.securitySchemes[*]
+    then:
+      field: type
+      function: pattern
+      functionOptions:
+        match: "^oauth2$"
+  parameter-description-required:
+    description: All parameters must have descriptions
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[*]
+    then:
+      field: description
+      function: truthy
+  schema-type-defined:
+    description: All schemas should have a type
+    severity: warn
+    given: $.components.schemas[*]
+    then:
+      field: type
+      function: truthy
+  get-no-request-body:
+    description: GET operations must not have a request body
+    severity: error
+    given: $.paths[*].get
+    then:
+      field: requestBody
+      function: falsy
+  paths-kebab-case:
+    description: Path segments should use kebab-case
+    severity: warn
+    given: $.paths
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z0-9][a-z0-9-]*|/\\{[a-zA-Z]+\\})*/*$"

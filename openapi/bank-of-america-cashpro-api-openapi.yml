@@ -1,0 +1,691 @@
+openapi: 3.0.3
+info:
+  title: Bank of America CashPro API
+  description: >-
+    The Bank of America CashPro API enables corporate treasury clients to programmatically
+    access banking services including payments, account information, balance reporting,
+    and transaction history. The API supports over 350 payment types and integrates with
+    Treasury Management Systems (TMS) and ERP platforms.
+  version: 1.0.0
+  contact:
+    email: GlobalAPIOps@bofa.com
+    url: https://developer.bankofamerica.com/
+servers:
+  - url: https://api.bankofamerica.com/cashpro/v1
+    description: CashPro API Production
+  - url: https://sandbox.bankofamerica.com/cashpro/v1
+    description: CashPro API Sandbox
+security:
+  - OAuth2: []
+paths:
+  /accounts:
+    get:
+      operationId: listAccounts
+      summary: List Accounts
+      description: Retrieve a list of accounts associated with the authenticated CashPro client.
+      tags:
+        - Accounts
+      parameters:
+        - name: accountType
+          in: query
+          description: Filter by account type (checking, savings, etc.)
+          schema:
+            type: string
+        - name: currency
+          in: query
+          description: Filter by currency code (ISO 4217)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with account list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountListResponse'
+        '401':
+          description: Unauthorized — invalid or missing credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden — insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /accounts/{accountId}:
+    get:
+      operationId: getAccount
+      summary: Get Account Details
+      description: Retrieve detailed information for a specific account including current balance and account metadata.
+      tags:
+        - Accounts
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          description: Unique account identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /accounts/{accountId}/balances:
+    get:
+      operationId: getAccountBalances
+      summary: Get Account Balances
+      description: Retrieve current and available balances for a specific account including intraday balance information.
+      tags:
+        - Balances
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          description: Unique account identifier
+          schema:
+            type: string
+        - name: asOf
+          in: query
+          description: Balance as of date (ISO 8601)
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Account balance information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /accounts/{accountId}/transactions:
+    get:
+      operationId: listTransactions
+      summary: List Transactions
+      description: Retrieve a paginated list of transactions for a specific account within a date range.
+      tags:
+        - Transactions
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          description: Unique account identifier
+          schema:
+            type: string
+        - name: fromDate
+          in: query
+          description: Start date for transaction history (ISO 8601)
+          schema:
+            type: string
+            format: date
+        - name: toDate
+          in: query
+          description: End date for transaction history (ISO 8601)
+          schema:
+            type: string
+            format: date
+        - name: limit
+          in: query
+          description: Maximum number of transactions to return
+          schema:
+            type: integer
+            default: 100
+            maximum: 500
+        - name: offset
+          in: query
+          description: Pagination offset
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Transaction list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /payments:
+    post:
+      operationId: initiatePayment
+      summary: Initiate Payment
+      description: >-
+        Initiate a payment transaction. Supports over 350 payment types including ACH,
+        wire transfers, SWIFT, checks, and real-time payments. The payment type is
+        determined by the paymentType field in the request body.
+      tags:
+        - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+      responses:
+        '201':
+          description: Payment initiated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Bad request — invalid payment data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: listPayments
+      summary: List Payments
+      description: Retrieve a list of payment transactions filtered by date range and status.
+      tags:
+        - Payments
+      parameters:
+        - name: fromDate
+          in: query
+          description: Start date filter (ISO 8601)
+          schema:
+            type: string
+            format: date
+        - name: toDate
+          in: query
+          description: End date filter (ISO 8601)
+          schema:
+            type: string
+            format: date
+        - name: status
+          in: query
+          description: Filter by payment status
+          schema:
+            type: string
+            enum: [pending, processing, completed, rejected, cancelled]
+        - name: paymentType
+          in: query
+          description: Filter by payment type
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Payment list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /payments/{paymentId}:
+    get:
+      operationId: getPayment
+      summary: Get Payment Status
+      description: Retrieve the current status and details of a specific payment transaction.
+      tags:
+        - Payments
+      parameters:
+        - name: paymentId
+          in: path
+          required: true
+          description: Unique payment transaction identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Payment details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Payment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: cancelPayment
+      summary: Cancel Payment
+      description: Cancel a pending payment that has not yet been processed.
+      tags:
+        - Payments
+      parameters:
+        - name: paymentId
+          in: path
+          required: true
+          description: Unique payment identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Payment cancelled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conflict — payment cannot be cancelled in current state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /statements:
+    get:
+      operationId: listStatements
+      summary: List Statements
+      description: Retrieve a list of available account statements.
+      tags:
+        - Statements
+      parameters:
+        - name: accountId
+          in: query
+          description: Filter statements by account ID
+          schema:
+            type: string
+        - name: year
+          in: query
+          description: Filter by statement year
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Statement list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatementListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /statements/{statementId}:
+    get:
+      operationId: getStatement
+      summary: Get Statement
+      description: Retrieve a specific account statement by ID.
+      tags:
+        - Statements
+      parameters:
+        - name: statementId
+          in: path
+          required: true
+          description: Unique statement identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Statement details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statement'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Statement not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.bankofamerica.com/oauth/token
+          scopes:
+            accounts:read: Read account information and balances
+            transactions:read: Read transaction history
+            payments:write: Initiate and manage payments
+            statements:read: Access account statements
+  schemas:
+    Account:
+      type: object
+      description: A Bank of America CashPro account
+      properties:
+        accountId:
+          type: string
+          description: Unique account identifier
+        accountNumber:
+          type: string
+          description: Masked account number
+        accountName:
+          type: string
+          description: Account display name
+        accountType:
+          type: string
+          description: Account type (checking, savings, etc.)
+        currency:
+          type: string
+          description: Account currency (ISO 4217)
+        routingNumber:
+          type: string
+          description: ABA routing number
+        status:
+          type: string
+          description: Account status
+          enum: [active, inactive, closed]
+        openDate:
+          type: string
+          format: date
+          description: Date the account was opened
+    AccountListResponse:
+      type: object
+      description: Paginated list of accounts
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        totalCount:
+          type: integer
+          description: Total number of accounts
+        pageSize:
+          type: integer
+        offset:
+          type: integer
+    Balance:
+      type: object
+      description: Account balance information
+      properties:
+        accountId:
+          type: string
+          description: Account identifier
+        ledgerBalance:
+          type: number
+          format: double
+          description: Current ledger balance
+        availableBalance:
+          type: number
+          format: double
+          description: Available balance for transactions
+        collectedBalance:
+          type: number
+          format: double
+          description: Collected balance after float
+        currency:
+          type: string
+          description: Balance currency (ISO 4217)
+        asOfDate:
+          type: string
+          format: date-time
+          description: Balance as of timestamp
+    BalanceResponse:
+      type: object
+      description: Account balance response
+      properties:
+        accountId:
+          type: string
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Balance'
+    Transaction:
+      type: object
+      description: An account transaction record
+      properties:
+        transactionId:
+          type: string
+          description: Unique transaction identifier
+        accountId:
+          type: string
+          description: Account the transaction belongs to
+        type:
+          type: string
+          description: Transaction type (debit, credit)
+          enum: [debit, credit]
+        amount:
+          type: number
+          format: double
+          description: Transaction amount
+        currency:
+          type: string
+          description: Transaction currency
+        description:
+          type: string
+          description: Transaction description or memo
+        referenceNumber:
+          type: string
+          description: Bank reference number
+        valueDate:
+          type: string
+          format: date
+          description: Value date of the transaction
+        postDate:
+          type: string
+          format: date
+          description: Post date of the transaction
+        status:
+          type: string
+          description: Transaction status
+    TransactionListResponse:
+      type: object
+      description: Paginated list of transactions
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+        totalCount:
+          type: integer
+        pageSize:
+          type: integer
+        offset:
+          type: integer
+    PaymentRequest:
+      type: object
+      description: Payment initiation request
+      required:
+        - paymentType
+        - amount
+        - currency
+        - debitAccountId
+        - beneficiary
+      properties:
+        paymentType:
+          type: string
+          description: Payment type (ACH_CREDIT, WIRE, SWIFT, CHECK, RTP, etc.)
+        amount:
+          type: number
+          format: double
+          description: Payment amount
+        currency:
+          type: string
+          description: Payment currency (ISO 4217)
+        debitAccountId:
+          type: string
+          description: Account to debit
+        valueDate:
+          type: string
+          format: date
+          description: Requested value date (ISO 8601)
+        reference:
+          type: string
+          description: Client reference number
+        memo:
+          type: string
+          description: Payment memo or description
+        beneficiary:
+          $ref: '#/components/schemas/Beneficiary'
+    Beneficiary:
+      type: object
+      description: Payment beneficiary details
+      properties:
+        name:
+          type: string
+          description: Beneficiary name
+        accountNumber:
+          type: string
+          description: Beneficiary account number
+        routingNumber:
+          type: string
+          description: Beneficiary bank routing number (ABA)
+        bankName:
+          type: string
+          description: Beneficiary bank name
+        bankAddress:
+          type: string
+          description: Beneficiary bank address
+        swiftCode:
+          type: string
+          description: SWIFT/BIC code for international wires
+    PaymentResponse:
+      type: object
+      description: Payment transaction response
+      properties:
+        paymentId:
+          type: string
+          description: Unique payment identifier
+        clientReferenceId:
+          type: string
+          description: Client-provided reference
+        status:
+          type: string
+          description: Payment status
+          enum: [pending, processing, completed, rejected, cancelled]
+        paymentType:
+          type: string
+          description: Payment type
+        amount:
+          type: number
+          format: double
+        currency:
+          type: string
+        valueDate:
+          type: string
+          format: date
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        statusMessage:
+          type: string
+          description: Additional status information
+    PaymentListResponse:
+      type: object
+      description: Paginated list of payments
+      properties:
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentResponse'
+        totalCount:
+          type: integer
+        pageSize:
+          type: integer
+        offset:
+          type: integer
+    Statement:
+      type: object
+      description: An account statement
+      properties:
+        statementId:
+          type: string
+          description: Unique statement identifier
+        accountId:
+          type: string
+          description: Associated account ID
+        statementDate:
+          type: string
+          format: date
+          description: Statement date
+        openingBalance:
+          type: number
+          format: double
+        closingBalance:
+          type: number
+          format: double
+        currency:
+          type: string
+        totalCredits:
+          type: number
+          format: double
+        totalDebits:
+          type: number
+          format: double
+        transactionCount:
+          type: integer
+    StatementListResponse:
+      type: object
+      description: List of available statements
+      properties:
+        statements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Statement'
+        totalCount:
+          type: integer
+    ErrorResponse:
+      type: object
+      description: API error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: string
+          description: Additional error details
+        requestId:
+          type: string
+          description: Request identifier for support

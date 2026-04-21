@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-structure/statement-structure.json",
+  "title": "Statement",
+  "type": "record",
+  "members": [
+    {
+      "name": "statementId",
+      "type": "string",
+      "description": "Unique statement identifier"
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "description": "Associated account ID"
+    },
+    {
+      "name": "statementDate",
+      "type": "string",
+      "description": "Statement date"
+    },
+    {
+      "name": "openingBalance",
+      "type": "number",
+      "description": ""
+    },
+    {
+      "name": "closingBalance",
+      "type": "number",
+      "description": ""
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": ""
+    },
+    {
+      "name": "totalCredits",
+      "type": "number",
+      "description": ""
+    },
+    {
+      "name": "totalDebits",
+      "type": "number",
+      "description": ""
+    },
+    {
+      "name": "transactionCount",
+      "type": "integer",
+      "description": ""
+    }
+  ]
+}

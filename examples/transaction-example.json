@@ -1,0 +1,12 @@
+{
+  "transactionId": "example-transactionId",
+  "accountId": "example-accountId",
+  "type": "example-type",
+  "amount": 0,
+  "currency": "example-currency",
+  "description": "example-description",
+  "referenceNumber": "example-referenceNumber",
+  "valueDate": "2026-04-19",
+  "postDate": "2026-04-19",
+  "status": "example-status"
+}

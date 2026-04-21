@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-schema/beneficiary-schema.json",
+  "title": "Beneficiary",
+  "type": "object",
+  "description": "Payment beneficiary details",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Beneficiary name"
+    },
+    "accountNumber": {
+      "type": "string",
+      "description": "Beneficiary account number"
+    },
+    "routingNumber": {
+      "type": "string",
+      "description": "Beneficiary bank routing number (ABA)"
+    },
+    "bankName": {
+      "type": "string",
+      "description": "Beneficiary bank name"
+    },
+    "bankAddress": {
+      "type": "string",
+      "description": "Beneficiary bank address"
+    },
+    "swiftCode": {
+      "type": "string",
+      "description": "SWIFT/BIC code for international wires"
+    }
+  }
+}

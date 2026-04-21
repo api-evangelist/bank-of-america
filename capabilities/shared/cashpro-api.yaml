@@ -1,0 +1,60 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  namespace: bofa-cashpro
+  label: Bank of America CashPro API
+  baseUrl: https://api.bankofamerica.com/cashpro/v1
+
+authentication:
+  - type: oauth2
+    flow: clientCredentials
+    tokenUrl: https://api.bankofamerica.com/oauth/token
+    description: OAuth2 Client Credentials for CashPro API access
+
+operations:
+  - operationId: listAccounts
+    method: GET
+    path: /accounts
+    description: Retrieve list of accounts
+  - operationId: getAccount
+    method: GET
+    path: /accounts/{accountId}
+    description: Get account details
+    pathParameters: [accountId]
+  - operationId: getAccountBalances
+    method: GET
+    path: /accounts/{accountId}/balances
+    description: Get account balances
+    pathParameters: [accountId]
+  - operationId: listTransactions
+    method: GET
+    path: /accounts/{accountId}/transactions
+    description: List account transactions
+    pathParameters: [accountId]
+  - operationId: initiatePayment
+    method: POST
+    path: /payments
+    description: Initiate a payment transaction
+  - operationId: listPayments
+    method: GET
+    path: /payments
+    description: List payment transactions
+  - operationId: getPayment
+    method: GET
+    path: /payments/{paymentId}
+    description: Get payment status and details
+    pathParameters: [paymentId]
+  - operationId: cancelPayment
+    method: DELETE
+    path: /payments/{paymentId}
+    description: Cancel a pending payment
+    pathParameters: [paymentId]
+  - operationId: listStatements
+    method: GET
+    path: /statements
+    description: List available account statements
+  - operationId: getStatement
+    method: GET
+    path: /statements/{statementId}
+    description: Get a specific statement
+    pathParameters: [statementId]

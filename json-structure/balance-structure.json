@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-structure/balance-structure.json",
+  "title": "Balance",
+  "type": "record",
+  "members": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "description": "Account identifier"
+    },
+    {
+      "name": "ledgerBalance",
+      "type": "number",
+      "description": "Current ledger balance"
+    },
+    {
+      "name": "availableBalance",
+      "type": "number",
+      "description": "Available balance for transactions"
+    },
+    {
+      "name": "collectedBalance",
+      "type": "number",
+      "description": "Collected balance after float"
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "Balance currency (ISO 4217)"
+    },
+    {
+      "name": "asOfDate",
+      "type": "string",
+      "description": "Balance as of timestamp"
+    }
+  ]
+}

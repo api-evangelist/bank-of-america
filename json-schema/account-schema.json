@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-schema/account-schema.json",
+  "title": "Account",
+  "type": "object",
+  "description": "A Bank of America CashPro account",
+  "properties": {
+    "accountId": {
+      "type": "string",
+      "description": "Unique account identifier"
+    },
+    "accountNumber": {
+      "type": "string",
+      "description": "Masked account number"
+    },
+    "accountName": {
+      "type": "string",
+      "description": "Account display name"
+    },
+    "accountType": {
+      "type": "string",
+      "description": "Account type (checking, savings, etc.)"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Account currency (ISO 4217)"
+    },
+    "routingNumber": {
+      "type": "string",
+      "description": "ABA routing number"
+    },
+    "status": {
+      "type": "string",
+      "description": "Account status",
+      "enum": [
+        "active",
+        "inactive",
+        "closed"
+      ]
+    },
+    "openDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the account was opened"
+    }
+  }
+}

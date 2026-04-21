@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-schema/transactionlistresponse-schema.json",
+  "title": "TransactionListResponse",
+  "type": "object",
+  "description": "Paginated list of transactions",
+  "properties": {
+    "transactions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Transaction"
+      }
+    },
+    "totalCount": {
+      "type": "integer"
+    },
+    "pageSize": {
+      "type": "integer"
+    },
+    "offset": {
+      "type": "integer"
+    }
+  }
+}

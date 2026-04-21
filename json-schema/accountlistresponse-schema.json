@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-schema/accountlistresponse-schema.json",
+  "title": "AccountListResponse",
+  "type": "object",
+  "description": "Paginated list of accounts",
+  "properties": {
+    "accounts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Account"
+      }
+    },
+    "totalCount": {
+      "type": "integer",
+      "description": "Total number of accounts"
+    },
+    "pageSize": {
+      "type": "integer"
+    },
+    "offset": {
+      "type": "integer"
+    }
+  }
+}

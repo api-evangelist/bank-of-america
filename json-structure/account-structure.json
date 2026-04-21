@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-structure/account-structure.json",
+  "title": "Account",
+  "type": "record",
+  "members": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "description": "Unique account identifier"
+    },
+    {
+      "name": "accountNumber",
+      "type": "string",
+      "description": "Masked account number"
+    },
+    {
+      "name": "accountName",
+      "type": "string",
+      "description": "Account display name"
+    },
+    {
+      "name": "accountType",
+      "type": "string",
+      "description": "Account type (checking, savings, etc.)"
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "Account currency (ISO 4217)"
+    },
+    {
+      "name": "routingNumber",
+      "type": "string",
+      "description": "ABA routing number"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Account status"
+    },
+    {
+      "name": "openDate",
+      "type": "string",
+      "description": "Date the account was opened"
+    }
+  ]
+}

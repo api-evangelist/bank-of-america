@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-schema/statement-schema.json",
+  "title": "Statement",
+  "type": "object",
+  "description": "An account statement",
+  "properties": {
+    "statementId": {
+      "type": "string",
+      "description": "Unique statement identifier"
+    },
+    "accountId": {
+      "type": "string",
+      "description": "Associated account ID"
+    },
+    "statementDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Statement date"
+    },
+    "openingBalance": {
+      "type": "number",
+      "format": "double"
+    },
+    "closingBalance": {
+      "type": "number",
+      "format": "double"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "totalCredits": {
+      "type": "number",
+      "format": "double"
+    },
+    "totalDebits": {
+      "type": "number",
+      "format": "double"
+    },
+    "transactionCount": {
+      "type": "integer"
+    }
+  }
+}

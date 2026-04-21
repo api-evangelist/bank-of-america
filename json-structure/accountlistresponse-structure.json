@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-structure/accountlistresponse-structure.json",
+  "title": "AccountListResponse",
+  "type": "record",
+  "members": [
+    {
+      "name": "accounts",
+      "type": "array",
+      "description": ""
+    },
+    {
+      "name": "totalCount",
+      "type": "integer",
+      "description": "Total number of accounts"
+    },
+    {
+      "name": "pageSize",
+      "type": "integer",
+      "description": ""
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": ""
+    }
+  ]
+}

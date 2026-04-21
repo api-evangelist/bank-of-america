@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-schema/statementlistresponse-schema.json",
+  "title": "StatementListResponse",
+  "type": "object",
+  "description": "List of available statements",
+  "properties": {
+    "statements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Statement"
+      }
+    },
+    "totalCount": {
+      "type": "integer"
+    }
+  }
+}

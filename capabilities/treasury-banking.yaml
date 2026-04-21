@@ -1,0 +1,123 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Bank of America CashPro Treasury Banking"
+  description: >-
+    Bank of America CashPro treasury banking workflow for corporate clients covering
+    account management, balance reporting, payment initiation, and statement access.
+    Integrates with TMS and ERP platforms for automated treasury operations.
+  tags:
+    - Bank of America
+    - CashPro
+    - Treasury
+    - Payments
+    - Corporate Banking
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      BOFA_CLIENT_ID: BOFA_CLIENT_ID
+      BOFA_CLIENT_SECRET: BOFA_CLIENT_SECRET
+
+capability:
+  consumes:
+    - import: bofa-cashpro
+      location: ./shared/cashpro-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: bofa-treasury-api
+      description: "Unified REST API for Bank of America CashPro treasury operations."
+      resources:
+        - path: /v1/accounts
+          name: accounts
+          description: Account management
+          operations:
+            - method: GET
+              name: list-accounts
+              description: List CashPro accounts
+              call: "bofa-cashpro.listAccounts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/payments
+          name: payments
+          description: Payment management
+          operations:
+            - method: POST
+              name: initiate-payment
+              description: Initiate a payment
+              call: "bofa-cashpro.initiatePayment"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9080
+      namespace: bofa-treasury-mcp
+      transport: http
+      description: "MCP server for AI-assisted Bank of America treasury management."
+      tools:
+        - name: list-bofa-accounts
+          description: List Bank of America CashPro accounts for the authenticated client
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "bofa-cashpro.listAccounts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-account-balances
+          description: Get current and available balances for a CashPro account
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "bofa-cashpro.getAccountBalances"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-account-transactions
+          description: List transactions for a Bank of America account within a date range
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "bofa-cashpro.listTransactions"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: initiate-payment
+          description: Initiate a payment through Bank of America CashPro (supports 350+ payment types)
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "bofa-cashpro.initiatePayment"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-payment-status
+          description: Get the current status of a Bank of America payment
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "bofa-cashpro.getPayment"
+          with:
+            paymentId: "tools.paymentId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-statements
+          description: List available Bank of America account statements
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "bofa-cashpro.listStatements"
+          outputParameters:
+            - type: object
+              mapping: "$."

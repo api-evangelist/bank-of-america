@@ -1,0 +1,8 @@
+{
+  "name": "example-name",
+  "accountNumber": "example-accountNumber",
+  "routingNumber": "example-routingNumber",
+  "bankName": "example-bankName",
+  "bankAddress": "example-bankAddress",
+  "swiftCode": "example-swiftCode"
+}

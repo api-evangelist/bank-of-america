@@ -1,0 +1,6 @@
+{
+  "errorCode": "example-errorCode",
+  "message": "example-message",
+  "details": [],
+  "requestId": "example-requestId"
+}

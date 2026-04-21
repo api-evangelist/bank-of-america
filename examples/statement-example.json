@@ -1,0 +1,11 @@
+{
+  "statementId": "example-statementId",
+  "accountId": "example-accountId",
+  "statementDate": "2026-04-19",
+  "openingBalance": 0,
+  "closingBalance": 0,
+  "currency": "example-currency",
+  "totalCredits": 0,
+  "totalDebits": 0,
+  "transactionCount": 0
+}

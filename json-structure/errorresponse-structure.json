@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-structure/errorresponse-structure.json",
+  "title": "ErrorResponse",
+  "type": "record",
+  "members": [
+    {
+      "name": "errorCode",
+      "type": "string",
+      "description": "Machine-readable error code"
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "description": "Human-readable error message"
+    },
+    {
+      "name": "details",
+      "type": "array",
+      "description": "Additional error details"
+    },
+    {
+      "name": "requestId",
+      "type": "string",
+      "description": "Request identifier for support"
+    }
+  ]
+}

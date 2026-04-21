@@ -1,0 +1,12 @@
+{
+  "paymentId": "example-paymentId",
+  "clientReferenceId": "example-clientReferenceId",
+  "status": "example-status",
+  "paymentType": "example-paymentType",
+  "amount": 0,
+  "currency": "example-currency",
+  "valueDate": "2026-04-19",
+  "createdAt": "2026-04-19T12:00:00Z",
+  "updatedAt": "2026-04-19T12:00:00Z",
+  "statusMessage": "example-statusMessage"
+}

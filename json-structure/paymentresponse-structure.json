@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-structure/paymentresponse-structure.json",
+  "title": "PaymentResponse",
+  "type": "record",
+  "members": [
+    {
+      "name": "paymentId",
+      "type": "string",
+      "description": "Unique payment identifier"
+    },
+    {
+      "name": "clientReferenceId",
+      "type": "string",
+      "description": "Client-provided reference"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Payment status"
+    },
+    {
+      "name": "paymentType",
+      "type": "string",
+      "description": "Payment type"
+    },
+    {
+      "name": "amount",
+      "type": "number",
+      "description": ""
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": ""
+    },
+    {
+      "name": "valueDate",
+      "type": "string",
+      "description": ""
+    },
+    {
+      "name": "createdAt",
+      "type": "string",
+      "description": ""
+    },
+    {
+      "name": "updatedAt",
+      "type": "string",
+      "description": ""
+    },
+    {
+      "name": "statusMessage",
+      "type": "string",
+      "description": "Additional status information"
+    }
+  ]
+}

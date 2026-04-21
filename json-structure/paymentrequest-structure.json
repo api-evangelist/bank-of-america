@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-structure/paymentrequest-structure.json",
+  "title": "PaymentRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "paymentType",
+      "type": "string",
+      "description": "Payment type (ACH_CREDIT, WIRE, SWIFT, CHECK, RTP, etc.)"
+    },
+    {
+      "name": "amount",
+      "type": "number",
+      "description": "Payment amount"
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "Payment currency (ISO 4217)"
+    },
+    {
+      "name": "debitAccountId",
+      "type": "string",
+      "description": "Account to debit"
+    },
+    {
+      "name": "valueDate",
+      "type": "string",
+      "description": "Requested value date (ISO 8601)"
+    },
+    {
+      "name": "reference",
+      "type": "string",
+      "description": "Client reference number"
+    },
+    {
+      "name": "memo",
+      "type": "string",
+      "description": "Payment memo or description"
+    },
+    {
+      "name": "beneficiary",
+      "type": "string",
+      "description": ""
+    }
+  ]
+}

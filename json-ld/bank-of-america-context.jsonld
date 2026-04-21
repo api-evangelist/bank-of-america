@@ -1,0 +1,255 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/",
+    "bofaapi": "https://api-evangelist.github.io/bank-of-america/vocab#",
+    "accountId": {
+      "@id": "bofaapi:accountId",
+      "@type": "xsd:string"
+    },
+    "accountNumber": {
+      "@id": "bofaapi:accountNumber",
+      "@type": "xsd:string"
+    },
+    "accountName": {
+      "@id": "bofaapi:accountName",
+      "@type": "xsd:string"
+    },
+    "accountType": {
+      "@id": "bofaapi:accountType",
+      "@type": "xsd:string"
+    },
+    "currency": {
+      "@id": "bofaapi:currency",
+      "@type": "xsd:string"
+    },
+    "routingNumber": {
+      "@id": "bofaapi:routingNumber",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "bofaapi:status",
+      "@type": "xsd:string"
+    },
+    "openDate": {
+      "@id": "bofaapi:openDate",
+      "@type": "xsd:string"
+    },
+    "Account": {
+      "@id": "bofaapi:Account"
+    },
+    "accounts": {
+      "@id": "bofaapi:accounts",
+      "@type": "xsd:string"
+    },
+    "totalCount": {
+      "@id": "bofaapi:totalCount",
+      "@type": "xsd:integer"
+    },
+    "pageSize": {
+      "@id": "bofaapi:pageSize",
+      "@type": "xsd:integer"
+    },
+    "offset": {
+      "@id": "bofaapi:offset",
+      "@type": "xsd:integer"
+    },
+    "AccountListResponse": {
+      "@id": "bofaapi:AccountListResponse"
+    },
+    "ledgerBalance": {
+      "@id": "bofaapi:ledgerBalance",
+      "@type": "xsd:decimal"
+    },
+    "availableBalance": {
+      "@id": "bofaapi:availableBalance",
+      "@type": "xsd:decimal"
+    },
+    "collectedBalance": {
+      "@id": "bofaapi:collectedBalance",
+      "@type": "xsd:decimal"
+    },
+    "asOfDate": {
+      "@id": "bofaapi:asOfDate",
+      "@type": "xsd:string"
+    },
+    "Balance": {
+      "@id": "bofaapi:Balance"
+    },
+    "balances": {
+      "@id": "bofaapi:balances",
+      "@type": "xsd:string"
+    },
+    "BalanceResponse": {
+      "@id": "bofaapi:BalanceResponse"
+    },
+    "transactionId": {
+      "@id": "bofaapi:transactionId",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "bofaapi:type",
+      "@type": "xsd:string"
+    },
+    "amount": {
+      "@id": "bofaapi:amount",
+      "@type": "xsd:decimal"
+    },
+    "description": {
+      "@id": "bofaapi:description",
+      "@type": "xsd:string"
+    },
+    "referenceNumber": {
+      "@id": "bofaapi:referenceNumber",
+      "@type": "xsd:string"
+    },
+    "valueDate": {
+      "@id": "bofaapi:valueDate",
+      "@type": "xsd:string"
+    },
+    "postDate": {
+      "@id": "bofaapi:postDate",
+      "@type": "xsd:string"
+    },
+    "Transaction": {
+      "@id": "bofaapi:Transaction"
+    },
+    "transactions": {
+      "@id": "bofaapi:transactions",
+      "@type": "xsd:string"
+    },
+    "TransactionListResponse": {
+      "@id": "bofaapi:TransactionListResponse"
+    },
+    "paymentType": {
+      "@id": "bofaapi:paymentType",
+      "@type": "xsd:string"
+    },
+    "debitAccountId": {
+      "@id": "bofaapi:debitAccountId",
+      "@type": "xsd:string"
+    },
+    "reference": {
+      "@id": "bofaapi:reference",
+      "@type": "xsd:string"
+    },
+    "memo": {
+      "@id": "bofaapi:memo",
+      "@type": "xsd:string"
+    },
+    "beneficiary": {
+      "@id": "bofaapi:beneficiary",
+      "@type": "xsd:string"
+    },
+    "PaymentRequest": {
+      "@id": "bofaapi:PaymentRequest"
+    },
+    "name": {
+      "@id": "bofaapi:name",
+      "@type": "xsd:string"
+    },
+    "bankName": {
+      "@id": "bofaapi:bankName",
+      "@type": "xsd:string"
+    },
+    "bankAddress": {
+      "@id": "bofaapi:bankAddress",
+      "@type": "xsd:string"
+    },
+    "swiftCode": {
+      "@id": "bofaapi:swiftCode",
+      "@type": "xsd:string"
+    },
+    "Beneficiary": {
+      "@id": "bofaapi:Beneficiary"
+    },
+    "paymentId": {
+      "@id": "bofaapi:paymentId",
+      "@type": "xsd:string"
+    },
+    "clientReferenceId": {
+      "@id": "bofaapi:clientReferenceId",
+      "@type": "xsd:string"
+    },
+    "createdAt": {
+      "@id": "bofaapi:createdAt",
+      "@type": "xsd:string"
+    },
+    "updatedAt": {
+      "@id": "bofaapi:updatedAt",
+      "@type": "xsd:string"
+    },
+    "statusMessage": {
+      "@id": "bofaapi:statusMessage",
+      "@type": "xsd:string"
+    },
+    "PaymentResponse": {
+      "@id": "bofaapi:PaymentResponse"
+    },
+    "payments": {
+      "@id": "bofaapi:payments",
+      "@type": "xsd:string"
+    },
+    "PaymentListResponse": {
+      "@id": "bofaapi:PaymentListResponse"
+    },
+    "statementId": {
+      "@id": "bofaapi:statementId",
+      "@type": "xsd:string"
+    },
+    "statementDate": {
+      "@id": "bofaapi:statementDate",
+      "@type": "xsd:string"
+    },
+    "openingBalance": {
+      "@id": "bofaapi:openingBalance",
+      "@type": "xsd:decimal"
+    },
+    "closingBalance": {
+      "@id": "bofaapi:closingBalance",
+      "@type": "xsd:decimal"
+    },
+    "totalCredits": {
+      "@id": "bofaapi:totalCredits",
+      "@type": "xsd:decimal"
+    },
+    "totalDebits": {
+      "@id": "bofaapi:totalDebits",
+      "@type": "xsd:decimal"
+    },
+    "transactionCount": {
+      "@id": "bofaapi:transactionCount",
+      "@type": "xsd:integer"
+    },
+    "Statement": {
+      "@id": "bofaapi:Statement"
+    },
+    "statements": {
+      "@id": "bofaapi:statements",
+      "@type": "xsd:string"
+    },
+    "StatementListResponse": {
+      "@id": "bofaapi:StatementListResponse"
+    },
+    "errorCode": {
+      "@id": "bofaapi:errorCode",
+      "@type": "xsd:string"
+    },
+    "message": {
+      "@id": "bofaapi:message",
+      "@type": "xsd:string"
+    },
+    "details": {
+      "@id": "bofaapi:details",
+      "@type": "xsd:string"
+    },
+    "requestId": {
+      "@id": "bofaapi:requestId",
+      "@type": "xsd:string"
+    },
+    "ErrorResponse": {
+      "@id": "bofaapi:ErrorResponse"
+    }
+  }
+}

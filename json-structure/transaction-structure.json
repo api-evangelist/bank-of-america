@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-structure/transaction-structure.json",
+  "title": "Transaction",
+  "type": "record",
+  "members": [
+    {
+      "name": "transactionId",
+      "type": "string",
+      "description": "Unique transaction identifier"
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "description": "Account the transaction belongs to"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Transaction type (debit, credit)"
+    },
+    {
+      "name": "amount",
+      "type": "number",
+      "description": "Transaction amount"
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "Transaction currency"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Transaction description or memo"
+    },
+    {
+      "name": "referenceNumber",
+      "type": "string",
+      "description": "Bank reference number"
+    },
+    {
+      "name": "valueDate",
+      "type": "string",
+      "description": "Value date of the transaction"
+    },
+    {
+      "name": "postDate",
+      "type": "string",
+      "description": "Post date of the transaction"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Transaction status"
+    }
+  ]
+}

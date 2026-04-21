@@ -1,0 +1,10 @@
+{
+  "accountId": "example-accountId",
+  "accountNumber": "example-accountNumber",
+  "accountName": "example-accountName",
+  "accountType": "example-accountType",
+  "currency": "example-currency",
+  "routingNumber": "example-routingNumber",
+  "status": "example-status",
+  "openDate": "2026-04-19"
+}

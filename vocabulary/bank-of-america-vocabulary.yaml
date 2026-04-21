@@ -1,0 +1,145 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Bank of America"
+  description: "Taxonomy for the Bank of America CashPro API covering corporate banking, treasury management, and payment operations."
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - namespace: bofa-cashpro
+      label: Bank of America CashPro API
+      version: "1.0"
+      baseUrl: https://api.bankofamerica.com/cashpro/v1
+      status: active
+
+  resources:
+    - name: accounts
+      description: CashPro bank accounts for corporate clients
+      apis: [bofa-cashpro]
+      actions: [list, get, get-balances, list-transactions]
+    - name: payments
+      description: Payment transactions across 350+ payment types
+      apis: [bofa-cashpro]
+      actions: [initiate, list, get, cancel]
+    - name: statements
+      description: Monthly account statements
+      apis: [bofa-cashpro]
+      actions: [list, get]
+
+  actions:
+    - name: list
+      description: Retrieve a collection of resources
+      methods: [GET]
+      pattern: read
+    - name: get
+      description: Retrieve a specific resource
+      methods: [GET]
+      pattern: read
+    - name: get-balances
+      description: Retrieve current account balances
+      methods: [GET]
+      pattern: read
+    - name: list-transactions
+      description: List account transaction history
+      methods: [GET]
+      pattern: read
+    - name: initiate
+      description: Initiate a new payment transaction
+      methods: [POST]
+      pattern: write
+    - name: cancel
+      description: Cancel a pending payment
+      methods: [DELETE]
+      pattern: write
+
+  schemas:
+    core:
+      - name: Account
+        description: A CashPro bank account
+        key_properties: [accountId, accountNumber, accountType, currency, status]
+      - name: Balance
+        description: Account balance information
+        key_properties: [accountId, ledgerBalance, availableBalance, currency, asOfDate]
+      - name: Transaction
+        description: An account transaction record
+        key_properties: [transactionId, accountId, type, amount, currency, valueDate]
+      - name: PaymentRequest
+        description: Payment initiation request
+        key_properties: [paymentType, amount, currency, debitAccountId, beneficiary]
+      - name: PaymentResponse
+        description: Payment transaction result
+        key_properties: [paymentId, status, paymentType, amount, currency, valueDate]
+
+  authentication:
+    schemes:
+      - name: OAuth2
+        type: oauth2
+        description: OAuth2 Client Credentials for CashPro API access
+
+capability:
+  workflows:
+    - name: Treasury Banking
+      file: capabilities/treasury-banking.yaml
+      description: Corporate treasury operations including account management, payments, and reporting
+      apis_combined: [bofa-cashpro]
+      tool_count: 6
+      personas: [Corporate Treasurer, Treasury Analyst, ERP Integration]
+      domains: [Treasury Management, Payments, Account Management]
+
+  personas:
+    - id: corporate-treasurer
+      name: Corporate Treasurer
+      description: Executive responsible for corporate cash and liquidity management
+      workflows: [Treasury Banking]
+    - id: treasury-analyst
+      name: Treasury Analyst
+      description: Analyst managing day-to-day treasury operations and reporting
+      workflows: [Treasury Banking]
+    - id: erp-integration
+      name: ERP Integration
+      description: System integration connecting ERP/TMS to Bank of America CashPro APIs
+      workflows: [Treasury Banking]
+
+  domains:
+    - name: Treasury Management
+      description: Corporate cash management, balance reporting, and liquidity
+      resources: [accounts, statements]
+      workflows: [Treasury Banking]
+    - name: Payments
+      description: Payment initiation and tracking across 350+ payment types
+      resources: [payments]
+      workflows: [Treasury Banking]
+
+  namespaces:
+    - namespace: bofa-cashpro
+      type: consumed
+    - namespace: bofa-treasury-api
+      type: rest-exposed
+      port: 8080
+    - namespace: bofa-treasury-mcp
+      type: mcp-exposed
+      port: 9080
+
+  binds:
+    - name: BOFA_CLIENT_ID
+      description: Bank of America OAuth2 Client ID
+      workflows: [Treasury Banking]
+    - name: BOFA_CLIENT_SECRET
+      description: Bank of America OAuth2 Client Secret
+      workflows: [Treasury Banking]
+
+crossReference:
+  - resource: accounts
+    operations: [listAccounts, getAccount, getAccountBalances, listTransactions]
+    workflows: [Treasury Banking]
+    personas: [Corporate Treasurer, Treasury Analyst, ERP Integration]
+  - resource: payments
+    operations: [initiatePayment, listPayments, getPayment, cancelPayment]
+    workflows: [Treasury Banking]
+    personas: [Corporate Treasurer, Treasury Analyst, ERP Integration]
+  - resource: statements
+    operations: [listStatements, getStatement]
+    workflows: [Treasury Banking]
+    personas: [Corporate Treasurer, Treasury Analyst]

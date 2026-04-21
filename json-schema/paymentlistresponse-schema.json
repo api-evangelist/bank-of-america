@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-schema/paymentlistresponse-schema.json",
+  "title": "PaymentListResponse",
+  "type": "object",
+  "description": "Paginated list of payments",
+  "properties": {
+    "payments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/PaymentResponse"
+      }
+    },
+    "totalCount": {
+      "type": "integer"
+    },
+    "pageSize": {
+      "type": "integer"
+    },
+    "offset": {
+      "type": "integer"
+    }
+  }
+}

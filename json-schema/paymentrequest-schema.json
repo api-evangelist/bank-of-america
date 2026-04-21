@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-schema/paymentrequest-schema.json",
+  "title": "PaymentRequest",
+  "type": "object",
+  "description": "Payment initiation request",
+  "required": [
+    "paymentType",
+    "amount",
+    "currency",
+    "debitAccountId",
+    "beneficiary"
+  ],
+  "properties": {
+    "paymentType": {
+      "type": "string",
+      "description": "Payment type (ACH_CREDIT, WIRE, SWIFT, CHECK, RTP, etc.)"
+    },
+    "amount": {
+      "type": "number",
+      "format": "double",
+      "description": "Payment amount"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Payment currency (ISO 4217)"
+    },
+    "debitAccountId": {
+      "type": "string",
+      "description": "Account to debit"
+    },
+    "valueDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Requested value date (ISO 8601)"
+    },
+    "reference": {
+      "type": "string",
+      "description": "Client reference number"
+    },
+    "memo": {
+      "type": "string",
+      "description": "Payment memo or description"
+    },
+    "beneficiary": {
+      "$ref": "#/components/schemas/Beneficiary"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "paymentType": "example-paymentType",
+  "amount": 0,
+  "currency": "example-currency",
+  "debitAccountId": "example-debitAccountId",
+  "valueDate": "2026-04-19",
+  "reference": "example-reference",
+  "memo": "example-memo",
+  "beneficiary": "example-beneficiary"
+}

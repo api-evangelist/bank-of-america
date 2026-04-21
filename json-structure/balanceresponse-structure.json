@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/bank-of-america/json-structure/balanceresponse-structure.json",
+  "title": "BalanceResponse",
+  "type": "record",
+  "members": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "description": ""
+    },
+    {
+      "name": "balances",
+      "type": "array",
+      "description": ""
+    }
+  ]
+}
