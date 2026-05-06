@@ -1,0 +1,69 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bank of America API
+  description: Bank of America provides developer APIs for banking services including payments, account management, and treasury
+    services. The APIs enable corporate clients and fintech partners to integrate banking operations.
+  tags:
+  - Bank
+  - Of
+  - America
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: bank-of-america
+    baseUri: https://api.bankofamerica.com
+    description: Bank of America API HTTP API.
+    authentication:
+      type: bearer
+      token: '{{BANK_OF_AMERICA_TOKEN}}'
+    resources:
+    - name: status
+      path: /status
+      operations:
+      - name: getstatus
+        method: GET
+        description: Get API status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: bank-of-america-rest
+    description: REST adapter for Bank of America API.
+    resources:
+    - path: /status
+      name: getstatus
+      operations:
+      - method: GET
+        name: getstatus
+        description: Get API status
+        call: bank-of-america.getstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: bank-of-america-mcp
+    transport: http
+    description: MCP adapter for Bank of America API for AI agent use.
+    tools:
+    - name: getstatus
+      description: Get API status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: bank-of-america.getstatus
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    BANK_OF_AMERICA_TOKEN: BANK_OF_AMERICA_TOKEN
