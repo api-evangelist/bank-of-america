@@ -8,110 +8,90 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: Bank of America
 providerId: bank-of-america
-publisherName: Bank of America
-serviceCategory: API
+publisherName: Bank of America Corporation
+serviceCategory: Corporate Banking / Treasury Services
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Banking
   - Corporate Banking
-  - Finance
-  - Payments
   - Treasury
-  - CashPro
   - FinOps
-  - Cost Management
   - FOCUS
-description: FinOps framework definition for the Bank of America API surface. Provides a FOCUS-aligned
-  mapping for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
+description: 'FOCUS-aligned FinOps shape for Bank of America CashPro: API access is bundled into a corporate
+  banking / treasury services agreement, so FinOps focuses on per-transaction banking fees (wire, ACH,
+  FX margin) rather than per-API-call charges. Public meter values are not available.'
+notes: No public rate card. Replace meter prices with the customer's negotiated CashPro fee schedule
+  once available.
+sources:
+  - https://developer.bankofamerica.com/
+  - https://business.bofa.com/en-us/content/cashpro.html
 principles:
   - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
+    description: Pull statements and transaction details via the CashPro APIs to attribute banking fees
+      back to the originating business unit.
   - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
+    description: Allocate wire, ACH, lockbox, and FX fees by originating account, business unit, and payment
+      type using the structured payment metadata returned by the API.
   - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
+    description: Optimize payment-rail mix (ACH vs wire vs same-day ACH vs RTP) based on cost vs settlement-time
+      requirements; consolidate FX across business units to negotiate tighter spreads.
   - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+    description: Assign a corporate treasury owner who reviews monthly account-analysis statements and
+      reconciles fee categories to internal cost centers.
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Bundled Banking Fees
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
     - Usage
-    - Purchase
     - Tax
-    - Credit
     - Adjustment
+    - Refund
+    - Credit
   chargeFrequency: Recurring
 focusColumns:
-  ServiceName: Bank of America
-  ServiceCategory: Developer Tools / API
+  ServiceName: Bank of America CashPro
+  ServiceCategory: Corporate Banking / Treasury Services
   ProviderName: Bank of America
-  PublisherName: Bank of America
-  InvoiceIssuerName: Bank of America
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  PublisherName: Bank of America Corporation
+  InvoiceIssuerName: Bank of America, N.A.
+  PricingCategory: Bundled Banking Fees
+  PricingUnit: transaction
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
+  - name: payment_transactions
+    description: Count of payment instructions submitted (wires, ACH, check, RTP, etc.)
+    unit: transaction
+    aggregation: sum
+    dimensions:
+      - payment_type
+      - originating_account
+      - business_unit
+  - name: payment_volume
+    description: Settled payment value (separate from per-transaction fees)
+    unit: USD
+    aggregation: sum
+    dimensions:
+      - payment_type
+      - currency
+      - originating_account
+  - name: fx_volume
+    description: FX-converted volume; pricing is via spread/margin, not per-API-call fee
+    unit: USD
+    aggregation: sum
+    dimensions:
+      - currency_pair
+      - originating_account
+  - name: balance_inquiries
+    description: Balance and statement API calls; included with the CashPro relationship
     unit: request
     aggregation: sum
     dimensions:
+      - account
       - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
-    aggregation: sum
-    dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
 apis:
   - name: Bank of America CashPro API
     baseURL: https://api.bankofamerica.com/cashpro/v1
@@ -126,12 +106,12 @@ apis:
     serviceName: Bank of America CashPro API
     serviceCategory: API
 unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+  - name: Cost per Payment Transaction
+    metric: total_payment_fees / payment_transactions
+    target: minimize via rail-mix optimization
+  - name: FX Margin Rate
+    metric: fx_margin_revenue / fx_volume
+    target: negotiate downward at relationship review
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
