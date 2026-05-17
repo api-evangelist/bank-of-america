@@ -64,7 +64,7 @@ common:
     url: vocabulary/bank-of-america-vocabulary.yaml
   - type: NaftikoCapability
     url: capabilities/treasury-banking.yaml
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/bank-of-america-context.jsonld
   - name: Features
     type: Features
