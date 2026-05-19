@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bank of America API — Banking
+  description: 'Bank of America API — Banking. 1 operations. Lead operation: Get API status. Self-contained Naftiko capability
+    covering one Bank Of America business surface.'
+  tags:
+  - Bank Of America
+  - Banking
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BANK_OF_AMERICA_API_KEY: BANK_OF_AMERICA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: bofa-banking
+    baseUri: https://api.bankofamerica.com
+    description: Bank of America API — Banking business capability. Self-contained, no shared references.
+    resources:
+    - name: status
+      path: /status
+      operations:
+      - name: getstatus
+        method: GET
+        description: Get API status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.BANK_OF_AMERICA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: bofa-banking-rest
+    port: 8080
+    description: REST adapter for Bank of America API — Banking. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/status
+      name: status
+      description: REST surface for status.
+      operations:
+      - method: GET
+        name: getstatus
+        description: Get API status
+        call: bofa-banking.getstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: bofa-banking-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Bank of America API — Banking. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-api-status
+      description: Get API status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: bofa-banking.getstatus
+      outputParameters:
+      - type: object
+        mapping: $.

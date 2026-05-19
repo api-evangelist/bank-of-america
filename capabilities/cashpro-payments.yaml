@@ -1,0 +1,209 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bank of America CashPro API — Payments
+  description: 'Bank of America CashPro API — Payments. 4 operations. Lead operation: Initiate Payment. Self-contained Naftiko
+    capability covering one Bank Of America business surface.'
+  tags:
+  - Bank Of America
+  - Payments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BANK_OF_AMERICA_API_KEY: BANK_OF_AMERICA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cashpro-payments
+    baseUri: https://api.bankofamerica.com/cashpro/v1
+    description: Bank of America CashPro API — Payments business capability. Self-contained, no shared references.
+    resources:
+    - name: payments
+      path: /payments
+      operations:
+      - name: initiatepayment
+        method: POST
+        description: Initiate Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: listpayments
+        method: GET
+        description: List Payments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fromDate
+          in: query
+          type: string
+          description: Start date filter (ISO 8601)
+        - name: toDate
+          in: query
+          type: string
+          description: End date filter (ISO 8601)
+        - name: status
+          in: query
+          type: string
+          description: Filter by payment status
+        - name: paymentType
+          in: query
+          type: string
+          description: Filter by payment type
+    - name: payments-paymentId
+      path: /payments/{paymentId}
+      operations:
+      - name: getpayment
+        method: GET
+        description: Get Payment Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: paymentId
+          in: path
+          type: string
+          description: Unique payment transaction identifier
+          required: true
+      - name: cancelpayment
+        method: DELETE
+        description: Cancel Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: paymentId
+          in: path
+          type: string
+          description: Unique payment identifier
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.BANK_OF_AMERICA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cashpro-payments-rest
+    port: 8080
+    description: REST adapter for Bank of America CashPro API — Payments. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/payments
+      name: payments
+      description: REST surface for payments.
+      operations:
+      - method: POST
+        name: initiatepayment
+        description: Initiate Payment
+        call: cashpro-payments.initiatepayment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listpayments
+        description: List Payments
+        call: cashpro-payments.listpayments
+        with:
+          fromDate: rest.fromDate
+          toDate: rest.toDate
+          status: rest.status
+          paymentType: rest.paymentType
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payments/{paymentid}
+      name: payments-paymentid
+      description: REST surface for payments-paymentId.
+      operations:
+      - method: GET
+        name: getpayment
+        description: Get Payment Status
+        call: cashpro-payments.getpayment
+        with:
+          paymentId: rest.paymentId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: cancelpayment
+        description: Cancel Payment
+        call: cashpro-payments.cancelpayment
+        with:
+          paymentId: rest.paymentId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cashpro-payments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Bank of America CashPro API — Payments. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: initiate-payment
+      description: Initiate Payment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cashpro-payments.initiatepayment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-payments
+      description: List Payments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cashpro-payments.listpayments
+      with:
+        fromDate: tools.fromDate
+        toDate: tools.toDate
+        status: tools.status
+        paymentType: tools.paymentType
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-payment-status
+      description: Get Payment Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cashpro-payments.getpayment
+      with:
+        paymentId: tools.paymentId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-payment
+      description: Cancel Payment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: cashpro-payments.cancelpayment
+      with:
+        paymentId: tools.paymentId
+      outputParameters:
+      - type: object
+        mapping: $.

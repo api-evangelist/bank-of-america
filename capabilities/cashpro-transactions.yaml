@@ -1,0 +1,104 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bank of America CashPro API — Transactions
+  description: 'Bank of America CashPro API — Transactions. 1 operations. Lead operation: List Transactions. Self-contained
+    Naftiko capability covering one Bank Of America business surface.'
+  tags:
+  - Bank Of America
+  - Transactions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BANK_OF_AMERICA_API_KEY: BANK_OF_AMERICA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cashpro-transactions
+    baseUri: https://api.bankofamerica.com/cashpro/v1
+    description: Bank of America CashPro API — Transactions business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts-accountId-transactions
+      path: /accounts/{accountId}/transactions
+      operations:
+      - name: listtransactions
+        method: GET
+        description: List Transactions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accountId
+          in: path
+          type: string
+          description: Unique account identifier
+          required: true
+        - name: fromDate
+          in: query
+          type: string
+          description: Start date for transaction history (ISO 8601)
+        - name: toDate
+          in: query
+          type: string
+          description: End date for transaction history (ISO 8601)
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of transactions to return
+        - name: offset
+          in: query
+          type: integer
+          description: Pagination offset
+    authentication:
+      type: bearer
+      token: '{{env.BANK_OF_AMERICA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cashpro-transactions-rest
+    port: 8080
+    description: REST adapter for Bank of America CashPro API — Transactions. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/accounts/{accountid}/transactions
+      name: accounts-accountid-transactions
+      description: REST surface for accounts-accountId-transactions.
+      operations:
+      - method: GET
+        name: listtransactions
+        description: List Transactions
+        call: cashpro-transactions.listtransactions
+        with:
+          accountId: rest.accountId
+          fromDate: rest.fromDate
+          toDate: rest.toDate
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cashpro-transactions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Bank of America CashPro API — Transactions. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-transactions
+      description: List Transactions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cashpro-transactions.listtransactions
+      with:
+        accountId: tools.accountId
+        fromDate: tools.fromDate
+        toDate: tools.toDate
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
