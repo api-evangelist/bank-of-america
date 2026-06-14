@@ -1,0 +1,1243 @@
+"""
+Bank of America CashPro GraphQL Schema
+Conceptual schema covering accounts, transactions, payments, customers,
+branches, credit, and authentication domains for the CashPro API platform.
+"""
+
+# ─────────────────────────────────────────────
+# Scalars
+# ─────────────────────────────────────────────
+
+scalar Date
+scalar DateTime
+scalar Decimal
+scalar JSON
+
+# ─────────────────────────────────────────────
+# Enums
+# ─────────────────────────────────────────────
+
+enum AccountType {
+  CHECKING
+  SAVINGS
+  MONEY_MARKET
+  CD
+  CREDIT_CARD
+  MORTGAGE
+  AUTO_LOAN
+  STUDENT_LOAN
+  LINE_OF_CREDIT
+}
+
+enum AccountStatus {
+  ACTIVE
+  INACTIVE
+  FROZEN
+  CLOSED
+}
+
+enum TransactionStatus {
+  PENDING
+  POSTED
+  CANCELLED
+  RETURNED
+}
+
+enum PaymentStatus {
+  INITIATED
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+  RETURNED
+}
+
+enum PaymentType {
+  ACH
+  WIRE
+  SWIFT
+  RTP
+  BOOK
+  CHECK
+  ZELLE
+  BILL_PAY
+}
+
+enum CardStatus {
+  ACTIVE
+  INACTIVE
+  LOST
+  STOLEN
+  EXPIRED
+  BLOCKED
+}
+
+enum LoanApplicationStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  CONDITIONALLY_APPROVED
+  APPROVED
+  DENIED
+  WITHDRAWN
+}
+
+enum AppointmentType {
+  IN_BRANCH
+  PHONE
+  VIDEO
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum WebhookEvent {
+  TRANSACTION_POSTED
+  PAYMENT_STATUS_CHANGED
+  BALANCE_THRESHOLD_REACHED
+  STATEMENT_AVAILABLE
+  CARD_TRANSACTION
+}
+
+# ─────────────────────────────────────────────
+# Account Types
+# ─────────────────────────────────────────────
+
+interface Account {
+  id: ID!
+  accountNumber: String!
+  routingNumber: String!
+  accountType: AccountType!
+  status: AccountStatus!
+  nickname: String
+  openedDate: Date!
+  balance: AccountBalance!
+  customer: Customer!
+  transactions(limit: Int, offset: Int, startDate: Date, endDate: Date): TransactionHistory!
+  statements: [Statement!]!
+}
+
+type CheckingAccount implements Account {
+  id: ID!
+  accountNumber: String!
+  routingNumber: String!
+  accountType: AccountType!
+  status: AccountStatus!
+  nickname: String
+  openedDate: Date!
+  balance: AccountBalance!
+  customer: Customer!
+  transactions(limit: Int, offset: Int, startDate: Date, endDate: Date): TransactionHistory!
+  statements: [Statement!]!
+  overdraftProtection: Boolean!
+  linkedSavingsAccountId: ID
+  monthlyFee: Decimal
+  atmCard: Card
+}
+
+type SavingsAccount implements Account {
+  id: ID!
+  accountNumber: String!
+  routingNumber: String!
+  accountType: AccountType!
+  status: AccountStatus!
+  nickname: String
+  openedDate: Date!
+  balance: AccountBalance!
+  customer: Customer!
+  transactions(limit: Int, offset: Int, startDate: Date, endDate: Date): TransactionHistory!
+  statements: [Statement!]!
+  interestRate: Decimal!
+  interestEarnedYTD: Decimal!
+  transferLimitPerMonth: Int!
+}
+
+type MoneyMarket implements Account {
+  id: ID!
+  accountNumber: String!
+  routingNumber: String!
+  accountType: AccountType!
+  status: AccountStatus!
+  nickname: String
+  openedDate: Date!
+  balance: AccountBalance!
+  customer: Customer!
+  transactions(limit: Int, offset: Int, startDate: Date, endDate: Date): TransactionHistory!
+  statements: [Statement!]!
+  interestRate: Decimal!
+  minimumBalance: Decimal!
+  checkWritingPrivileges: Boolean!
+}
+
+type CD implements Account {
+  id: ID!
+  accountNumber: String!
+  routingNumber: String!
+  accountType: AccountType!
+  status: AccountStatus!
+  nickname: String
+  openedDate: Date!
+  balance: AccountBalance!
+  customer: Customer!
+  transactions(limit: Int, offset: Int, startDate: Date, endDate: Date): TransactionHistory!
+  statements: [Statement!]!
+  maturityDate: Date!
+  interestRate: Decimal!
+  termMonths: Int!
+  principalAmount: Decimal!
+  earlyWithdrawalPenalty: Decimal
+}
+
+type CreditCard implements Account {
+  id: ID!
+  accountNumber: String!
+  routingNumber: String!
+  accountType: AccountType!
+  status: AccountStatus!
+  nickname: String
+  openedDate: Date!
+  balance: AccountBalance!
+  customer: Customer!
+  transactions(limit: Int, offset: Int, startDate: Date, endDate: Date): TransactionHistory!
+  statements: [Statement!]!
+  creditLimit: Decimal!
+  availableCredit: Decimal!
+  minimumPaymentDue: Decimal!
+  paymentDueDate: Date!
+  apr: Decimal!
+  rewards: Reward!
+  cards: [Card!]!
+  offers: [Offer!]!
+}
+
+type MortgageAccount implements Account {
+  id: ID!
+  accountNumber: String!
+  routingNumber: String!
+  accountType: AccountType!
+  status: AccountStatus!
+  nickname: String
+  openedDate: Date!
+  balance: AccountBalance!
+  customer: Customer!
+  transactions(limit: Int, offset: Int, startDate: Date, endDate: Date): TransactionHistory!
+  statements: [Statement!]!
+  mortgageDetail: MortgageDetail!
+  escrowBalance: Decimal
+  propertyAddress: Address!
+}
+
+type AutoLoan implements Account {
+  id: ID!
+  accountNumber: String!
+  routingNumber: String!
+  accountType: AccountType!
+  status: AccountStatus!
+  nickname: String
+  openedDate: Date!
+  balance: AccountBalance!
+  customer: Customer!
+  transactions(limit: Int, offset: Int, startDate: Date, endDate: Date): TransactionHistory!
+  statements: [Statement!]!
+  vehicleYear: Int!
+  vehicleMake: String!
+  vehicleModel: String!
+  vin: String
+  interestRate: Decimal!
+  monthlyPayment: Decimal!
+  maturityDate: Date!
+}
+
+type StudentLoan implements Account {
+  id: ID!
+  accountNumber: String!
+  routingNumber: String!
+  accountType: AccountType!
+  status: AccountStatus!
+  nickname: String
+  openedDate: Date!
+  balance: AccountBalance!
+  customer: Customer!
+  transactions(limit: Int, offset: Int, startDate: Date, endDate: Date): TransactionHistory!
+  statements: [Statement!]!
+  originalAmount: Decimal!
+  interestRate: Decimal!
+  repaymentPlan: String!
+  monthlyPayment: Decimal!
+  maturityDate: Date!
+}
+
+type LOC implements Account {
+  id: ID!
+  accountNumber: String!
+  routingNumber: String!
+  accountType: AccountType!
+  status: AccountStatus!
+  nickname: String
+  openedDate: Date!
+  balance: AccountBalance!
+  customer: Customer!
+  transactions(limit: Int, offset: Int, startDate: Date, endDate: Date): TransactionHistory!
+  statements: [Statement!]!
+  creditLimit: Decimal!
+  availableCredit: Decimal!
+  interestRate: Decimal!
+  drawPeriodEndDate: Date
+  repaymentPeriodEndDate: Date
+}
+
+# ─────────────────────────────────────────────
+# Balance Types
+# ─────────────────────────────────────────────
+
+type AccountBalance {
+  accountId: ID!
+  ledgerBalance: Decimal!
+  availableBalance: AvailableBalance!
+  pendingBalance: PendingBalance!
+  collectedBalance: Decimal
+  floatBalance: Decimal
+  asOf: DateTime!
+  currency: String!
+}
+
+type AvailableBalance {
+  amount: Decimal!
+  currency: String!
+  asOf: DateTime!
+}
+
+type PendingBalance {
+  amount: Decimal!
+  currency: String!
+  pendingDebits: Decimal!
+  pendingCredits: Decimal!
+  asOf: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Transaction Types
+# ─────────────────────────────────────────────
+
+type TransactionHistory {
+  accountId: ID!
+  transactions: [Transaction!]!
+  totalCount: Int!
+  startDate: Date!
+  endDate: Date!
+  openingBalance: Decimal!
+  closingBalance: Decimal!
+}
+
+type Transaction {
+  id: ID!
+  accountId: ID!
+  transactionDate: Date!
+  postDate: Date
+  amount: Decimal!
+  currency: String!
+  description: String!
+  type: String!
+  status: TransactionStatus!
+  referenceNumber: String
+  checkNumber: String
+  merchantName: String
+  merchantCategory: String
+  isDebit: Boolean!
+  runningBalance: Decimal
+  paymentRecord: PaymentRecord
+}
+
+type PaymentRecord {
+  paymentId: ID!
+  paymentType: PaymentType!
+  paymentDate: Date!
+  amount: Decimal!
+  currency: String!
+  status: PaymentStatus!
+  confirmationNumber: String!
+}
+
+# ─────────────────────────────────────────────
+# Payment Types
+# ─────────────────────────────────────────────
+
+type BillPayment {
+  id: ID!
+  accountId: ID!
+  payee: String!
+  payeeAccountNumber: String
+  amount: Decimal!
+  scheduledDate: Date!
+  memo: String
+  status: PaymentStatus!
+  confirmationNumber: String!
+  createdAt: DateTime!
+}
+
+type Transfer {
+  id: ID!
+  fromAccountId: ID!
+  toAccountId: ID!
+  amount: Decimal!
+  currency: String!
+  scheduledDate: Date!
+  memo: String
+  status: PaymentStatus!
+  confirmationNumber: String!
+  isRecurring: Boolean!
+  recurrencePattern: String
+  createdAt: DateTime!
+}
+
+type WireTransfer {
+  id: ID!
+  fromAccountId: ID!
+  amount: Decimal!
+  currency: String!
+  valueDate: Date!
+  beneficiaryName: String!
+  beneficiaryAccountNumber: String!
+  beneficiaryBankName: String!
+  beneficiaryBankSwift: String
+  beneficiaryBankABA: String
+  intermediaryBank: String
+  purposeOfPayment: String
+  status: PaymentStatus!
+  confirmationNumber: String!
+  feeAmount: Decimal
+  createdAt: DateTime!
+}
+
+type ACHPayment {
+  id: ID!
+  fromAccountId: ID!
+  toAccountId: ID
+  amount: Decimal!
+  effectiveDate: Date!
+  secCode: String!
+  companyName: String!
+  companyEntryDescription: String!
+  individualName: String
+  individualId: String
+  status: PaymentStatus!
+  traceNumber: String
+  batchNumber: String
+  confirmationNumber: String!
+  createdAt: DateTime!
+}
+
+type Zelle {
+  id: ID!
+  fromAccountId: ID!
+  recipientEmail: String
+  recipientPhone: String
+  recipientName: String!
+  amount: Decimal!
+  memo: String
+  status: PaymentStatus!
+  confirmationNumber: String!
+  scheduledDate: Date!
+  createdAt: DateTime!
+}
+
+type CheckDeposit {
+  id: ID!
+  accountId: ID!
+  amount: Decimal!
+  checkNumber: String!
+  routingNumber: String!
+  checkAccountNumber: String!
+  depositDate: DateTime!
+  availabilityDate: Date
+  status: TransactionStatus!
+  imageUrl: String
+  confirmationNumber: String!
+}
+
+type ATMTransaction {
+  id: ID!
+  accountId: ID!
+  atmId: ID!
+  transactionDate: DateTime!
+  transactionType: String!
+  amount: Decimal!
+  currency: String!
+  fee: Decimal
+  status: TransactionStatus!
+  referenceNumber: String!
+  atmLocation: ATM
+}
+
+# ─────────────────────────────────────────────
+# Card Types
+# ─────────────────────────────────────────────
+
+type Card {
+  id: ID!
+  accountId: ID!
+  cardNumber: String!
+  cardholderName: String!
+  expirationDate: String!
+  status: CardStatus!
+  isVirtual: Boolean!
+  dailyPurchaseLimit: Decimal
+  dailyATMLimit: Decimal
+  transactions(limit: Int, offset: Int): [CardTransaction!]!
+  authorizedUsers: [Authorized!]!
+}
+
+type CardTransaction {
+  id: ID!
+  cardId: ID!
+  transactionDate: DateTime!
+  postDate: DateTime
+  amount: Decimal!
+  currency: String!
+  status: TransactionStatus!
+  merchantName: String!
+  merchantCategory: String!
+  merchantCity: String
+  merchantCountry: String!
+  isInternational: Boolean!
+  purchaseDetail: PurchaseDetail
+  cashAdvance: CashAdvance
+  referenceNumber: String!
+}
+
+type PurchaseDetail {
+  transactionId: ID!
+  itemizedDetails: [String!]
+  taxAmount: Decimal
+  tipAmount: Decimal
+  totalAmount: Decimal!
+  merchantTransactionId: String
+}
+
+type CashAdvance {
+  transactionId: ID!
+  amount: Decimal!
+  feeAmount: Decimal!
+  apr: Decimal!
+  transactionDate: DateTime!
+  atmId: ID
+}
+
+# ─────────────────────────────────────────────
+# Rewards and Offers
+# ─────────────────────────────────────────────
+
+type Reward {
+  accountId: ID!
+  programName: String!
+  points: RewardPoint!
+  cashbackEarnedYTD: Decimal
+  reimbursements: [Reimbursement!]!
+  expiringPoints: [RewardPoint!]
+}
+
+type RewardPoint {
+  balance: Int!
+  pendingPoints: Int!
+  lifetimePoints: Int!
+  expirationDate: Date
+  cashValue: Decimal!
+}
+
+type Reimbursement {
+  id: ID!
+  accountId: ID!
+  description: String!
+  amount: Decimal!
+  creditDate: Date!
+  category: String!
+  status: String!
+}
+
+type Offer {
+  id: ID!
+  accountId: ID!
+  title: String!
+  description: String!
+  merchantName: String
+  discountPercent: Decimal
+  cashbackAmount: Decimal
+  expirationDate: Date!
+  termsAndConditions: String
+  isActivated: Boolean!
+  category: String!
+}
+
+# ─────────────────────────────────────────────
+# Customer Types
+# ─────────────────────────────────────────────
+
+type Customer {
+  id: ID!
+  customerId: String!
+  profile: CustomerProfile!
+  accounts: [Account!]!
+  creditScore: CreditScore
+  monthlySpending: MonthlySpending
+  annualSummary: AnnualSummary
+  taxDocuments: [TaxDocument!]!
+  organization: Organization
+}
+
+type CustomerProfile {
+  customerId: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  primaryPhone: String!
+  dateOfBirth: Date
+  ssn: String
+  addresses: [Address!]!
+  contacts: [Contact!]!
+  employer: Employer
+  memberSince: Date!
+  preferredLanguage: String!
+}
+
+type Address {
+  id: ID!
+  type: String!
+  street1: String!
+  street2: String
+  city: String!
+  state: String!
+  postalCode: String!
+  country: String!
+  isPrimary: Boolean!
+}
+
+type Contact {
+  id: ID!
+  type: String!
+  value: String!
+  isPrimary: Boolean!
+  isVerified: Boolean!
+}
+
+type Organization {
+  id: ID!
+  name: String!
+  legalName: String!
+  taxId: String!
+  naicsCode: String
+  annualRevenue: Decimal
+  employeeCount: Int
+  address: Address!
+  primaryContact: Contact!
+  accounts: [Account!]!
+}
+
+type Employer {
+  name: String!
+  address: Address
+  phone: String
+  industry: String
+  employmentStatus: String!
+  startDate: Date
+  annualIncome: Decimal
+}
+
+type Joint {
+  id: ID!
+  accountId: ID!
+  customerId: ID!
+  profile: CustomerProfile!
+  addedDate: Date!
+  ownershipPercent: Decimal
+}
+
+type Authorized {
+  id: ID!
+  accountId: ID!
+  cardId: ID
+  customerId: ID
+  firstName: String!
+  lastName: String!
+  relationship: String!
+  addedDate: Date!
+  permissions: [String!]!
+  card: Card
+}
+
+# ─────────────────────────────────────────────
+# Location Types
+# ─────────────────────────────────────────────
+
+type Branch {
+  id: ID!
+  branchNumber: String!
+  name: String!
+  address: Address!
+  phone: String!
+  hours: [HoursOfOperation!]!
+  services: [String!]!
+  hasATM: Boolean!
+  hasDriveThrough: Boolean!
+  isFinancialCenter: Boolean!
+  latitude: Decimal!
+  longitude: Decimal!
+}
+
+type ATM {
+  id: ID!
+  atmId: String!
+  address: Address!
+  network: String!
+  isSurchargeFreeBankOfAmerica: Boolean!
+  isSurchargeFreePlus: Boolean!
+  hasDeposit: Boolean!
+  hasAccessibility: Boolean!
+  hours: String
+  latitude: Decimal!
+  longitude: Decimal!
+}
+
+type FinancialCenter {
+  id: ID!
+  name: String!
+  address: Address!
+  phone: String!
+  services: [String!]!
+  specializations: [String!]!
+  hours: [HoursOfOperation!]!
+  advisors: [String!]
+  latitude: Decimal!
+  longitude: Decimal!
+}
+
+type ServiceCenter {
+  id: ID!
+  name: String!
+  phone: String!
+  type: String!
+  hours: [HoursOfOperation!]!
+  supportedProducts: [String!]!
+}
+
+type HoursOfOperation {
+  dayOfWeek: String!
+  openTime: String
+  closeTime: String
+  isClosed: Boolean!
+}
+
+type Appointment {
+  id: ID!
+  branchId: ID
+  customerId: ID!
+  appointmentType: AppointmentType!
+  status: AppointmentStatus!
+  topic: String!
+  scheduledDateTime: DateTime!
+  durationMinutes: Int!
+  advisorName: String
+  notes: String
+  confirmationNumber: String!
+}
+
+# ─────────────────────────────────────────────
+# Mortgage & Loan Types
+# ─────────────────────────────────────────────
+
+type MortgageDetail {
+  accountId: ID!
+  originalLoanAmount: Decimal!
+  currentPrincipalBalance: Decimal!
+  interestRate: Decimal!
+  loanType: String!
+  termYears: Int!
+  originationDate: Date!
+  maturityDate: Date!
+  monthlyPayment: Decimal!
+  nextPaymentDate: Date!
+  nextPaymentAmount: Decimal!
+  accruedInterest: Decimal!
+  taxAndInsuranceMonthly: Decimal
+}
+
+type LoanApplication {
+  id: ID!
+  customerId: ID!
+  applicationType: String!
+  status: LoanApplicationStatus!
+  requestedAmount: Decimal!
+  submittedDate: DateTime!
+  lastUpdatedDate: DateTime!
+  decisionDate: DateTime
+  decisionReason: String
+  approvedAmount: Decimal
+  approvedRate: Decimal
+  approvedTermMonths: Int
+  documents: [String!]!
+}
+
+# ─────────────────────────────────────────────
+# Credit Types
+# ─────────────────────────────────────────────
+
+type CreditScore {
+  customerId: ID!
+  score: Int!
+  scoreType: FICOScore!
+  bureau: String!
+  asOf: Date!
+  factors: [String!]!
+  history: [CreditScoreHistory!]!
+}
+
+type FICOScore {
+  score: Int!
+  range: String!
+  category: String!
+  percentile: Int
+}
+
+type CreditScoreHistory {
+  date: Date!
+  score: Int!
+  bureau: String!
+}
+
+type CreditReport {
+  customerId: ID!
+  bureau: String!
+  pulledDate: Date!
+  score: Int!
+  openAccounts: Int!
+  closedAccounts: Int!
+  totalDebt: Decimal!
+  paymentHistory: String!
+  creditUtilization: Decimal!
+  creditAge: String!
+  inquiries: Int!
+  derogatory: Int!
+}
+
+# ─────────────────────────────────────────────
+# Spending & Summary Types
+# ─────────────────────────────────────────────
+
+type MonthlySpending {
+  customerId: ID!
+  month: String!
+  year: Int!
+  totalSpent: Decimal!
+  totalIncome: Decimal!
+  netCashFlow: Decimal!
+  categories: [SpendingCategory!]!
+}
+
+type SpendingCategory {
+  name: String!
+  amount: Decimal!
+  transactionCount: Int!
+  percentOfTotal: Decimal!
+  budgetAmount: Decimal
+  variance: Decimal
+}
+
+type AnnualSummary {
+  customerId: ID!
+  year: Int!
+  totalIncome: Decimal!
+  totalExpenses: Decimal!
+  totalSaved: Decimal!
+  totalInvestmentGains: Decimal
+  taxableInterestEarned: Decimal!
+  monthlyBreakdown: [MonthlySpending!]!
+}
+
+type Statement {
+  id: ID!
+  accountId: ID!
+  statementDate: Date!
+  period: StatementPeriod!
+  openingBalance: Decimal!
+  closingBalance: Decimal!
+  totalDebits: Decimal!
+  totalCredits: Decimal!
+  minimumPaymentDue: Decimal
+  paymentDueDate: Date
+  downloadUrl: String!
+  format: String!
+}
+
+type StatementPeriod {
+  startDate: Date!
+  endDate: Date!
+}
+
+type TaxDocument {
+  id: ID!
+  customerId: ID!
+  accountId: ID
+  documentType: String!
+  taxYear: Int!
+  issuedDate: Date!
+  downloadUrl: String!
+  irsFormNumber: String!
+  reportedAmount: Decimal
+}
+
+type IRS {
+  formNumber: String!
+  formName: String!
+  taxYear: Int!
+  filingDeadline: Date!
+  description: String!
+}
+
+# ─────────────────────────────────────────────
+# Auth & API Management Types
+# ─────────────────────────────────────────────
+
+type APIKey {
+  id: ID!
+  name: String!
+  prefix: String!
+  createdAt: DateTime!
+  expiresAt: DateTime
+  lastUsedAt: DateTime
+  scopes: [String!]!
+  status: String!
+  environment: String!
+}
+
+type Token {
+  tokenId: ID!
+  tokenType: String!
+  issuedAt: DateTime!
+  expiresAt: DateTime!
+  scopes: [String!]!
+  clientId: String!
+}
+
+type AccessToken {
+  accessToken: String!
+  tokenType: String!
+  expiresIn: Int!
+  scope: String!
+  refreshToken: String
+  refreshExpiresIn: Int
+  issuedAt: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Webhook Types
+# ─────────────────────────────────────────────
+
+type Webhook {
+  id: ID!
+  url: String!
+  events: [WebhookEvent!]!
+  isActive: Boolean!
+  secret: String!
+  createdAt: DateTime!
+  lastDeliveredAt: DateTime
+  deliverySuccessRate: Decimal
+  headers: JSON
+}
+
+type Subscription {
+  id: ID!
+  customerId: ID!
+  accountId: ID
+  webhookId: ID!
+  events: [WebhookEvent!]!
+  createdAt: DateTime!
+  isActive: Boolean!
+}
+
+# ─────────────────────────────────────────────
+# Open Banking / TrueLayer
+# ─────────────────────────────────────────────
+
+type TrueLayer {
+  connectionId: ID!
+  provider: String!
+  status: String!
+  consentedAt: DateTime!
+  expiresAt: DateTime
+  scopes: [String!]!
+  accountIds: [ID!]!
+}
+
+type OpenBanking {
+  consentId: ID!
+  customerId: ID!
+  tppName: String!
+  scopes: [String!]!
+  grantedAt: DateTime!
+  expiresAt: DateTime
+  status: String!
+  accounts: [Account!]!
+  dataAccessLog: [OpenBankingAccess!]!
+}
+
+type OpenBankingAccess {
+  accessId: ID!
+  consentId: ID!
+  tppName: String!
+  resourceType: String!
+  resourceId: ID!
+  accessedAt: DateTime!
+  ipAddress: String
+}
+
+# ─────────────────────────────────────────────
+# Payment Alias
+# ─────────────────────────────────────────────
+
+type Pament {
+  id: ID!
+  fromAccountId: ID!
+  toAccountId: ID
+  amount: Decimal!
+  currency: String!
+  paymentType: PaymentType!
+  status: PaymentStatus!
+  scheduledDate: Date!
+  memo: String
+  confirmationNumber: String!
+  createdAt: DateTime!
+}
+
+# ─────────────────────────────────────────────
+# Root Operations
+# ─────────────────────────────────────────────
+
+type Query {
+  # Account queries
+  account(id: ID!): Account
+  accounts(customerId: ID!, type: AccountType): [Account!]!
+  checkingAccount(id: ID!): CheckingAccount
+  savingsAccount(id: ID!): SavingsAccount
+  moneyMarket(id: ID!): MoneyMarket
+  cd(id: ID!): CD
+  creditCard(id: ID!): CreditCard
+  mortgageAccount(id: ID!): MortgageAccount
+  autoLoan(id: ID!): AutoLoan
+  studentLoan(id: ID!): StudentLoan
+  loc(id: ID!): LOC
+
+  # Balance queries
+  accountBalance(accountId: ID!): AccountBalance
+  availableBalance(accountId: ID!): AvailableBalance
+  pendingBalance(accountId: ID!): PendingBalance
+
+  # Transaction queries
+  transactionHistory(accountId: ID!, startDate: Date, endDate: Date, limit: Int, offset: Int): TransactionHistory
+  transaction(id: ID!): Transaction
+
+  # Payment queries
+  payment(id: ID!): Pament
+  transfer(id: ID!): Transfer
+  wireTransfer(id: ID!): WireTransfer
+  achPayment(id: ID!): ACHPayment
+  billPayment(id: ID!): BillPayment
+  zellePayment(id: ID!): Zelle
+
+  # Card queries
+  card(id: ID!): Card
+  cards(accountId: ID!): [Card!]!
+  cardTransactions(cardId: ID!, limit: Int, offset: Int): [CardTransaction!]!
+
+  # Reward queries
+  rewards(accountId: ID!): Reward
+  offers(accountId: ID!): [Offer!]!
+
+  # Customer queries
+  customer(id: ID!): Customer
+  customerProfile(customerId: ID!): CustomerProfile
+  creditScore(customerId: ID!): CreditScore
+  creditReport(customerId: ID!, bureau: String): CreditReport
+  monthlySpending(customerId: ID!, month: String!, year: Int!): MonthlySpending
+  annualSummary(customerId: ID!, year: Int!): AnnualSummary
+
+  # Document queries
+  statements(accountId: ID!): [Statement!]!
+  statement(id: ID!): Statement
+  taxDocuments(customerId: ID!, year: Int): [TaxDocument!]!
+
+  # Loan queries
+  loanApplication(id: ID!): LoanApplication
+  loanApplications(customerId: ID!): [LoanApplication!]!
+  mortgageDetail(accountId: ID!): MortgageDetail
+
+  # Location queries
+  branch(id: ID!): Branch
+  branches(latitude: Decimal!, longitude: Decimal!, radiusMiles: Int): [Branch!]!
+  atm(id: ID!): ATM
+  atms(latitude: Decimal!, longitude: Decimal!, radiusMiles: Int): [ATM!]!
+  financialCenter(id: ID!): FinancialCenter
+  financialCenters(latitude: Decimal!, longitude: Decimal!, radiusMiles: Int): [FinancialCenter!]!
+  appointments(customerId: ID!): [Appointment!]!
+
+  # Auth queries
+  apiKey(id: ID!): APIKey
+  apiKeys: [APIKey!]!
+  token(tokenId: ID!): Token
+  webhooks(customerId: ID!): [Webhook!]!
+
+  # Open banking
+  openBankingConsents(customerId: ID!): [OpenBanking!]!
+  trueLayerConnection(connectionId: ID!): TrueLayer
+}
+
+type Mutation {
+  # Payment mutations
+  initiateTransfer(input: TransferInput!): Transfer!
+  initiateWireTransfer(input: WireTransferInput!): WireTransfer!
+  initiateACHPayment(input: ACHPaymentInput!): ACHPayment!
+  initiateZellePayment(input: ZelleInput!): Zelle!
+  scheduleBillPayment(input: BillPaymentInput!): BillPayment!
+  cancelPayment(id: ID!): Pament!
+  depositCheck(input: CheckDepositInput!): CheckDeposit!
+
+  # Card mutations
+  activateCard(cardId: ID!): Card!
+  lockCard(cardId: ID!): Card!
+  unlockCard(cardId: ID!): Card!
+  reportCardLost(cardId: ID!): Card!
+  addAuthorizedUser(input: AuthorizedUserInput!): Authorized!
+
+  # Loan mutations
+  submitLoanApplication(input: LoanApplicationInput!): LoanApplication!
+  withdrawLoanApplication(id: ID!): LoanApplication!
+
+  # Appointment mutations
+  scheduleAppointment(input: AppointmentInput!): Appointment!
+  cancelAppointment(id: ID!): Appointment!
+
+  # Reward mutations
+  activateOffer(offerId: ID!): Offer!
+  redeemPoints(accountId: ID!, points: Int!): RewardPoint!
+
+  # Webhook mutations
+  createWebhook(input: WebhookInput!): Webhook!
+  updateWebhook(id: ID!, input: WebhookInput!): Webhook!
+  deleteWebhook(id: ID!): Boolean!
+
+  # Auth mutations
+  createAPIKey(input: APIKeyInput!): APIKey!
+  revokeAPIKey(id: ID!): Boolean!
+  generateAccessToken(clientId: String!, clientSecret: String!, scope: String!): AccessToken!
+}
+
+# ─────────────────────────────────────────────
+# Input Types
+# ─────────────────────────────────────────────
+
+input TransferInput {
+  fromAccountId: ID!
+  toAccountId: ID!
+  amount: Decimal!
+  scheduledDate: Date!
+  memo: String
+  isRecurring: Boolean
+  recurrencePattern: String
+}
+
+input WireTransferInput {
+  fromAccountId: ID!
+  amount: Decimal!
+  currency: String!
+  valueDate: Date!
+  beneficiaryName: String!
+  beneficiaryAccountNumber: String!
+  beneficiaryBankSwift: String
+  beneficiaryBankABA: String
+  purposeOfPayment: String
+}
+
+input ACHPaymentInput {
+  fromAccountId: ID!
+  amount: Decimal!
+  effectiveDate: Date!
+  secCode: String!
+  companyName: String!
+  companyEntryDescription: String!
+  individualName: String
+  receiverRoutingNumber: String!
+  receiverAccountNumber: String!
+}
+
+input ZelleInput {
+  fromAccountId: ID!
+  recipientEmail: String
+  recipientPhone: String
+  amount: Decimal!
+  memo: String
+}
+
+input BillPaymentInput {
+  accountId: ID!
+  payee: String!
+  payeeAccountNumber: String
+  amount: Decimal!
+  scheduledDate: Date!
+  memo: String
+}
+
+input CheckDepositInput {
+  accountId: ID!
+  amount: Decimal!
+  checkNumber: String!
+  routingNumber: String!
+  checkAccountNumber: String!
+  frontImageBase64: String!
+  backImageBase64: String!
+}
+
+input AuthorizedUserInput {
+  accountId: ID!
+  cardId: ID
+  firstName: String!
+  lastName: String!
+  dateOfBirth: Date!
+  relationship: String!
+  permissions: [String!]!
+}
+
+input LoanApplicationInput {
+  customerId: ID!
+  applicationType: String!
+  requestedAmount: Decimal!
+  termMonths: Int
+  purposeOfLoan: String
+  annualIncome: Decimal!
+  employmentStatus: String!
+}
+
+input AppointmentInput {
+  branchId: ID
+  customerId: ID!
+  appointmentType: AppointmentType!
+  topic: String!
+  scheduledDateTime: DateTime!
+  durationMinutes: Int!
+  notes: String
+}
+
+input WebhookInput {
+  url: String!
+  events: [WebhookEvent!]!
+  secret: String!
+  headers: JSON
+}
+
+input APIKeyInput {
+  name: String!
+  scopes: [String!]!
+  expiresAt: DateTime
+  environment: String!
+}
