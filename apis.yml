@@ -52,7 +52,7 @@ common:
 - type: Documentation
   url: https://developer.bankofamerica.com/
   name: CashPro Developer Studio
-- type: SignUp
+- type: Signup
   url: https://developer.bankofamerica.com/
   name: Developer Portal
 - type: Blog

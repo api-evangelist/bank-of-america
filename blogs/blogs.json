@@ -3,19 +3,12 @@
   "feeds": [
     {
       "source": "https://newsroom.bankofamerica.com/",
-      "feed_url": "https://newsroom.bankofamerica.com/",
-      "title": "",
-      "saved": 0,
-      "method": "none"
-    },
-    {
-      "source": "https://developer.bankofamerica.com/",
-      "feed_url": "https://developer.bankofamerica.com/",
-      "title": "",
-      "saved": 0,
-      "method": "none"
+      "feed_url": "",
+      "saved": 3,
+      "method": "agent-scrape"
     }
   ],
-  "fetched": "2026-06-14T20:42:17Z",
-  "post_count": 3
+  "fetched": "2026-06-27T12:27:09Z",
+  "post_count": 9,
+  "agent_pulled": "2026-06-27"
 }
