@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/bank-of-america-bofa-api-openapi.yml, openapi/bank-of-america-cashpro-api-openapi.yml
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/bank-of-america-bofa-api-openapi.yml
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.bankofamerica.com/oauth/token
+    scopes: 4
+  sources:
+  - openapi/bank-of-america-cashpro-api-openapi.yml
