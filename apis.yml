@@ -42,6 +42,8 @@ apis:
     balance reporting, and transaction history. The API supports over 350 payment
     types and integrates with Treasury Management Systems (TMS) and ERP platforms.
 common:
+- type: OAuthScopes
+  url: scopes/bank-of-america-scopes.yml
 - type: GitHubOrganization
   url: https://github.com/bankofamerica
 - type: LinkedIn

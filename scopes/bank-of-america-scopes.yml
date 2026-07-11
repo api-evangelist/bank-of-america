@@ -1,0 +1,34 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/bank-of-america-cashpro-api-openapi.yml
+schemes:
+- name: OAuth2
+  source: openapi/bank-of-america-cashpro-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.bankofamerica.com/oauth/token
+scopes:
+- scope: accounts:read
+  description: Read account information and balances
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/bank-of-america-cashpro-api-openapi.yml
+- scope: payments:write
+  description: Initiate and manage payments
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/bank-of-america-cashpro-api-openapi.yml
+- scope: statements:read
+  description: Access account statements
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/bank-of-america-cashpro-api-openapi.yml
+- scope: transactions:read
+  description: Read transaction history
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/bank-of-america-cashpro-api-openapi.yml
