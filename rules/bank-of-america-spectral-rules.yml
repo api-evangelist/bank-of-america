@@ -1,3 +1,24 @@
+# bank-of-america — Spectral ruleset (strengthened)
+# Plain Spectral. Existing hand-authored rules preserved; measured rules added
+# from this provider's own OpenAPI conventions by strengthen_ruleset.py,
+# then self-validated against the spec.
+#
+# Provenance:
+#   - servers-https-only: 100% of servers already https (error)
+#   - servers-expected-domain: 3/3 servers on bankofamerica.com
+#   - path-params-casing: camel @ 100% (n=6)
+#   - query-params-casing: camel @ 62% (n=13)
+#   - operationid-casing: camel @ 100% (n=11)
+#   - schema-names-casing: pascal @ 100% (n=13)
+#   - schema-properties-casing: camel @ 64% (n=77)
+#   - security: global (root) — NOT emitting operation-security-required
+#   - error-schema-defined: ErrorResponse
+#   - operation-documents-401: 100% adherence
+#   - pagination params observed: ['limit', 'offset']
+#   - merge: kept 16 existing, added 8 measured, upgraded 0
+#   - added: servers-expected-domain, path-params-casing, query-params-casing, schema-names-casing, schema-properties-casing, error-schema-defined, operation-documents-401, no-empty-descriptions
+extends:
+  - spectral:oas
 rules:
   info-title-required:
     description: Info must have a title
@@ -21,7 +42,7 @@ rules:
       field: openapi
       function: pattern
       functionOptions:
-        match: "^3\\."
+        match: ^3\.
   servers-https-only:
     description: All server URLs must use HTTPS
     severity: error
@@ -29,7 +50,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^https://"
+        match: ^https://
   operation-summary-required:
     description: Every operation must have a summary
     severity: error
@@ -51,7 +72,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^[a-z][a-zA-Z0-9]*$"
+        match: ^[a-z][a-zA-Z0-9]*$
   operation-tags-required:
     description: Every operation must have tags
     severity: warn
@@ -88,7 +109,7 @@ rules:
       field: type
       function: pattern
       functionOptions:
-        match: "^oauth2$"
+        match: ^oauth2$
   parameter-description-required:
     description: All parameters must have descriptions
     severity: warn
@@ -117,4 +138,67 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^(/[a-z0-9][a-z0-9-]*|/\\{[a-zA-Z]+\\})*/*$"
+        match: ^(/[a-z0-9][a-z0-9-]*|/\{[a-zA-Z]+\})*/*$
+  servers-expected-domain:
+    description: Server URLs should be on the bankofamerica.com domain.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: bankofamerica\.com
+  path-params-casing:
+    description: Path parameters should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*].parameters[?(@.in=='path')].name
+    then:
+      function: casing
+      functionOptions:
+        type: camel
+  query-params-casing:
+    description: Query parameters should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in=='query')]
+    then:
+      field: name
+      function: casing
+      functionOptions:
+        type: camel
+  schema-names-casing:
+    description: Component schema names should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: pascal
+  schema-properties-casing:
+    description: Schema properties should be camelCase (the dominant convention in this API).
+    severity: info
+    given: $.components.schemas[*].properties
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: camel
+  error-schema-defined:
+    description: A shared error schema (ErrorResponse) should be defined for error payloads.
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: ErrorResponse
+      function: truthy
+  operation-documents-401:
+    description: Operations should document a 401 response (documented on 100% of this API's operations).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].responses
+    then:
+      field: '401'
+      function: truthy
+  no-empty-descriptions:
+    description: Descriptions must not be empty strings.
+    severity: warn
+    given: $..description
+    then:
+      function: truthy

@@ -2,13 +2,14 @@
   "repo": "bank-of-america",
   "feeds": [
     {
-      "source": "https://newsroom.bankofamerica.com/",
-      "feed_url": "",
-      "saved": 3,
-      "method": "agent-scrape"
+      "source": "https://developer.bankofamerica.com/",
+      "feed_url": "https://developer.bankofamerica.com/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "fetched": "2026-06-27T12:27:09Z",
-  "post_count": 9,
-  "agent_pulled": "2026-06-27"
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 11,
+  "agent_pulled": "2026-07-04"
 }
