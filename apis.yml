@@ -42,6 +42,8 @@ apis:
     balance reporting, and transaction history. The API supports over 350 payment
     types and integrates with Treasury Management Systems (TMS) and ERP platforms.
 common:
+- type: AgenticAccess
+  url: agentic-access/bank-of-america-agentic-access.yml
 - type: DomainSecurity
   url: security/bank-of-america-domain-security.yml
 - type: Authentication
