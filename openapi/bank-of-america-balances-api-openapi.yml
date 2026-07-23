@@ -1,0 +1,112 @@
+openapi: 3.1.0
+info:
+  title: Bank of America Accounts Balances API
+  description: Bank of America provides developer APIs for banking services including payments, account management, and treasury services. The APIs enable corporate clients and fintech partners to integrate banking operations.
+  version: '1.0'
+  contact:
+    name: Bank of America Developer Support
+    url: https://developer.bankofamerica.com/
+servers:
+- url: https://api.bankofamerica.com
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Balances
+paths:
+  /accounts/{accountId}/balances:
+    get:
+      operationId: getAccountBalances
+      summary: Get Account Balances
+      description: Retrieve current and available balances for a specific account including intraday balance information.
+      tags:
+      - Balances
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        description: Unique account identifier
+        schema:
+          type: string
+      - name: asOf
+        in: query
+        description: Balance as of date (ISO 8601)
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Account balance information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Balance:
+      type: object
+      description: Account balance information
+      properties:
+        accountId:
+          type: string
+          description: Account identifier
+        ledgerBalance:
+          type: number
+          format: double
+          description: Current ledger balance
+        availableBalance:
+          type: number
+          format: double
+          description: Available balance for transactions
+        collectedBalance:
+          type: number
+          format: double
+          description: Collected balance after float
+        currency:
+          type: string
+          description: Balance currency (ISO 4217)
+        asOfDate:
+          type: string
+          format: date-time
+          description: Balance as of timestamp
+    BalanceResponse:
+      type: object
+      description: Account balance response
+      properties:
+        accountId:
+          type: string
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Balance'
+    ErrorResponse:
+      type: object
+      description: API error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: string
+          description: Additional error details
+        requestId:
+          type: string
+          description: Request identifier for support
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+externalDocs:
+  description: Documentation
+  url: https://developer.bankofamerica.com/

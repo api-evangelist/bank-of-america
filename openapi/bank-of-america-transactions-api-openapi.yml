@@ -1,0 +1,149 @@
+openapi: 3.1.0
+info:
+  title: Bank of America Accounts Transactions API
+  description: Bank of America provides developer APIs for banking services including payments, account management, and treasury services. The APIs enable corporate clients and fintech partners to integrate banking operations.
+  version: '1.0'
+  contact:
+    name: Bank of America Developer Support
+    url: https://developer.bankofamerica.com/
+servers:
+- url: https://api.bankofamerica.com
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Transactions
+paths:
+  /accounts/{accountId}/transactions:
+    get:
+      operationId: listTransactions
+      summary: List Transactions
+      description: Retrieve a paginated list of transactions for a specific account within a date range.
+      tags:
+      - Transactions
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        description: Unique account identifier
+        schema:
+          type: string
+      - name: fromDate
+        in: query
+        description: Start date for transaction history (ISO 8601)
+        schema:
+          type: string
+          format: date
+      - name: toDate
+        in: query
+        description: End date for transaction history (ISO 8601)
+        schema:
+          type: string
+          format: date
+      - name: limit
+        in: query
+        description: Maximum number of transactions to return
+        schema:
+          type: integer
+          default: 100
+          maximum: 500
+      - name: offset
+        in: query
+        description: Pagination offset
+        schema:
+          type: integer
+          default: 0
+      responses:
+        '200':
+          description: Transaction list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Transaction:
+      type: object
+      description: An account transaction record
+      properties:
+        transactionId:
+          type: string
+          description: Unique transaction identifier
+        accountId:
+          type: string
+          description: Account the transaction belongs to
+        type:
+          type: string
+          description: Transaction type (debit, credit)
+          enum:
+          - debit
+          - credit
+        amount:
+          type: number
+          format: double
+          description: Transaction amount
+        currency:
+          type: string
+          description: Transaction currency
+        description:
+          type: string
+          description: Transaction description or memo
+        referenceNumber:
+          type: string
+          description: Bank reference number
+        valueDate:
+          type: string
+          format: date
+          description: Value date of the transaction
+        postDate:
+          type: string
+          format: date
+          description: Post date of the transaction
+        status:
+          type: string
+          description: Transaction status
+    TransactionListResponse:
+      type: object
+      description: Paginated list of transactions
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+        totalCount:
+          type: integer
+        pageSize:
+          type: integer
+        offset:
+          type: integer
+    ErrorResponse:
+      type: object
+      description: API error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: string
+          description: Additional error details
+        requestId:
+          type: string
+          description: Request identifier for support
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+externalDocs:
+  description: Documentation
+  url: https://developer.bankofamerica.com/

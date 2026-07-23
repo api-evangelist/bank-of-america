@@ -1,0 +1,161 @@
+openapi: 3.1.0
+info:
+  title: Bank of America Accounts API
+  description: Bank of America provides developer APIs for banking services including payments, account management, and treasury services. The APIs enable corporate clients and fintech partners to integrate banking operations.
+  version: '1.0'
+  contact:
+    name: Bank of America Developer Support
+    url: https://developer.bankofamerica.com/
+servers:
+- url: https://api.bankofamerica.com
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Accounts
+paths:
+  /accounts:
+    get:
+      operationId: listAccounts
+      summary: List Accounts
+      description: Retrieve a list of accounts associated with the authenticated CashPro client.
+      tags:
+      - Accounts
+      parameters:
+      - name: accountType
+        in: query
+        description: Filter by account type (checking, savings, etc.)
+        schema:
+          type: string
+      - name: currency
+        in: query
+        description: Filter by currency code (ISO 4217)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with account list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountListResponse'
+        '401':
+          description: Unauthorized — invalid or missing credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden — insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /accounts/{accountId}:
+    get:
+      operationId: getAccount
+      summary: Get Account Details
+      description: Retrieve detailed information for a specific account including current balance and account metadata.
+      tags:
+      - Accounts
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        description: Unique account identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Account:
+      type: object
+      description: A Bank of America CashPro account
+      properties:
+        accountId:
+          type: string
+          description: Unique account identifier
+        accountNumber:
+          type: string
+          description: Masked account number
+        accountName:
+          type: string
+          description: Account display name
+        accountType:
+          type: string
+          description: Account type (checking, savings, etc.)
+        currency:
+          type: string
+          description: Account currency (ISO 4217)
+        routingNumber:
+          type: string
+          description: ABA routing number
+        status:
+          type: string
+          description: Account status
+          enum:
+          - active
+          - inactive
+          - closed
+        openDate:
+          type: string
+          format: date
+          description: Date the account was opened
+    AccountListResponse:
+      type: object
+      description: Paginated list of accounts
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        totalCount:
+          type: integer
+          description: Total number of accounts
+        pageSize:
+          type: integer
+        offset:
+          type: integer
+    ErrorResponse:
+      type: object
+      description: API error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: string
+          description: Additional error details
+        requestId:
+          type: string
+          description: Request identifier for support
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+externalDocs:
+  description: Documentation
+  url: https://developer.bankofamerica.com/

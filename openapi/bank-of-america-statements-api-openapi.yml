@@ -1,0 +1,147 @@
+openapi: 3.1.0
+info:
+  title: Bank of America Accounts Statements API
+  description: Bank of America provides developer APIs for banking services including payments, account management, and treasury services. The APIs enable corporate clients and fintech partners to integrate banking operations.
+  version: '1.0'
+  contact:
+    name: Bank of America Developer Support
+    url: https://developer.bankofamerica.com/
+servers:
+- url: https://api.bankofamerica.com
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Statements
+paths:
+  /statements:
+    get:
+      operationId: listStatements
+      summary: List Statements
+      description: Retrieve a list of available account statements.
+      tags:
+      - Statements
+      parameters:
+      - name: accountId
+        in: query
+        description: Filter statements by account ID
+        schema:
+          type: string
+      - name: year
+        in: query
+        description: Filter by statement year
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Statement list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatementListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /statements/{statementId}:
+    get:
+      operationId: getStatement
+      summary: Get Statement
+      description: Retrieve a specific account statement by ID.
+      tags:
+      - Statements
+      parameters:
+      - name: statementId
+        in: path
+        required: true
+        description: Unique statement identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Statement details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statement'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Statement not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    StatementListResponse:
+      type: object
+      description: List of available statements
+      properties:
+        statements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Statement'
+        totalCount:
+          type: integer
+    Statement:
+      type: object
+      description: An account statement
+      properties:
+        statementId:
+          type: string
+          description: Unique statement identifier
+        accountId:
+          type: string
+          description: Associated account ID
+        statementDate:
+          type: string
+          format: date
+          description: Statement date
+        openingBalance:
+          type: number
+          format: double
+        closingBalance:
+          type: number
+          format: double
+        currency:
+          type: string
+        totalCredits:
+          type: number
+          format: double
+        totalDebits:
+          type: number
+          format: double
+        transactionCount:
+          type: integer
+    ErrorResponse:
+      type: object
+      description: API error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: string
+          description: Additional error details
+        requestId:
+          type: string
+          description: Request identifier for support
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+externalDocs:
+  description: Documentation
+  url: https://developer.bankofamerica.com/

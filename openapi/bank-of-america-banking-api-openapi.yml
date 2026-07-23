@@ -1,32 +1,27 @@
 openapi: 3.1.0
 info:
-  title: Bank of America API
-  description: >-
-    Bank of America provides developer APIs for banking services including payments, account management, and treasury services. The APIs enable corporate clients and fintech partners to integrate banking operations.
+  title: Bank of America Accounts Banking API
+  description: Bank of America provides developer APIs for banking services including payments, account management, and treasury services. The APIs enable corporate clients and fintech partners to integrate banking operations.
   version: '1.0'
   contact:
     name: Bank of America Developer Support
     url: https://developer.bankofamerica.com/
-externalDocs:
-  description: Documentation
-  url: https://developer.bankofamerica.com/
 servers:
-  - url: https://api.bankofamerica.com
-    description: Production
-tags:
-  - name: Banking
-    description: Banking operations
+- url: https://api.bankofamerica.com
+  description: Production
 security:
-  - bearerAuth: []
+- bearerAuth: []
+tags:
+- name: Banking
+  description: Banking operations
 paths:
   /status:
     get:
       operationId: getStatus
       summary: Get API status
-      description: >-
-        Returns the current status of the API.
+      description: Returns the current status of the API.
       tags:
-        - Banking
+      - Banking
       responses:
         '200':
           description: Success
@@ -48,3 +43,6 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
+externalDocs:
+  description: Documentation
+  url: https://developer.bankofamerica.com/
