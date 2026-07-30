@@ -1,4 +1,18 @@
 aid: bank-of-america
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bank-of-america.png
 url: https://raw.githubusercontent.com/api-evangelist/bank-of-america/refs/heads/main/apis.yml
 name: Bank of America
 tags:
@@ -17,30 +31,90 @@ description: Bank of America is a multinational investment bank and financial se
   balance reporting, and statement access, supporting over 350 payment types and integration
   with TMS and ERP platforms.
 apis:
-- aid: bank-of-america:cashpro-api
-  name: Bank of America CashPro API
+- aid: bank-of-america:bank-of-america-accounts-api
+  name: Bank of America Accounts API
+  description: The Accounts API from Bank of America — 2 operation(s) for accounts.
+  humanURL: https://developer.bankofamerica.com/
+  baseURL: https://api.bankofamerica.com/cashpro/v1
   tags:
   - Accounts
-  - Balances
-  - Banking
-  - Corporate Banking
-  - Payments
-  - Statements
-  - Treasury
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.bankofamerica.com/cashpro/v1
-  humanURL: https://developer.bankofamerica.com/
   properties:
-  - url: https://developer.bankofamerica.com/
-    type: Documentation
-  - url: openapi/bank-of-america-cashpro-api-openapi.yml
-    type: OpenAPI
-  - url: graphql/bank-of-america-graphql.md
-    type: GraphQL
-  description: The Bank of America CashPro API enables corporate treasury clients
-    to programmatically access banking services including payments, account information,
-    balance reporting, and transaction history. The API supports over 350 payment
-    types and integrates with Treasury Management Systems (TMS) and ERP platforms.
+  - type: OpenAPI
+    url: openapi/bank-of-america-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bankofamerica.com/
+  - type: GraphQL
+    url: graphql/bank-of-america-graphql.md
+- aid: bank-of-america:bank-of-america-balances-api
+  name: Bank of America Balances API
+  description: The Balances API from Bank of America — 1 operation(s) for balances.
+  humanURL: https://developer.bankofamerica.com/
+  baseURL: https://api.bankofamerica.com/cashpro/v1
+  tags:
+  - Balances
+  properties:
+  - type: OpenAPI
+    url: openapi/bank-of-america-balances-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bankofamerica.com/
+  - type: GraphQL
+    url: graphql/bank-of-america-graphql.md
+- aid: bank-of-america:bank-of-america-banking-api
+  name: Bank of America Banking API
+  description: Banking operations
+  humanURL: https://developer.bankofamerica.com/
+  baseURL: https://api.bankofamerica.com/cashpro/v1
+  tags:
+  - Banking
+  properties:
+  - type: OpenAPI
+    url: openapi/bank-of-america-banking-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bankofamerica.com/
+  - type: GraphQL
+    url: graphql/bank-of-america-graphql.md
+- aid: bank-of-america:bank-of-america-payments-api
+  name: Bank of America Payments API
+  description: The Payments API from Bank of America — 2 operation(s) for payments.
+  humanURL: https://developer.bankofamerica.com/
+  baseURL: https://api.bankofamerica.com/cashpro/v1
+  tags:
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/bank-of-america-payments-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bankofamerica.com/
+  - type: GraphQL
+    url: graphql/bank-of-america-graphql.md
+- aid: bank-of-america:bank-of-america-statements-api
+  name: Bank of America Statements API
+  description: The Statements API from Bank of America — 2 operation(s) for statements.
+  humanURL: https://developer.bankofamerica.com/
+  baseURL: https://api.bankofamerica.com/cashpro/v1
+  tags:
+  - Statements
+  properties:
+  - type: OpenAPI
+    url: openapi/bank-of-america-statements-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bankofamerica.com/
+  - type: GraphQL
+    url: graphql/bank-of-america-graphql.md
+- aid: bank-of-america:bank-of-america-transactions-api
+  name: Bank of America Transactions API
+  description: The Transactions API from Bank of America — 1 operation(s) for transactions.
+  humanURL: https://developer.bankofamerica.com/
+  baseURL: https://api.bankofamerica.com/cashpro/v1
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/bank-of-america-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bankofamerica.com/
+  - type: GraphQL
+    url: graphql/bank-of-america-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/bank-of-america-agentic-access.yml
