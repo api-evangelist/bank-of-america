@@ -1,0 +1,24 @@
+{
+  "provider": "bank-of-america",
+  "sources": [
+    "bank-of-america-accounts-api-openapi.yml",
+    "bank-of-america-balances-api-openapi.yml",
+    "bank-of-america-banking-api-openapi.yml",
+    "bank-of-america-payments-api-openapi.yml",
+    "bank-of-america-statements-api-openapi.yml",
+    "bank-of-america-transactions-api-openapi.yml"
+  ],
+  "outputs": [
+    "bank-of-america-accounts-api-openapi.yml",
+    "bank-of-america-balances-api-openapi.yml",
+    "bank-of-america-banking-api-openapi.yml",
+    "bank-of-america-payments-api-openapi.yml",
+    "bank-of-america-statements-api-openapi.yml",
+    "bank-of-america-transactions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
