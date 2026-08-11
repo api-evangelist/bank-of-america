@@ -116,6 +116,8 @@ apis:
   - type: GraphQL
     url: graphql/bank-of-america-graphql.md
 common:
+- type: Support
+  url: https://www.bankofamerica.com/help/overview/
 - type: AgenticAccess
   url: agentic-access/bank-of-america-agentic-access.yml
 - type: DomainSecurity
