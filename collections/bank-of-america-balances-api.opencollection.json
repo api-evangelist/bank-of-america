@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bank of America Accounts Balances API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Balances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Account Balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bankofamerica.com/accounts/:accountId/balances",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "asOf",
+                "value": "",
+                "type": "query",
+                "description": "Balance as of date (ISO 8601)"
+              }
+            ]
+          },
+          "docs": "Retrieve current and available balances for a specific account including intraday balance information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

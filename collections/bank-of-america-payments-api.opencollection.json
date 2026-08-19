@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bank of America Accounts Payments API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bankofamerica.com/payments",
+            "params": [
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date filter (ISO 8601)"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "End date filter (ISO 8601)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by payment status"
+              },
+              {
+                "name": "paymentType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by payment type"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of payment transactions filtered by date range and status."
+        },
+        {
+          "info": {
+            "name": "Initiate Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bankofamerica.com/payments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate a payment transaction. Supports over 350 payment types including ACH, wire transfers, SWIFT, checks, and real-time payments. The payment type is determined by the paymentType field in the request body."
+        },
+        {
+          "info": {
+            "name": "Get Payment Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bankofamerica.com/payments/:paymentId",
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique payment transaction identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve the current status and details of a specific payment transaction."
+        },
+        {
+          "info": {
+            "name": "Cancel Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.bankofamerica.com/payments/:paymentId",
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique payment identifier"
+              }
+            ]
+          },
+          "docs": "Cancel a pending payment that has not yet been processed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

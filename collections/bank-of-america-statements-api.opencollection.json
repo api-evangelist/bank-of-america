@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bank of America Accounts Statements API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Statements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Statements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bankofamerica.com/statements",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query",
+                "description": "Filter statements by account ID"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "Filter by statement year"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of available account statements."
+        },
+        {
+          "info": {
+            "name": "Get Statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bankofamerica.com/statements/:statementId",
+            "params": [
+              {
+                "name": "statementId",
+                "value": "",
+                "type": "path",
+                "description": "Unique statement identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific account statement by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

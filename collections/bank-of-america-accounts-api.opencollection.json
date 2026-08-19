@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bank of America Accounts API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bankofamerica.com/accounts",
+            "params": [
+              {
+                "name": "accountType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by account type (checking, savings, etc.)"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Filter by currency code (ISO 4217)"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of accounts associated with the authenticated CashPro client."
+        },
+        {
+          "info": {
+            "name": "Get Account Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bankofamerica.com/accounts/:accountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific account including current balance and account metadata."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
