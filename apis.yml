@@ -132,6 +132,9 @@ apis:
   - type: GraphQL
     url: graphql/bank-of-america-graphql.md
 common:
+- type: CapabilityMap
+  url: capabilities/bank-of-america-capability-edges.yml
+  name: Bank of America Business Capability Map
 - type: Support
   url: https://www.bankofamerica.com/help/overview/
 - type: AgenticAccess
