@@ -1,16 +1,18 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Bank of America Accounts Payments API
-  description: Bank of America provides developer APIs for banking services including payments, account management, and treasury services. The APIs enable corporate clients and fintech partners to integrate banking operations.
-  version: '1.0'
+  title: Bank of America CashPro Payments API
+  description: The Bank of America CashPro API enables corporate treasury clients to programmatically access banking services including payments, account information, balance reporting, and transaction history. The API supports over 350 payment types and integrates with Treasury Management Systems (TMS) and ERP platforms.
+  version: 1.0.0
   contact:
-    name: Bank of America Developer Support
+    email: GlobalAPIOps@bofa.com
     url: https://developer.bankofamerica.com/
 servers:
-- url: https://api.bankofamerica.com
-  description: Production
+- url: https://api.bankofamerica.com/cashpro/v1
+  description: CashPro API Production
+- url: https://sandbox.bankofamerica.com/cashpro/v1
+  description: CashPro API Sandbox
 security:
-- bearerAuth: []
+- OAuth2: []
 tags:
 - name: Payments
 paths:
@@ -179,6 +181,20 @@ components:
         requestId:
           type: string
           description: Request identifier for support
+    PaymentListResponse:
+      type: object
+      description: Paginated list of payments
+      properties:
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentResponse'
+        totalCount:
+          type: integer
+        pageSize:
+          type: integer
+        offset:
+          type: integer
     PaymentRequest:
       type: object
       description: Payment initiation request
@@ -214,6 +230,28 @@ components:
           description: Payment memo or description
         beneficiary:
           $ref: '#/components/schemas/Beneficiary'
+    Beneficiary:
+      type: object
+      description: Payment beneficiary details
+      properties:
+        name:
+          type: string
+          description: Beneficiary name
+        accountNumber:
+          type: string
+          description: Beneficiary account number
+        routingNumber:
+          type: string
+          description: Beneficiary bank routing number (ABA)
+        bankName:
+          type: string
+          description: Beneficiary bank name
+        bankAddress:
+          type: string
+          description: Beneficiary bank address
+        swiftCode:
+          type: string
+          description: SWIFT/BIC code for international wires
     PaymentResponse:
       type: object
       description: Payment transaction response
@@ -253,46 +291,14 @@ components:
         statusMessage:
           type: string
           description: Additional status information
-    PaymentListResponse:
-      type: object
-      description: Paginated list of payments
-      properties:
-        payments:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentResponse'
-        totalCount:
-          type: integer
-        pageSize:
-          type: integer
-        offset:
-          type: integer
-    Beneficiary:
-      type: object
-      description: Payment beneficiary details
-      properties:
-        name:
-          type: string
-          description: Beneficiary name
-        accountNumber:
-          type: string
-          description: Beneficiary account number
-        routingNumber:
-          type: string
-          description: Beneficiary bank routing number (ABA)
-        bankName:
-          type: string
-          description: Beneficiary bank name
-        bankAddress:
-          type: string
-          description: Beneficiary bank address
-        swiftCode:
-          type: string
-          description: SWIFT/BIC code for international wires
   securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-externalDocs:
-  description: Documentation
-  url: https://developer.bankofamerica.com/
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.bankofamerica.com/oauth/token
+          scopes:
+            accounts:read: Read account information and balances
+            transactions:read: Read transaction history
+            payments:write: Initiate and manage payments
+            statements:read: Access account statements

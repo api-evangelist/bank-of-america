@@ -1,17 +1,13 @@
 {
   "provider": "bank-of-america",
   "sources": [
-    "bank-of-america-accounts-api-openapi.yml",
-    "bank-of-america-balances-api-openapi.yml",
-    "bank-of-america-banking-api-openapi.yml",
-    "bank-of-america-payments-api-openapi.yml",
-    "bank-of-america-statements-api-openapi.yml",
-    "bank-of-america-transactions-api-openapi.yml"
+    "_original/bank-of-america-bofa-api-openapi.yml",
+    "_original/bank-of-america-cashpro-api-openapi.yml"
   ],
   "outputs": [
+    "bank-of-america-banking-api-openapi.yml",
     "bank-of-america-accounts-api-openapi.yml",
     "bank-of-america-balances-api-openapi.yml",
-    "bank-of-america-banking-api-openapi.yml",
     "bank-of-america-payments-api-openapi.yml",
     "bank-of-america-statements-api-openapi.yml",
     "bank-of-america-transactions-api-openapi.yml"
@@ -19,6 +15,22 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "bank-of-america-bofa-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "bank-of-america-cashpro-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "bank-of-america-cashpro-api-openapi.yml: declared missing tag: Accounts",
+    "bank-of-america-cashpro-api-openapi.yml: declared missing tag: Balances",
+    "bank-of-america-cashpro-api-openapi.yml: declared missing tag: Payments",
+    "bank-of-america-cashpro-api-openapi.yml: declared missing tag: Statements",
+    "bank-of-america-cashpro-api-openapi.yml: declared missing tag: Transactions"
+  ],
+  "skipped": [
+    "bank-of-america-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bank-of-america-balances-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bank-of-america-banking-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bank-of-america-payments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bank-of-america-statements-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bank-of-america-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
