@@ -23,7 +23,8 @@
     "bank-of-america-cashpro-api-openapi.yml: declared missing tag: Balances",
     "bank-of-america-cashpro-api-openapi.yml: declared missing tag: Payments",
     "bank-of-america-cashpro-api-openapi.yml: declared missing tag: Statements",
-    "bank-of-america-cashpro-api-openapi.yml: declared missing tag: Transactions"
+    "bank-of-america-cashpro-api-openapi.yml: declared missing tag: Transactions",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "bank-of-america-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",

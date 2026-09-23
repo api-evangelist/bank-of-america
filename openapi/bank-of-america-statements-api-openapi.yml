@@ -82,6 +82,24 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: API error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: string
+          description: Additional error details
+        requestId:
+          type: string
+          description: Request identifier for support
     Statement:
       type: object
       description: An account statement
@@ -112,24 +130,6 @@ components:
           format: double
         transactionCount:
           type: integer
-    ErrorResponse:
-      type: object
-      description: API error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: array
-          items:
-            type: string
-          description: Additional error details
-        requestId:
-          type: string
-          description: Request identifier for support
     StatementListResponse:
       type: object
       description: List of available statements

@@ -1,7 +1,9 @@
 ---
 title: Bank of America reports AI-driven workforce boost as ...
 url: https://www.bizjournals.com/charlotte/news/2026/01/14/bank-of-america-bac-jobs-ai-technology-labor-work.html
-date: '2026-05-25'
+published: '2026-01-14'
+date_basis: url-derived
+harvested: '2026-05-25'
 query: '"Bank of America Corp." press release artificial intelligence'
 position: 3
 source: serpapi-google

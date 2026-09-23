@@ -1,7 +1,9 @@
 ---
 title: Bank Of America Bets Big On AI With $4 Billion Investment ...
 url: https://www.benzinga.com/tech/25/04/44878856/bank-of-america-bets-big-on-ai-with-4-billion-investment-and-its-already-paying-off
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Bank of America Corp." press release artificial intelligence'
 position: 4
 source: serpapi-google

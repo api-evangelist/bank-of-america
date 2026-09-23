@@ -1,7 +1,9 @@
 ---
 title: 'Broadcom''s bold AI opportunity: Bank of America resets'
 url: https://www.facebook.com/sacramentobee/posts/broadcoms-bold-ai-opportunity-bank-of-america-resets-expectations/1386850996819716/
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Bank of America Corp." press release artificial intelligence'
 position: 2
 source: serpapi-google

@@ -163,73 +163,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      description: API error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: array
-          items:
-            type: string
-          description: Additional error details
-        requestId:
-          type: string
-          description: Request identifier for support
-    PaymentListResponse:
-      type: object
-      description: Paginated list of payments
-      properties:
-        payments:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentResponse'
-        totalCount:
-          type: integer
-        pageSize:
-          type: integer
-        offset:
-          type: integer
-    PaymentRequest:
-      type: object
-      description: Payment initiation request
-      required:
-      - paymentType
-      - amount
-      - currency
-      - debitAccountId
-      - beneficiary
-      properties:
-        paymentType:
-          type: string
-          description: Payment type (ACH_CREDIT, WIRE, SWIFT, CHECK, RTP, etc.)
-        amount:
-          type: number
-          format: double
-          description: Payment amount
-        currency:
-          type: string
-          description: Payment currency (ISO 4217)
-        debitAccountId:
-          type: string
-          description: Account to debit
-        valueDate:
-          type: string
-          format: date
-          description: Requested value date (ISO 8601)
-        reference:
-          type: string
-          description: Client reference number
-        memo:
-          type: string
-          description: Payment memo or description
-        beneficiary:
-          $ref: '#/components/schemas/Beneficiary'
     Beneficiary:
       type: object
       description: Payment beneficiary details
@@ -291,6 +224,73 @@ components:
         statusMessage:
           type: string
           description: Additional status information
+    PaymentListResponse:
+      type: object
+      description: Paginated list of payments
+      properties:
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentResponse'
+        totalCount:
+          type: integer
+        pageSize:
+          type: integer
+        offset:
+          type: integer
+    ErrorResponse:
+      type: object
+      description: API error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: string
+          description: Additional error details
+        requestId:
+          type: string
+          description: Request identifier for support
+    PaymentRequest:
+      type: object
+      description: Payment initiation request
+      required:
+      - paymentType
+      - amount
+      - currency
+      - debitAccountId
+      - beneficiary
+      properties:
+        paymentType:
+          type: string
+          description: Payment type (ACH_CREDIT, WIRE, SWIFT, CHECK, RTP, etc.)
+        amount:
+          type: number
+          format: double
+          description: Payment amount
+        currency:
+          type: string
+          description: Payment currency (ISO 4217)
+        debitAccountId:
+          type: string
+          description: Account to debit
+        valueDate:
+          type: string
+          format: date
+          description: Requested value date (ISO 8601)
+        reference:
+          type: string
+          description: Client reference number
+        memo:
+          type: string
+          description: Payment memo or description
+        beneficiary:
+          $ref: '#/components/schemas/Beneficiary'
   securitySchemes:
     OAuth2:
       type: oauth2

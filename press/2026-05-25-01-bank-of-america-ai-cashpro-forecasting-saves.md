@@ -1,7 +1,9 @@
 ---
 title: Bank of America AI CashPro Forecasting saves ...
 url: https://www.stocktitan.net/news/BAC/bof-a-s-ai-solution-cash-pro-forecasting-tm-helps-clients-navigate-xglvcv7x13mx.html
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Bank of America Corp." press release artificial intelligence'
 position: 1
 source: serpapi-google
