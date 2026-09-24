@@ -57,8 +57,6 @@ apis:
     url: openapi/bank-of-america-accounts-api-openapi.yml
   - type: Documentation
     url: https://developer.bankofamerica.com/
-  - type: GraphQL
-    url: graphql/bank-of-america-graphql.md
 - aid: bank-of-america:bank-of-america-balances-api
   name: Bank of America Balances API
   description: The Balances API from Bank of America — 1 operation(s) for balances.
@@ -71,8 +69,6 @@ apis:
     url: openapi/bank-of-america-balances-api-openapi.yml
   - type: Documentation
     url: https://developer.bankofamerica.com/
-  - type: GraphQL
-    url: graphql/bank-of-america-graphql.md
 - aid: bank-of-america:bank-of-america-banking-api
   name: Bank of America Banking API
   description: Banking operations
@@ -85,8 +81,6 @@ apis:
     url: openapi/bank-of-america-banking-api-openapi.yml
   - type: Documentation
     url: https://developer.bankofamerica.com/
-  - type: GraphQL
-    url: graphql/bank-of-america-graphql.md
 - aid: bank-of-america:bank-of-america-payments-api
   name: Bank of America Payments API
   description: The Payments API from Bank of America — 2 operation(s) for payments.
@@ -99,8 +93,6 @@ apis:
     url: openapi/bank-of-america-payments-api-openapi.yml
   - type: Documentation
     url: https://developer.bankofamerica.com/
-  - type: GraphQL
-    url: graphql/bank-of-america-graphql.md
 - aid: bank-of-america:bank-of-america-statements-api
   name: Bank of America Statements API
   description: The Statements API from Bank of America — 2 operation(s) for statements.
@@ -113,8 +105,6 @@ apis:
     url: openapi/bank-of-america-statements-api-openapi.yml
   - type: Documentation
     url: https://developer.bankofamerica.com/
-  - type: GraphQL
-    url: graphql/bank-of-america-graphql.md
 - aid: bank-of-america:bank-of-america-transactions-api
   name: Bank of America Transactions API
   description: The Transactions API from Bank of America — 1 operation(s) for transactions.
@@ -129,8 +119,6 @@ apis:
     url: openapi/bank-of-america-transactions-api-openapi.yml
   - type: Documentation
     url: https://developer.bankofamerica.com/
-  - type: GraphQL
-    url: graphql/bank-of-america-graphql.md
 common:
 - type: CapabilityMap
   url: capabilities/bank-of-america-capability-edges.yml
