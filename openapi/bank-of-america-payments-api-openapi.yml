@@ -163,28 +163,55 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    Beneficiary:
+    PaymentRequest:
       type: object
-      description: Payment beneficiary details
+      description: Payment initiation request
+      required:
+      - paymentType
+      - amount
+      - currency
+      - debitAccountId
+      - beneficiary
       properties:
-        name:
+        paymentType:
           type: string
-          description: Beneficiary name
-        accountNumber:
+          description: Payment type (ACH_CREDIT, WIRE, SWIFT, CHECK, RTP, etc.)
+        amount:
+          type: number
+          format: double
+          description: Payment amount
+        currency:
           type: string
-          description: Beneficiary account number
-        routingNumber:
+          description: Payment currency (ISO 4217)
+        debitAccountId:
           type: string
-          description: Beneficiary bank routing number (ABA)
-        bankName:
+          description: Account to debit
+        valueDate:
           type: string
-          description: Beneficiary bank name
-        bankAddress:
+          format: date
+          description: Requested value date (ISO 8601)
+        reference:
           type: string
-          description: Beneficiary bank address
-        swiftCode:
+          description: Client reference number
+        memo:
           type: string
-          description: SWIFT/BIC code for international wires
+          description: Payment memo or description
+        beneficiary:
+          $ref: '#/components/schemas/Beneficiary'
+    PaymentListResponse:
+      type: object
+      description: Paginated list of payments
+      properties:
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentResponse'
+        totalCount:
+          type: integer
+        pageSize:
+          type: integer
+        offset:
+          type: integer
     PaymentResponse:
       type: object
       description: Payment transaction response
@@ -224,20 +251,28 @@ components:
         statusMessage:
           type: string
           description: Additional status information
-    PaymentListResponse:
+    Beneficiary:
       type: object
-      description: Paginated list of payments
+      description: Payment beneficiary details
       properties:
-        payments:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentResponse'
-        totalCount:
-          type: integer
-        pageSize:
-          type: integer
-        offset:
-          type: integer
+        name:
+          type: string
+          description: Beneficiary name
+        accountNumber:
+          type: string
+          description: Beneficiary account number
+        routingNumber:
+          type: string
+          description: Beneficiary bank routing number (ABA)
+        bankName:
+          type: string
+          description: Beneficiary bank name
+        bankAddress:
+          type: string
+          description: Beneficiary bank address
+        swiftCode:
+          type: string
+          description: SWIFT/BIC code for international wires
     ErrorResponse:
       type: object
       description: API error response
@@ -256,41 +291,6 @@ components:
         requestId:
           type: string
           description: Request identifier for support
-    PaymentRequest:
-      type: object
-      description: Payment initiation request
-      required:
-      - paymentType
-      - amount
-      - currency
-      - debitAccountId
-      - beneficiary
-      properties:
-        paymentType:
-          type: string
-          description: Payment type (ACH_CREDIT, WIRE, SWIFT, CHECK, RTP, etc.)
-        amount:
-          type: number
-          format: double
-          description: Payment amount
-        currency:
-          type: string
-          description: Payment currency (ISO 4217)
-        debitAccountId:
-          type: string
-          description: Account to debit
-        valueDate:
-          type: string
-          format: date
-          description: Requested value date (ISO 8601)
-        reference:
-          type: string
-          description: Client reference number
-        memo:
-          type: string
-          description: Payment memo or description
-        beneficiary:
-          $ref: '#/components/schemas/Beneficiary'
   securitySchemes:
     OAuth2:
       type: oauth2

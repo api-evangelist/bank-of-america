@@ -100,6 +100,16 @@ components:
         requestId:
           type: string
           description: Request identifier for support
+    StatementListResponse:
+      type: object
+      description: List of available statements
+      properties:
+        statements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Statement'
+        totalCount:
+          type: integer
     Statement:
       type: object
       description: An account statement
@@ -129,16 +139,6 @@ components:
           type: number
           format: double
         transactionCount:
-          type: integer
-    StatementListResponse:
-      type: object
-      description: List of available statements
-      properties:
-        statements:
-          type: array
-          items:
-            $ref: '#/components/schemas/Statement'
-        totalCount:
           type: integer
   securitySchemes:
     OAuth2:
