@@ -51,6 +51,32 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    Balance:
+      type: object
+      description: Account balance information
+      properties:
+        accountId:
+          type: string
+          description: Account identifier
+        ledgerBalance:
+          type: number
+          format: double
+          description: Current ledger balance
+        availableBalance:
+          type: number
+          format: double
+          description: Available balance for transactions
+        collectedBalance:
+          type: number
+          format: double
+          description: Collected balance after float
+        currency:
+          type: string
+          description: Balance currency (ISO 4217)
+        asOfDate:
+          type: string
+          format: date-time
+          description: Balance as of timestamp
     BalanceResponse:
       type: object
       description: Account balance response
@@ -79,32 +105,6 @@ components:
         requestId:
           type: string
           description: Request identifier for support
-    Balance:
-      type: object
-      description: Account balance information
-      properties:
-        accountId:
-          type: string
-          description: Account identifier
-        ledgerBalance:
-          type: number
-          format: double
-          description: Current ledger balance
-        availableBalance:
-          type: number
-          format: double
-          description: Available balance for transactions
-        collectedBalance:
-          type: number
-          format: double
-          description: Collected balance after float
-        currency:
-          type: string
-          description: Balance currency (ISO 4217)
-        asOfDate:
-          type: string
-          format: date-time
-          description: Balance as of timestamp
   securitySchemes:
     OAuth2:
       type: oauth2

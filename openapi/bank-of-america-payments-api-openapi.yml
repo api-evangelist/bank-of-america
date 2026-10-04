@@ -163,6 +163,20 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    PaymentListResponse:
+      type: object
+      description: Paginated list of payments
+      properties:
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentResponse'
+        totalCount:
+          type: integer
+        pageSize:
+          type: integer
+        offset:
+          type: integer
     PaymentResponse:
       type: object
       description: Payment transaction response
@@ -202,60 +216,6 @@ components:
         statusMessage:
           type: string
           description: Additional status information
-    PaymentListResponse:
-      type: object
-      description: Paginated list of payments
-      properties:
-        payments:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentResponse'
-        totalCount:
-          type: integer
-        pageSize:
-          type: integer
-        offset:
-          type: integer
-    ErrorResponse:
-      type: object
-      description: API error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: array
-          items:
-            type: string
-          description: Additional error details
-        requestId:
-          type: string
-          description: Request identifier for support
-    Beneficiary:
-      type: object
-      description: Payment beneficiary details
-      properties:
-        name:
-          type: string
-          description: Beneficiary name
-        accountNumber:
-          type: string
-          description: Beneficiary account number
-        routingNumber:
-          type: string
-          description: Beneficiary bank routing number (ABA)
-        bankName:
-          type: string
-          description: Beneficiary bank name
-        bankAddress:
-          type: string
-          description: Beneficiary bank address
-        swiftCode:
-          type: string
-          description: SWIFT/BIC code for international wires
     PaymentRequest:
       type: object
       description: Payment initiation request
@@ -291,6 +251,46 @@ components:
           description: Payment memo or description
         beneficiary:
           $ref: '#/components/schemas/Beneficiary'
+    Beneficiary:
+      type: object
+      description: Payment beneficiary details
+      properties:
+        name:
+          type: string
+          description: Beneficiary name
+        accountNumber:
+          type: string
+          description: Beneficiary account number
+        routingNumber:
+          type: string
+          description: Beneficiary bank routing number (ABA)
+        bankName:
+          type: string
+          description: Beneficiary bank name
+        bankAddress:
+          type: string
+          description: Beneficiary bank address
+        swiftCode:
+          type: string
+          description: SWIFT/BIC code for international wires
+    ErrorResponse:
+      type: object
+      description: API error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: string
+          description: Additional error details
+        requestId:
+          type: string
+          description: Request identifier for support
   securitySchemes:
     OAuth2:
       type: oauth2

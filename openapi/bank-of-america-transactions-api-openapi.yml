@@ -70,6 +70,38 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    TransactionListResponse:
+      type: object
+      description: Paginated list of transactions
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+        totalCount:
+          type: integer
+        pageSize:
+          type: integer
+        offset:
+          type: integer
+    ErrorResponse:
+      type: object
+      description: API error response
+      properties:
+        errorCode:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: string
+          description: Additional error details
+        requestId:
+          type: string
+          description: Request identifier for support
     Transaction:
       type: object
       description: An account transaction record
@@ -110,38 +142,6 @@ components:
         status:
           type: string
           description: Transaction status
-    ErrorResponse:
-      type: object
-      description: API error response
-      properties:
-        errorCode:
-          type: string
-          description: Machine-readable error code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: array
-          items:
-            type: string
-          description: Additional error details
-        requestId:
-          type: string
-          description: Request identifier for support
-    TransactionListResponse:
-      type: object
-      description: Paginated list of transactions
-      properties:
-        transactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Transaction'
-        totalCount:
-          type: integer
-        pageSize:
-          type: integer
-        offset:
-          type: integer
   securitySchemes:
     OAuth2:
       type: oauth2
