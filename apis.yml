@@ -121,6 +121,12 @@ apis:
   - type: Documentation
     url: https://developer.bankofamerica.com/
 common:
+- type: Plans
+  url: plans/bank-of-america-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/bank-of-america-rate-limits.yml
+- type: FinOps
+  url: finops/bank-of-america-finops.yml
 - type: CapabilityMap
   url: capabilities/bank-of-america-capability-edges.yml
   name: Bank of America Business Capability Map
