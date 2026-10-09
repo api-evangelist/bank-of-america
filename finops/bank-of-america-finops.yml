@@ -111,10 +111,8 @@ apis:
 unitEconomics:
   - name: Cost per Payment Transaction
     metric: total_payment_fees / payment_transactions
-    target: minimize via rail-mix optimization
   - name: FX Margin Rate
     metric: fx_margin_revenue / fx_volume
-    target: negotiate downward at relationship review
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
