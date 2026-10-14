@@ -1,5 +1,5 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/bank-of-america/integrations
 - https://n8n.io/integrations/bank-of-america/
@@ -9,8 +9,34 @@ checked:
 - https://composio.dev/toolkits/bank-of-america
 - https://monid.ai/tools/bank-of-america
 - https://n8n.io/integrations/bank-of-america/
+- https://registry.financialdataexchange.org/
 - https://zapier.com/apps/bank-of-america/integrations
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: FDX (Financial Data Exchange)
+  partner: fdx
+  type: contract
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://registry.financialdataexchange.org/
+  contract_reference:
+    register: FDX Registry
+    standard: FDX API
+    spec_file: null
+    register_api: https://registry.financialdataexchange.org/fdxregistryapi/organizations/search/listingTags
+    role: data-provider
+    member_type: MEMBER
+    registered_name: Bank of America
+    register_id: 113
+    registered_website: https://www.bankofamerica.com
+    country: United States
+    fdx_version:
+    - '5.1'
+    matched_by: domain:bankofamerica.com
+    detected_by: sweep-fdx.py
+    detected: '2026-10-14'
+  detected_by: sweep-fdx.py
+  first_seen: '2026-10-14'
 templates: []
