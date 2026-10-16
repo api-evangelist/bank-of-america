@@ -1,21 +1,19 @@
-# Kin Score artifact — bank-of-america — 2026-09-05T195450
+# Kin Score artifact — bank-of-america — 2026-10-11T110117
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: bank-of-america
-  schema_version: 0.18.3
-  scored_at: '2026-09-05'
-  run_ts: 2026-09-05T195450
-  composite: 42.5
-  band: developing
+  schema_version: 0.23.0
+  scored_at: '2026-10-11'
+  run_ts: 2026-10-11T110117
+  composite: 38.0
+  band: thin
   facets:
-    discoverability: 68.5
-    contract_quality: 66.6
-    governance: 28.8
+    discoverability: 66.1
+    contract_quality: 59.0
+    contract_governance: 27.3
     operational_transparency: 7.9
     developer_ergonomics: 19.0
-    commercial_clarity: 36.8
-    contract_governance: 28.8
     access_clarity: 36.8
   agent_readiness:
     score: 30.1
@@ -44,7 +42,7 @@ kin_score:
     applies: true
     regime: Banking & Open Finance
     regime_id: banking_open_finance
-    score: 53.2
+    score: 33.1
     matched_via: tags
   provenance:
     agentic_access: derived
