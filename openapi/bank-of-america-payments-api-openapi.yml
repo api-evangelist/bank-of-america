@@ -163,59 +163,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    PaymentListResponse:
-      type: object
-      description: Paginated list of payments
-      properties:
-        payments:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentResponse'
-        totalCount:
-          type: integer
-        pageSize:
-          type: integer
-        offset:
-          type: integer
-    PaymentResponse:
-      type: object
-      description: Payment transaction response
-      properties:
-        paymentId:
-          type: string
-          description: Unique payment identifier
-        clientReferenceId:
-          type: string
-          description: Client-provided reference
-        status:
-          type: string
-          description: Payment status
-          enum:
-          - pending
-          - processing
-          - completed
-          - rejected
-          - cancelled
-        paymentType:
-          type: string
-          description: Payment type
-        amount:
-          type: number
-          format: double
-        currency:
-          type: string
-        valueDate:
-          type: string
-          format: date
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-        statusMessage:
-          type: string
-          description: Additional status information
     PaymentRequest:
       type: object
       description: Payment initiation request
@@ -291,6 +238,59 @@ components:
         requestId:
           type: string
           description: Request identifier for support
+    PaymentResponse:
+      type: object
+      description: Payment transaction response
+      properties:
+        paymentId:
+          type: string
+          description: Unique payment identifier
+        clientReferenceId:
+          type: string
+          description: Client-provided reference
+        status:
+          type: string
+          description: Payment status
+          enum:
+          - pending
+          - processing
+          - completed
+          - rejected
+          - cancelled
+        paymentType:
+          type: string
+          description: Payment type
+        amount:
+          type: number
+          format: double
+        currency:
+          type: string
+        valueDate:
+          type: string
+          format: date
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        statusMessage:
+          type: string
+          description: Additional status information
+    PaymentListResponse:
+      type: object
+      description: Paginated list of payments
+      properties:
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentResponse'
+        totalCount:
+          type: integer
+        pageSize:
+          type: integer
+        offset:
+          type: integer
   securitySchemes:
     OAuth2:
       type: oauth2
