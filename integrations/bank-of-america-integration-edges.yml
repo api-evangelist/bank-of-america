@@ -16,34 +16,10 @@ checked:
 - https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv
 - https://www.ojk.go.id/id/kanal/iknb/data-dan-statistik/direktori/fintech/Default.aspx
 - https://zapier.com/apps/bank-of-america/integrations
+- https://listings.pcisecuritystandards.org/assessors_and_solutions
 summary: null
 marketplace_apps: []
 edges:
-- partner_name: FDX (Financial Data Exchange)
-  partner: fdx
-  type: contract
-  channel: standard-directory
-  relationship: standard-participant
-  direction: partner-built
-  evidence: https://registry.financialdataexchange.org/
-  contract_reference:
-    register: FDX Registry
-    standard: FDX API
-    spec_file: null
-    register_api: https://registry.financialdataexchange.org/fdxregistryapi/organizations/search/listingTags
-    role: data-provider
-    member_type: MEMBER
-    registered_name: Bank of America
-    register_id: 113
-    registered_website: https://www.bankofamerica.com
-    country: United States
-    fdx_version:
-    - '5.1'
-    matched_by: domain:bankofamerica.com
-    detected_by: sweep-fdx.py
-    detected: '2026-10-14'
-  detected_by: sweep-fdx.py
-  first_seen: '2026-10-14'
 - partner_name: ISO 10383 (MIC)
   partner: null
   type: register
@@ -88,9 +64,34 @@ edges:
       legal_name: ''
       country: US
     detected_by: sweep-capital-markets.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   detected_by: sweep-capital-markets.py
-  first_seen: '2026-10-15'
+  first_seen: '2026-10-19'
+- partner_name: FDX (Financial Data Exchange)
+  partner: fdx
+  type: contract
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://registry.financialdataexchange.org/
+  contract_reference:
+    register: FDX Registry
+    standard: FDX API
+    spec_file: null
+    register_api: https://registry.financialdataexchange.org/fdxregistryapi/organizations/search/listingTags
+    role: data-provider
+    member_type: MEMBER
+    registered_name: Bank of America
+    register_id: 113
+    registered_website: https://www.bankofamerica.com
+    country: United States
+    fdx_version:
+    - '5.1'
+    matched_by: domain:bankofamerica.com
+    detected_by: sweep-fdx.py
+    detected: '2026-10-19'
+  detected_by: sweep-fdx.py
+  first_seen: '2026-10-19'
 - partner_name: MAS Financial Institutions Directory
   partner: null
   partner_match: register
@@ -118,4 +119,36 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-gulf-asean-open-finance.py
   first_seen: '2026-10-18'
+- partner_name: PCI Security Standards Council (program listings)
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.pcisecuritystandards.org/assessors_and_solutions/point_to_point_encryption_solutions/
+  category: Payment security validation
+  contract_reference:
+    register: PCI SSC program listings (listings.pcisecuritystandards.org / pcisecuritystandards.org)
+    spec_file: null
+    standard: PCI SSC
+    role: pci-validated-vendor
+    registered_name: Bank of America N.A.
+    website: https://www.bankofamerica.com
+    matched_domain: bankofamerica.com
+    matched_by: domain
+    identity_source: the vendor website on the PCI SSC listing (no lookup)
+    certified_products:
+    - product: PCI P2PE Solution
+      lapsed: false
+      latest_expiry: '2027-09-19'
+      listed: 1
+    signal_note: one certified_products entry per PCI SSC program (Secure Software, PA-DSS, P2PE solution / component
+      / application, 3DS SDK, SPoC, CPoC, MPoC, PTS device, Secure SLC); lapsed = every listed product in that program
+      is past its expiry / reassessment date or marked expired; `listed` is context only. List Access Agreement
+      accepted on Kin's instruction 2026-10-20
+    detected_by: sweep-compliance-assurance.py
+    detected: '2026-10-20'
+  detected_by: sweep-compliance-assurance.py
+  first_seen: '2026-10-20'
 templates: []
