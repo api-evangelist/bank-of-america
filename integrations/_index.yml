@@ -164,3 +164,44 @@
     detected: '2026-10-22'
   status: not-a-workflow
   arazzo: null
+- slug: bank-of-america-fdic-bankfind-insured-institutions
+  label: FDIC BankFind insured institutions
+  partner_name: FDIC BankFind insured institutions
+  category: US FDIC-insured depository institution charter
+  type: register
+  channel: regulator-register
+  evidence: https://api.fdic.gov/banks/institutions?filters=ACTIVE:1&fields=NAME,WEBADDR,CERT,ASSET,STALP
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: FDIC BankFind insured institutions
+    spec_file: null
+    standard: null
+    role: insured-depository-institution
+    registrations:
+    - registered_name: Bank of America California, National Association
+      register_status: active
+      register_country: US
+      register_id: '25178'
+      matched_domain: bankofamerica.com
+      matched_by: domain
+      licences:
+      - FDIC-insured institution (CERT 25178)
+      evidence_url: https://banks.data.fdic.gov/bankfind-suite/bankfind/details/25178
+      state: CA
+    - registered_name: Bank of America, National Association
+      register_status: active
+      register_country: US
+      register_id: '3510'
+      matched_domain: bankofamerica.com
+      matched_by: domain
+      licences:
+      - FDIC-insured institution (CERT 3510)
+      evidence_url: https://banks.data.fdic.gov/bankfind-suite/bankfind/details/3510
+      state: NC
+    signal_note: 'participation only: a federal deposit-insurance charter on a regulator register; no API conformance
+      is published by this register'
+    detected_by: sweep-us-bank-credit-union-registers.py
+    detected: '2026-10-22'
+  status: not-a-workflow
+  arazzo: null
