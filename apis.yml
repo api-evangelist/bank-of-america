@@ -121,6 +121,8 @@ apis:
   - type: Documentation
     url: https://developer.bankofamerica.com/
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/bank-of-america/overview
 - type: Plans
   url: plans/bank-of-america-plans-pricing.yml
 - type: RateLimits
