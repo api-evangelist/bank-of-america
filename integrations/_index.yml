@@ -205,3 +205,28 @@
     detected: '2026-10-22'
   status: not-a-workflow
   arazzo: null
+- slug: bank-of-america-finos-membership
+  label: FINOS (membership)
+  partner: finos
+  partner_name: FINOS (membership)
+  category: FINOS membership
+  type: register
+  channel: standard-directory
+  evidence: https://www.finos.org/members
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: FINOS members (www.finos.org/members)
+    spec_file: null
+    standard: FINOS
+    role: finos-member
+    registered_name: Bank of America Securities
+    website: https://www.bankofamerica.com/
+    matched_domain: bankofamerica.com
+    matched_by: domain
+    signal_note: 'participation only: FINOS membership is standard-participant evidence, not depth. The tier (partner_tier)
+      is CONTEXT, never counted'
+    detected_by: sweep-finos-open-source-fintech.py
+    detected: '2026-10-22'
+  status: not-a-workflow
+  arazzo: null
