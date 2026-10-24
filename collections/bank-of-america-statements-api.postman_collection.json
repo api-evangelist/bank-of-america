@@ -1,393 +1,393 @@
 {
+  "info": {
+    "_postman_id": "f1b563e6-1df6-469f-835d-ca49321d8dce",
+    "name": "Bank of America CashPro Statements API",
+    "description": "The Bank of America CashPro API enables corporate treasury clients to programmatically access banking services including payments, account information, balance reporting, and transaction history. The API supports over 350 payment types and integrates with Treasury Management Systems (TMS) and ERP platforms.\n\nContact Support:\n Email: GlobalAPIOps@bofa.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:24:57.000Z",
+    "updatedAt": "2026-10-22T01:24:58.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f1b563e6-1df6-469f-835d-ca49321d8dce"
+  },
   "item": [
     {
-      "id": "005c138b-ba3d-438e-8654-30aa70fa4cd6",
-      "name": "Statements",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "statements",
       "item": [
         {
-          "id": "3413bd32-574e-451e-b90e-0442c2f7f7c6",
+          "name": "{statementId}",
+          "item": [
+            {
+              "name": "Get Statement",
+              "id": "ae9d73f7-6962-43bd-aaec-b12e55d23a14",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/statements/:statementId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "statements",
+                    ":statementId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "00fb09a2-5aa8-4ef0-80e2-694c6531ca76",
+                      "key": "statementId",
+                      "value": "<string>",
+                      "description": "(Required) Unique statement identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve a specific account statement by ID."
+              },
+              "response": [
+                {
+                  "id": "94e1c3b6-ef4c-40ca-b36a-09939835917a",
+                  "name": "Statement details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/statements/:statementId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "statements",
+                        ":statementId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "statementId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"statementId\": \"<string>\",\n  \"accountId\": \"<string>\",\n  \"statementDate\": \"<date>\",\n  \"openingBalance\": \"<double>\",\n  \"closingBalance\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"totalCredits\": \"<double>\",\n  \"totalDebits\": \"<double>\",\n  \"transactionCount\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:24:58.000Z",
+                  "updatedAt": "2026-10-22T01:24:58.000Z",
+                  "uid": "35240-94e1c3b6-ef4c-40ca-b36a-09939835917a"
+                },
+                {
+                  "id": "36639f74-b2c8-460b-9365-2bcf8ea38ddc",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/statements/:statementId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "statements",
+                        ":statementId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "statementId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:24:58.000Z",
+                  "updatedAt": "2026-10-22T01:24:58.000Z",
+                  "uid": "35240-36639f74-b2c8-460b-9365-2bcf8ea38ddc"
+                },
+                {
+                  "id": "9d36f80a-0c05-4bf2-86ed-a58354f08f61",
+                  "name": "Statement not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/statements/:statementId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "statements",
+                        ":statementId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "statementId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:24:58.000Z",
+                  "updatedAt": "2026-10-22T01:24:58.000Z",
+                  "uid": "35240-9d36f80a-0c05-4bf2-86ed-a58354f08f61"
+                }
+              ],
+              "createdAt": "2026-10-22T01:24:58.000Z",
+              "updatedAt": "2026-10-22T01:24:58.000Z",
+              "uid": "35240-ae9d73f7-6962-43bd-aaec-b12e55d23a14"
+            }
+          ],
+          "id": "faf920bc-e97b-4b0d-8335-d9ba3ba0cd0f",
+          "createdAt": "2026-10-22T01:24:58.000Z",
+          "updatedAt": "2026-10-22T01:24:58.000Z",
+          "uid": "35240-faf920bc-e97b-4b0d-8335-d9ba3ba0cd0f"
+        },
+        {
           "name": "List Statements",
+          "id": "3033ba98-7902-4542-ae71-d657e8c21d7b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "List Statements",
-            "description": {
-              "content": "Retrieve a list of available account statements.",
-              "type": "text/plain"
-            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/statements?accountId=<string>&year=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "statements"
               ],
-              "host": [
-                "{{baseUrl}}"
-              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "Filter statements by account ID",
                   "key": "accountId",
-                  "value": "<string>",
-                  "description": "Filter statements by account ID"
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "Filter by statement year",
                   "key": "year",
-                  "value": "<integer>",
-                  "description": "Filter by statement year"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "a883c4ba-9688-4cf3-bcda-52989ab6f6cd",
-              "name": "Statement list",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "statements"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "accountId",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "year",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"statements\": [\n    {\n      \"statementId\": \"string\",\n      \"accountId\": \"string\",\n      \"statementDate\": \"1993-04-07\",\n      \"openingBalance\": 9774.823911664838,\n      \"closingBalance\": 3435.356446315564,\n      \"currency\": \"string\",\n      \"totalCredits\": 7388.754401215224,\n      \"totalDebits\": 5605.473430307285,\n      \"transactionCount\": 4436\n    },\n    {\n      \"statementId\": \"string\",\n      \"accountId\": \"string\",\n      \"statementDate\": \"2005-03-27\",\n      \"openingBalance\": 1724.4339250160879,\n      \"closingBalance\": 4611.426511892381,\n      \"currency\": \"string\",\n      \"totalCredits\": 7411.823820281238,\n      \"totalDebits\": 9145.360917314025,\n      \"transactionCount\": 9126\n    }\n  ],\n  \"totalCount\": 2640\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1be42932-cf76-46e6-91ca-e8d2f430bcfc",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "statements"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "accountId",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "year",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "9e6c5f22-5148-4fd8-906d-e1608ce7a27c",
-          "name": "Get Statement",
-          "request": {
-            "name": "Get Statement",
-            "description": {
-              "content": "Retrieve a specific account statement by ID.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "statements",
-                ":statementId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "statementId",
-                  "description": "(Required) Unique statement identifier"
+                  "value": "<integer>"
                 }
               ]
             },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
+            "description": "Retrieve a list of available account statements."
           },
           "response": [
             {
-              "id": "c4631481-0946-4481-8f1c-f8d7d5f937d7",
-              "name": "Statement details",
+              "id": "bfe08db1-4321-4e28-8eb1-77735a9976c3",
+              "name": "Statement list",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "statements",
-                    ":statementId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "statementId",
-                      "description": "(Required) Unique statement identifier"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/statements?accountId=<string>&year=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "statements"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter statements by account ID",
+                      "key": "accountId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by statement year",
+                      "key": "year",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"statementId\": \"string\",\n  \"accountId\": \"string\",\n  \"statementDate\": \"2015-03-06\",\n  \"openingBalance\": 505.64559991346346,\n  \"closingBalance\": 7200.027445322032,\n  \"currency\": \"string\",\n  \"totalCredits\": 9748.085225617886,\n  \"totalDebits\": 8573.23022846411,\n  \"transactionCount\": 2897\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"statements\": [\n    {\n      \"statementId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"statementDate\": \"<date>\",\n      \"openingBalance\": \"<double>\",\n      \"closingBalance\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"totalCredits\": \"<double>\",\n      \"totalDebits\": \"<double>\",\n      \"transactionCount\": \"<integer>\"\n    },\n    {\n      \"statementId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"statementDate\": \"<date>\",\n      \"openingBalance\": \"<double>\",\n      \"closingBalance\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"totalCredits\": \"<double>\",\n      \"totalDebits\": \"<double>\",\n      \"transactionCount\": \"<integer>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:24:58.000Z",
+              "updatedAt": "2026-10-22T01:24:58.000Z",
+              "uid": "35240-bfe08db1-4321-4e28-8eb1-77735a9976c3"
             },
             {
-              "id": "64f56cb9-b9ec-4489-94e5-6f7a8c599c41",
+              "id": "a4e5a507-b7e7-48be-bd7a-2cf8f352ff69",
               "name": "Unauthorized",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "statements",
-                    ":statementId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "statementId",
-                      "description": "(Required) Unique statement identifier"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/statements?accountId=<string>&year=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "statements"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter statements by account ID",
+                      "key": "accountId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by statement year",
+                      "key": "year",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "cf8824d7-ba80-4635-aa01-0271bdd1600d",
-              "name": "Statement not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "statements",
-                    ":statementId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "statementId",
-                      "description": "(Required) Unique statement identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:24:58.000Z",
+              "updatedAt": "2026-10-22T01:24:58.000Z",
+              "uid": "35240-a4e5a507-b7e7-48be-bd7a-2cf8f352ff69"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:24:58.000Z",
+          "updatedAt": "2026-10-22T01:24:58.000Z",
+          "uid": "35240-3033ba98-7902-4542-ae71-d657e8c21d7b"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.bankofamerica.com",
-      "key": "baseUrl"
+      "id": "758b473a-67cf-40a3-a6e5-0be9ffed83da",
+      "createdAt": "2026-10-22T01:24:58.000Z",
+      "updatedAt": "2026-10-22T01:24:58.000Z",
+      "uid": "35240-758b473a-67cf-40a3-a6e5-0be9ffed83da"
     }
   ],
   "auth": {
-    "type": "bearer",
-    "bearer": [
+    "type": "oauth2",
+    "oauth2": [
       {
-        "key": "token",
-        "value": "{{bearerToken}}"
+        "key": "scope",
+        "value": "accounts:read transactions:read payments:write statements:read",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.bankofamerica.com/oauth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "2153925d-0e47-4d53-a053-fe23ab975d54",
-    "name": "Bank of America Accounts Statements API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Bank of America provides developer APIs for banking services including payments, account management, and treasury services. The APIs enable corporate clients and fintech partners to integrate banking operations.\n\nContact Support:\n Name: Bank of America Developer Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.bankofamerica.com/cashpro/v1"
     }
-  }
+  ]
 }

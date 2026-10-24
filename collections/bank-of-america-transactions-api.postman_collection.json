@@ -1,251 +1,272 @@
 {
+  "info": {
+    "_postman_id": "b0386c5a-9b17-41e6-a0be-fdc503d4e626",
+    "name": "Bank of America CashPro Transactions API",
+    "description": "The Bank of America CashPro API enables corporate treasury clients to programmatically access banking services including payments, account information, balance reporting, and transaction history. The API supports over 350 payment types and integrates with Treasury Management Systems (TMS) and ERP platforms.\n\nContact Support:\n Email: GlobalAPIOps@bofa.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:25:03.000Z",
+    "updatedAt": "2026-10-22T01:25:03.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b0386c5a-9b17-41e6-a0be-fdc503d4e626"
+  },
   "item": [
     {
-      "id": "342934c3-54cc-4083-8aa9-1321cde1fe61",
-      "name": "Transactions",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "accounts",
       "item": [
         {
-          "id": "dff2533e-ebdc-4481-a49d-573edd2d0ddc",
-          "name": "List Transactions",
-          "request": {
-            "name": "List Transactions",
-            "description": {
-              "content": "Retrieve a paginated list of transactions for a specific account within a date range.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "accounts",
-                ":accountId",
-                "transactions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "fromDate",
-                  "value": "<date>",
-                  "description": "Start date for transaction history (ISO 8601)"
-                },
-                {
-                  "disabled": false,
-                  "key": "toDate",
-                  "value": "<date>",
-                  "description": "End date for transaction history (ISO 8601)"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "100",
-                  "description": "Maximum number of transactions to return"
-                },
-                {
-                  "disabled": false,
-                  "key": "offset",
-                  "value": "0",
-                  "description": "Pagination offset"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "accountId",
-                  "description": "(Required) Unique account identifier"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{accountId}",
+          "item": [
             {
-              "id": "88020f93-2db3-4b47-b23b-fab1f935ed72",
-              "name": "Transaction list",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "accounts",
-                    ":accountId",
-                    "transactions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "fromDate",
-                      "value": "<date>"
-                    },
-                    {
-                      "key": "toDate",
-                      "value": "<date>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "100"
-                    },
-                    {
-                      "key": "offset",
-                      "value": "0"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "accountId",
-                      "description": "(Required) Unique account identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "transactions",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "List Transactions",
+                  "id": "fdba00e1-4c4f-40b8-8d77-71cb1d2f35ac",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:accountId/transactions?fromDate=<date>&toDate=<date>&limit=100&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":accountId",
+                        "transactions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Start date for transaction history (ISO 8601)",
+                          "key": "fromDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "End date for transaction history (ISO 8601)",
+                          "key": "toDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Maximum number of transactions to return",
+                          "key": "limit",
+                          "value": "100"
+                        },
+                        {
+                          "description": "Pagination offset",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "563f9a0d-c8a6-4ae6-b0f8-9d32d5f3b0ed",
+                          "key": "accountId",
+                          "value": "<string>",
+                          "description": "(Required) Unique account identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve a paginated list of transactions for a specific account within a date range."
+                  },
+                  "response": [
+                    {
+                      "id": "4a730137-67ac-46f4-9320-9a80642251f9",
+                      "name": "Transaction list",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:accountId/transactions?fromDate=<date>&toDate=<date>&limit=100&offset=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":accountId",
+                            "transactions"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start date for transaction history (ISO 8601)",
+                              "key": "fromDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "End date for transaction history (ISO 8601)",
+                              "key": "toDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Maximum number of transactions to return",
+                              "key": "limit",
+                              "value": "100"
+                            },
+                            {
+                              "description": "Pagination offset",
+                              "key": "offset",
+                              "value": "0"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"transactions\": [\n    {\n      \"transactionId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"type\": \"debit\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"referenceNumber\": \"<string>\",\n      \"valueDate\": \"<date>\",\n      \"postDate\": \"<date>\",\n      \"status\": \"<string>\"\n    },\n    {\n      \"transactionId\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"type\": \"credit\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"referenceNumber\": \"<string>\",\n      \"valueDate\": \"<date>\",\n      \"postDate\": \"<date>\",\n      \"status\": \"<string>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"pageSize\": \"<integer>\",\n  \"offset\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T01:25:04.000Z",
+                      "updatedAt": "2026-10-22T01:25:04.000Z",
+                      "uid": "35240-4a730137-67ac-46f4-9320-9a80642251f9"
+                    },
+                    {
+                      "id": "44d6134b-9bf5-4437-8135-c847f818eeb1",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:accountId/transactions?fromDate=<date>&toDate=<date>&limit=100&offset=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":accountId",
+                            "transactions"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start date for transaction history (ISO 8601)",
+                              "key": "fromDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "End date for transaction history (ISO 8601)",
+                              "key": "toDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Maximum number of transactions to return",
+                              "key": "limit",
+                              "value": "100"
+                            },
+                            {
+                              "description": "Pagination offset",
+                              "key": "offset",
+                              "value": "0"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:25:04.000Z",
+                      "updatedAt": "2026-10-22T01:25:04.000Z",
+                      "uid": "35240-44d6134b-9bf5-4437-8135-c847f818eeb1"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:25:03.000Z",
+                  "updatedAt": "2026-10-22T01:25:03.000Z",
+                  "uid": "35240-fdba00e1-4c4f-40b8-8d77-71cb1d2f35ac"
                 }
               ],
-              "body": "{\n  \"transactions\": [\n    {\n      \"transactionId\": \"string\",\n      \"accountId\": \"string\",\n      \"type\": \"credit\",\n      \"amount\": 4327.474963343222,\n      \"currency\": \"string\",\n      \"description\": \"string\",\n      \"referenceNumber\": \"string\",\n      \"valueDate\": \"2002-12-22\",\n      \"postDate\": \"1989-12-11\",\n      \"status\": \"string\"\n    },\n    {\n      \"transactionId\": \"string\",\n      \"accountId\": \"string\",\n      \"type\": \"debit\",\n      \"amount\": 1594.0446418468402,\n      \"currency\": \"string\",\n      \"description\": \"string\",\n      \"referenceNumber\": \"string\",\n      \"valueDate\": \"1978-09-25\",\n      \"postDate\": \"1990-12-24\",\n      \"status\": \"string\"\n    }\n  ],\n  \"totalCount\": 1316,\n  \"pageSize\": 5210,\n  \"offset\": 2394\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c14f8455-754b-4350-9450-a02dd84d8da1",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "accounts",
-                    ":accountId",
-                    "transactions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "fromDate",
-                      "value": "<date>"
-                    },
-                    {
-                      "key": "toDate",
-                      "value": "<date>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "100"
-                    },
-                    {
-                      "key": "offset",
-                      "value": "0"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "accountId",
-                      "description": "(Required) Unique account identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "584124a3-af18-49a6-ad14-e37f45532767",
+              "createdAt": "2026-10-22T01:25:03.000Z",
+              "updatedAt": "2026-10-22T01:25:03.000Z",
+              "uid": "35240-584124a3-af18-49a6-ad14-e37f45532767"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "bdac2d07-9892-4aab-9f0c-ca74c40af359",
+          "createdAt": "2026-10-22T01:25:03.000Z",
+          "updatedAt": "2026-10-22T01:25:03.000Z",
+          "uid": "35240-bdac2d07-9892-4aab-9f0c-ca74c40af359"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.bankofamerica.com",
-      "key": "baseUrl"
+      "id": "35ae10fa-e6db-4a41-98f6-a280fee8db9d",
+      "createdAt": "2026-10-22T01:25:03.000Z",
+      "updatedAt": "2026-10-22T01:25:03.000Z",
+      "uid": "35240-35ae10fa-e6db-4a41-98f6-a280fee8db9d"
     }
   ],
   "auth": {
-    "type": "bearer",
-    "bearer": [
+    "type": "oauth2",
+    "oauth2": [
       {
-        "key": "token",
-        "value": "{{bearerToken}}"
+        "key": "scope",
+        "value": "accounts:read transactions:read payments:write statements:read",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.bankofamerica.com/oauth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "a5e5fee8-08e7-4429-94a3-12dacba21927",
-    "name": "Bank of America Accounts Transactions API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Bank of America provides developer APIs for banking services including payments, account management, and treasury services. The APIs enable corporate clients and fintech partners to integrate banking operations.\n\nContact Support:\n Name: Bank of America Developer Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.bankofamerica.com/cashpro/v1"
     }
-  }
+  ]
 }

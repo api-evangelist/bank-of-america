@@ -1,179 +1,162 @@
 {
+  "info": {
+    "_postman_id": "ea86da1a-399a-4994-9018-3abb417f441d",
+    "name": "Bank of America Banking API",
+    "description": "Bank of America provides developer APIs for banking services including payments, account management, and treasury services. The APIs enable corporate clients and fintech partners to integrate banking operations.\n\nContact Support:\n Name: Bank of America Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:24:43.000Z",
+    "updatedAt": "2026-10-22T01:24:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ea86da1a-399a-4994-9018-3abb417f441d"
+  },
   "item": [
     {
-      "id": "37f00beb-6793-4cc2-b455-1c419a47a967",
-      "name": "Banking",
-      "description": {
-        "content": "Banking operations",
-        "type": "text/plain"
-      },
+      "name": "status",
       "item": [
         {
-          "id": "535394df-f786-4497-91a3-b31953c03d22",
           "name": "Get API status",
+          "id": "2cea60e9-7788-4c3d-91a5-3324d0ed6bea",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Get API status",
-            "description": {
-              "content": "Returns the current status of the API.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "status"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "status"
+              ]
+            },
+            "description": "Returns the current status of the API."
           },
           "response": [
             {
-              "id": "607ab874-34e0-4bbb-9dc3-969cee4daa62",
+              "id": "d661df0f-5ab5-4ca6-b7ce-0198c5078892",
               "name": "Success",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "status"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/status",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "status"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"status\": \"string\",\n  \"version\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<string>\",\n  \"version\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:24:44.000Z",
+              "updatedAt": "2026-10-22T01:24:44.000Z",
+              "uid": "35240-d661df0f-5ab5-4ca6-b7ce-0198c5078892"
             },
             {
-              "id": "e4eba2e4-0efd-44e6-b79f-6f18c13dc0e1",
+              "id": "63bd205a-7a9a-4a78-bd0f-e84a4fa0afe4",
               "name": "Unauthorized",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "status"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/status",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "status"
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:24:44.000Z",
+              "updatedAt": "2026-10-22T01:24:44.000Z",
+              "uid": "35240-63bd205a-7a9a-4a78-bd0f-e84a4fa0afe4"
             },
             {
-              "id": "5faf7b87-de5a-478f-8c59-7455477f71ac",
+              "id": "b4d5cbb8-118d-4e35-8010-73cb980e60cb",
               "name": "Too many requests",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "status"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/status",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "status"
+                  ]
+                }
               },
               "status": "Too Many Requests",
               "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:24:44.000Z",
+              "updatedAt": "2026-10-22T01:24:44.000Z",
+              "uid": "35240-b4d5cbb8-118d-4e35-8010-73cb980e60cb"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:24:44.000Z",
+          "updatedAt": "2026-10-22T01:24:44.000Z",
+          "uid": "35240-2cea60e9-7788-4c3d-91a5-3324d0ed6bea"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.bankofamerica.com",
-      "key": "baseUrl"
+      "id": "52709000-707b-46c9-a2fc-638d3faa1568",
+      "createdAt": "2026-10-22T01:24:44.000Z",
+      "updatedAt": "2026-10-22T01:24:44.000Z",
+      "uid": "35240-52709000-707b-46c9-a2fc-638d3faa1568"
     }
   ],
   "auth": {
@@ -181,17 +164,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "0de1174c-1a86-4077-9c9e-226dbd315a69",
-    "name": "Bank of America Accounts Banking API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Bank of America provides developer APIs for banking services including payments, account management, and treasury services. The APIs enable corporate clients and fintech partners to integrate banking operations.\n\nContact Support:\n Name: Bank of America Developer Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.bankofamerica.com"
     }
-  }
+  ]
 }

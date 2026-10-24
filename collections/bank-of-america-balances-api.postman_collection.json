@@ -1,209 +1,227 @@
 {
+  "info": {
+    "_postman_id": "c84a643f-1ae1-450d-9f3b-b854627f1324",
+    "name": "Bank of America CashPro Balances API",
+    "description": "The Bank of America CashPro API enables corporate treasury clients to programmatically access banking services including payments, account information, balance reporting, and transaction history. The API supports over 350 payment types and integrates with Treasury Management Systems (TMS) and ERP platforms.\n\nContact Support:\n Email: GlobalAPIOps@bofa.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:24:36.000Z",
+    "updatedAt": "2026-10-22T01:24:37.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c84a643f-1ae1-450d-9f3b-b854627f1324"
+  },
   "item": [
     {
-      "id": "3febabab-b5cc-4a91-be2f-28540d985c78",
-      "name": "Balances",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "accounts",
       "item": [
         {
-          "id": "8a7fff34-0c41-46cc-aa69-70efa45eded7",
-          "name": "Get Account Balances",
-          "request": {
-            "name": "Get Account Balances",
-            "description": {
-              "content": "Retrieve current and available balances for a specific account including intraday balance information.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "accounts",
-                ":accountId",
-                "balances"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "asOf",
-                  "value": "<date>",
-                  "description": "Balance as of date (ISO 8601)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "accountId",
-                  "description": "(Required) Unique account identifier"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{accountId}",
+          "item": [
             {
-              "id": "104b1e31-573f-45fd-a972-2a3367b4e84f",
-              "name": "Account balance information",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "accounts",
-                    ":accountId",
-                    "balances"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "asOf",
-                      "value": "<date>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "accountId",
-                      "description": "(Required) Unique account identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "balances",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Get Account Balances",
+                  "id": "848ce3ac-f155-4e91-854b-f630b2fe4ee3",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:accountId/balances?asOf=<date>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":accountId",
+                        "balances"
+                      ],
+                      "query": [
+                        {
+                          "description": "Balance as of date (ISO 8601)",
+                          "key": "asOf",
+                          "value": "<date>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "f9a0dd15-531e-449e-bf26-af5dbd2506af",
+                          "key": "accountId",
+                          "value": "<string>",
+                          "description": "(Required) Unique account identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve current and available balances for a specific account including intraday balance information."
+                  },
+                  "response": [
+                    {
+                      "id": "da5ab382-f910-4545-9530-1e1b506286f3",
+                      "name": "Account balance information",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:accountId/balances?asOf=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":accountId",
+                            "balances"
+                          ],
+                          "query": [
+                            {
+                              "description": "Balance as of date (ISO 8601)",
+                              "key": "asOf",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"accountId\": \"<string>\",\n  \"balances\": [\n    {\n      \"accountId\": \"<string>\",\n      \"ledgerBalance\": \"<double>\",\n      \"availableBalance\": \"<double>\",\n      \"collectedBalance\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"asOfDate\": \"<dateTime>\"\n    },\n    {\n      \"accountId\": \"<string>\",\n      \"ledgerBalance\": \"<double>\",\n      \"availableBalance\": \"<double>\",\n      \"collectedBalance\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"asOfDate\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:24:37.000Z",
+                      "updatedAt": "2026-10-22T01:24:37.000Z",
+                      "uid": "35240-da5ab382-f910-4545-9530-1e1b506286f3"
+                    },
+                    {
+                      "id": "9c7a55c3-7a40-482a-9027-ec518a897674",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:accountId/balances?asOf=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":accountId",
+                            "balances"
+                          ],
+                          "query": [
+                            {
+                              "description": "Balance as of date (ISO 8601)",
+                              "key": "asOf",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:24:37.000Z",
+                      "updatedAt": "2026-10-22T01:24:37.000Z",
+                      "uid": "35240-9c7a55c3-7a40-482a-9027-ec518a897674"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:24:37.000Z",
+                  "updatedAt": "2026-10-22T01:24:37.000Z",
+                  "uid": "35240-848ce3ac-f155-4e91-854b-f630b2fe4ee3"
                 }
               ],
-              "body": "{\n  \"accountId\": \"string\",\n  \"balances\": [\n    {\n      \"accountId\": \"string\",\n      \"ledgerBalance\": 9566.516459982526,\n      \"availableBalance\": 9819.227776482963,\n      \"collectedBalance\": 1328.3430897706971,\n      \"currency\": \"string\",\n      \"asOfDate\": \"2017-11-05T12:21:56.680Z\"\n    },\n    {\n      \"accountId\": \"string\",\n      \"ledgerBalance\": 8301.535556912548,\n      \"availableBalance\": 4185.080514332507,\n      \"collectedBalance\": 2156.820293874044,\n      \"currency\": \"string\",\n      \"asOfDate\": \"1999-02-13T11:19:43.068Z\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0d6f02ae-f5f0-41a0-8506-d167f45bb5ef",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "accounts",
-                    ":accountId",
-                    "balances"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "asOf",
-                      "value": "<date>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "accountId",
-                      "description": "(Required) Unique account identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "c4c60fff-8010-4b56-9f2e-480c5115f3d8",
+              "createdAt": "2026-10-22T01:24:37.000Z",
+              "updatedAt": "2026-10-22T01:24:37.000Z",
+              "uid": "35240-c4c60fff-8010-4b56-9f2e-480c5115f3d8"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "ebeb178d-a9ce-4928-a45b-59d09a41d203",
+          "createdAt": "2026-10-22T01:24:37.000Z",
+          "updatedAt": "2026-10-22T01:24:37.000Z",
+          "uid": "35240-ebeb178d-a9ce-4928-a45b-59d09a41d203"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.bankofamerica.com",
-      "key": "baseUrl"
+      "id": "da42c869-b060-4b12-a099-06a22346e5a8",
+      "createdAt": "2026-10-22T01:24:37.000Z",
+      "updatedAt": "2026-10-22T01:24:37.000Z",
+      "uid": "35240-da42c869-b060-4b12-a099-06a22346e5a8"
     }
   ],
   "auth": {
-    "type": "bearer",
-    "bearer": [
+    "type": "oauth2",
+    "oauth2": [
       {
-        "key": "token",
-        "value": "{{bearerToken}}"
+        "key": "scope",
+        "value": "accounts:read transactions:read payments:write statements:read",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.bankofamerica.com/oauth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "f8e82187-4a94-440f-a982-709456504bff",
-    "name": "Bank of America Accounts Balances API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Bank of America provides developer APIs for banking services including payments, account management, and treasury services. The APIs enable corporate clients and fintech partners to integrate banking operations.\n\nContact Support:\n Name: Bank of America Developer Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.bankofamerica.com/cashpro/v1"
     }
-  }
+  ]
 }

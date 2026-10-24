@@ -1,32 +1,403 @@
 {
+  "info": {
+    "_postman_id": "a62406bb-e98a-4287-9d32-723806d10000",
+    "name": "Bank of America CashPro Payments API",
+    "description": "The Bank of America CashPro API enables corporate treasury clients to programmatically access banking services including payments, account information, balance reporting, and transaction history. The API supports over 350 payment types and integrates with Treasury Management Systems (TMS) and ERP platforms.\n\nContact Support:\n Email: GlobalAPIOps@bofa.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:24:49.000Z",
+    "updatedAt": "2026-10-22T01:24:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a62406bb-e98a-4287-9d32-723806d10000"
+  },
   "item": [
     {
-      "id": "b749e15e-8716-4d3a-8fac-e7fa7911a932",
-      "name": "Payments",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "payments",
       "item": [
         {
-          "id": "8186c1ca-1be6-4252-a61a-3e933a3c5b67",
+          "name": "{paymentId}",
+          "item": [
+            {
+              "name": "Get Payment Status",
+              "id": "31b6c381-b7f7-4e17-ac1f-dcd5bb9081d5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/payments/:paymentId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    ":paymentId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "e3c11aaf-8bd1-47a8-b635-ad0b0c10cfdf",
+                      "key": "paymentId",
+                      "value": "<string>",
+                      "description": "(Required) Unique payment transaction identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve the current status and details of a specific payment transaction."
+              },
+              "response": [
+                {
+                  "id": "c39b9b22-40d5-4b3f-a7f1-b47b18ee6c26",
+                  "name": "Payment details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/:paymentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        ":paymentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "paymentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"paymentId\": \"<string>\",\n  \"clientReferenceId\": \"<string>\",\n  \"status\": \"cancelled\",\n  \"paymentType\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"valueDate\": \"<date>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\",\n  \"statusMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:24:50.000Z",
+                  "updatedAt": "2026-10-22T01:24:50.000Z",
+                  "uid": "35240-c39b9b22-40d5-4b3f-a7f1-b47b18ee6c26"
+                },
+                {
+                  "id": "24d7a3b0-a2e8-4f7f-ae80-a9ba104e59ee",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/:paymentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        ":paymentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "paymentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:24:50.000Z",
+                  "updatedAt": "2026-10-22T01:24:50.000Z",
+                  "uid": "35240-24d7a3b0-a2e8-4f7f-ae80-a9ba104e59ee"
+                },
+                {
+                  "id": "b8bc0f12-9c51-49aa-b749-a6aaa2967fbf",
+                  "name": "Payment not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/:paymentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        ":paymentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "paymentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:24:50.000Z",
+                  "updatedAt": "2026-10-22T01:24:50.000Z",
+                  "uid": "35240-b8bc0f12-9c51-49aa-b749-a6aaa2967fbf"
+                }
+              ],
+              "createdAt": "2026-10-22T01:24:50.000Z",
+              "updatedAt": "2026-10-22T01:24:50.000Z",
+              "uid": "35240-31b6c381-b7f7-4e17-ac1f-dcd5bb9081d5"
+            },
+            {
+              "name": "Cancel Payment",
+              "id": "3570936f-35ff-4c18-838e-b76cf418b31e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/payments/:paymentId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    ":paymentId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "c6088fe6-1b61-41b7-b69f-fe7bf992af91",
+                      "key": "paymentId",
+                      "value": "<string>",
+                      "description": "(Required) Unique payment identifier"
+                    }
+                  ]
+                },
+                "description": "Cancel a pending payment that has not yet been processed."
+              },
+              "response": [
+                {
+                  "id": "abc44fe6-3572-4941-8c78-a93637c2f3db",
+                  "name": "Payment cancelled successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/:paymentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        ":paymentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "paymentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"paymentId\": \"<string>\",\n  \"clientReferenceId\": \"<string>\",\n  \"status\": \"cancelled\",\n  \"paymentType\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"valueDate\": \"<date>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\",\n  \"statusMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:24:50.000Z",
+                  "updatedAt": "2026-10-22T01:24:50.000Z",
+                  "uid": "35240-abc44fe6-3572-4941-8c78-a93637c2f3db"
+                },
+                {
+                  "id": "8ad01ea3-f75d-45e8-b29a-b810b9ae0ffc",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/:paymentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        ":paymentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "paymentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:24:50.000Z",
+                  "updatedAt": "2026-10-22T01:24:50.000Z",
+                  "uid": "35240-8ad01ea3-f75d-45e8-b29a-b810b9ae0ffc"
+                },
+                {
+                  "id": "d5b14570-1685-4158-b7e1-90527f9ea941",
+                  "name": "Conflict \u2014 payment cannot be cancelled in current state",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/:paymentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        ":paymentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "paymentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:24:50.000Z",
+                  "updatedAt": "2026-10-22T01:24:50.000Z",
+                  "uid": "35240-d5b14570-1685-4158-b7e1-90527f9ea941"
+                }
+              ],
+              "createdAt": "2026-10-22T01:24:50.000Z",
+              "updatedAt": "2026-10-22T01:24:50.000Z",
+              "uid": "35240-3570936f-35ff-4c18-838e-b76cf418b31e"
+            }
+          ],
+          "id": "5457500a-ec7c-4b28-8731-3c8cf79e6aac",
+          "createdAt": "2026-10-22T01:24:49.000Z",
+          "updatedAt": "2026-10-22T01:24:49.000Z",
+          "uid": "35240-5457500a-ec7c-4b28-8731-3c8cf79e6aac"
+        },
+        {
           "name": "Initiate Payment",
+          "id": "d24c69d0-dab1-46bd-a2fd-fa4bacfdf644",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Initiate Payment",
-            "description": {
-              "content": "Initiate a payment transaction. Supports over 350 payment types including ACH, wire transfers, SWIFT, checks, and real-time payments. The payment type is determined by the paymentType field in the request body.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "payments"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -37,786 +408,413 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n  \"paymentType\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"debitAccountId\": \"<string>\",\n  \"beneficiary\": {\n    \"name\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"routingNumber\": \"<string>\",\n    \"bankName\": \"<string>\",\n    \"bankAddress\": \"<string>\",\n    \"swiftCode\": \"<string>\"\n  },\n  \"valueDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"memo\": \"<string>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payments"
+              ]
+            },
+            "description": "Initiate a payment transaction. Supports over 350 payment types including ACH, wire transfers, SWIFT, checks, and real-time payments. The payment type is determined by the paymentType field in the request body."
           },
           "response": [
             {
-              "id": "491e4a8d-177d-4211-928f-328355deeaec",
+              "id": "191c6f8b-f90f-45c1-801b-f8a084a37d27",
               "name": "Payment initiated successfully",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "payments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"paymentType\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"debitAccountId\": \"<string>\",\n  \"beneficiary\": {\n    \"name\": \"string\",\n    \"accountNumber\": \"string\",\n    \"routingNumber\": \"string\",\n    \"bankName\": \"string\",\n    \"bankAddress\": \"string\",\n    \"swiftCode\": \"string\"\n  },\n  \"valueDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"memo\": \"<string>\"\n}",
+                  "raw": "{\n  \"paymentType\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"debitAccountId\": \"<string>\",\n  \"beneficiary\": {\n    \"name\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"routingNumber\": \"<string>\",\n    \"bankName\": \"<string>\",\n    \"bankAddress\": \"<string>\",\n    \"swiftCode\": \"<string>\"\n  },\n  \"valueDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"memo\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments"
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"paymentId\": \"string\",\n  \"clientReferenceId\": \"string\",\n  \"status\": \"processing\",\n  \"paymentType\": \"string\",\n  \"amount\": 8608.393054147975,\n  \"currency\": \"string\",\n  \"valueDate\": \"2017-02-15\",\n  \"createdAt\": \"1975-05-29T21:10:15.527Z\",\n  \"updatedAt\": \"1948-12-19T10:57:10.023Z\",\n  \"statusMessage\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"paymentId\": \"<string>\",\n  \"clientReferenceId\": \"<string>\",\n  \"status\": \"cancelled\",\n  \"paymentType\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"valueDate\": \"<date>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\",\n  \"statusMessage\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:24:50.000Z",
+              "updatedAt": "2026-10-22T01:24:50.000Z",
+              "uid": "35240-191c6f8b-f90f-45c1-801b-f8a084a37d27"
             },
             {
-              "id": "9267c999-b2d0-4ef8-8ff2-c0c29533bd47",
-              "name": "Bad request — invalid payment data",
+              "id": "dee39be6-7c15-49e5-aa69-8b638886bf28",
+              "name": "Bad request \u2014 invalid payment data",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "payments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"paymentType\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"debitAccountId\": \"<string>\",\n  \"beneficiary\": {\n    \"name\": \"string\",\n    \"accountNumber\": \"string\",\n    \"routingNumber\": \"string\",\n    \"bankName\": \"string\",\n    \"bankAddress\": \"string\",\n    \"swiftCode\": \"string\"\n  },\n  \"valueDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"memo\": \"<string>\"\n}",
+                  "raw": "{\n  \"paymentType\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"debitAccountId\": \"<string>\",\n  \"beneficiary\": {\n    \"name\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"routingNumber\": \"<string>\",\n    \"bankName\": \"<string>\",\n    \"bankAddress\": \"<string>\",\n    \"swiftCode\": \"<string>\"\n  },\n  \"valueDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"memo\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:24:50.000Z",
+              "updatedAt": "2026-10-22T01:24:50.000Z",
+              "uid": "35240-dee39be6-7c15-49e5-aa69-8b638886bf28"
             },
             {
-              "id": "c4fabeb6-8fb9-42a0-8749-1840a5b4f806",
+              "id": "c5d9eb09-37bc-4116-a99c-eeb236947954",
               "name": "Unauthorized",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "payments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"paymentType\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"debitAccountId\": \"<string>\",\n  \"beneficiary\": {\n    \"name\": \"string\",\n    \"accountNumber\": \"string\",\n    \"routingNumber\": \"string\",\n    \"bankName\": \"string\",\n    \"bankAddress\": \"string\",\n    \"swiftCode\": \"string\"\n  },\n  \"valueDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"memo\": \"<string>\"\n}",
+                  "raw": "{\n  \"paymentType\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"debitAccountId\": \"<string>\",\n  \"beneficiary\": {\n    \"name\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"routingNumber\": \"<string>\",\n    \"bankName\": \"<string>\",\n    \"bankAddress\": \"<string>\",\n    \"swiftCode\": \"<string>\"\n  },\n  \"valueDate\": \"<date>\",\n  \"reference\": \"<string>\",\n  \"memo\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments"
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:24:50.000Z",
+              "updatedAt": "2026-10-22T01:24:50.000Z",
+              "uid": "35240-c5d9eb09-37bc-4116-a99c-eeb236947954"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:24:50.000Z",
+          "updatedAt": "2026-10-22T01:24:50.000Z",
+          "uid": "35240-d24c69d0-dab1-46bd-a2fd-fa4bacfdf644"
         },
         {
-          "id": "fe11cbe1-3d97-4627-902c-ec296bd00cd7",
           "name": "List Payments",
+          "id": "9bab167c-a260-4ac1-82af-571d2d3af64a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "List Payments",
-            "description": {
-              "content": "Retrieve a list of payment transactions filtered by date range and status.",
-              "type": "text/plain"
-            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/payments?fromDate=<date>&toDate=<date>&status=rejected&paymentType=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "payments"
               ],
-              "host": [
-                "{{baseUrl}}"
-              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "Start date filter (ISO 8601)",
                   "key": "fromDate",
-                  "value": "<date>",
-                  "description": "Start date filter (ISO 8601)"
+                  "value": "<date>"
                 },
                 {
-                  "disabled": false,
+                  "description": "End date filter (ISO 8601)",
                   "key": "toDate",
-                  "value": "<date>",
-                  "description": "End date filter (ISO 8601)"
+                  "value": "<date>"
                 },
                 {
-                  "disabled": false,
+                  "description": "Filter by payment status",
                   "key": "status",
-                  "value": "<string>",
-                  "description": "Filter by payment status"
+                  "value": "rejected"
                 },
                 {
-                  "disabled": false,
+                  "description": "Filter by payment type",
                   "key": "paymentType",
-                  "value": "<string>",
-                  "description": "Filter by payment type"
+                  "value": "<string>"
                 }
-              ],
-              "variable": []
+              ]
             },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
+            "description": "Retrieve a list of payment transactions filtered by date range and status."
           },
           "response": [
             {
-              "id": "57fa9b5f-aa2b-48e0-a97e-4e3913b01459",
+              "id": "8213ae7e-6473-4513-bdec-5915832af717",
               "name": "Payment list",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "payments"
-                  ],
+                  "raw": "{{baseUrl}}/payments?fromDate=<date>&toDate=<date>&status=rejected&paymentType=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "payments"
+                  ],
                   "query": [
                     {
+                      "description": "Start date filter (ISO 8601)",
                       "key": "fromDate",
                       "value": "<date>"
                     },
                     {
+                      "description": "End date filter (ISO 8601)",
                       "key": "toDate",
                       "value": "<date>"
                     },
                     {
+                      "description": "Filter by payment status",
                       "key": "status",
-                      "value": "<string>"
+                      "value": "rejected"
                     },
                     {
+                      "description": "Filter by payment type",
                       "key": "paymentType",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"payments\": [\n    {\n      \"paymentId\": \"string\",\n      \"clientReferenceId\": \"string\",\n      \"status\": \"completed\",\n      \"paymentType\": \"string\",\n      \"amount\": 9866.716631633908,\n      \"currency\": \"string\",\n      \"valueDate\": \"2018-07-02\",\n      \"createdAt\": \"2020-07-08T03:57:58.888Z\",\n      \"updatedAt\": \"1960-10-19T18:58:24.414Z\",\n      \"statusMessage\": \"string\"\n    },\n    {\n      \"paymentId\": \"string\",\n      \"clientReferenceId\": \"string\",\n      \"status\": \"processing\",\n      \"paymentType\": \"string\",\n      \"amount\": 7537.504502849986,\n      \"currency\": \"string\",\n      \"valueDate\": \"2024-01-13\",\n      \"createdAt\": \"1998-08-07T18:37:50.368Z\",\n      \"updatedAt\": \"1989-05-25T07:51:22.700Z\",\n      \"statusMessage\": \"string\"\n    }\n  ],\n  \"totalCount\": 3406,\n  \"pageSize\": 2575,\n  \"offset\": 624\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"payments\": [\n    {\n      \"paymentId\": \"<string>\",\n      \"clientReferenceId\": \"<string>\",\n      \"status\": \"rejected\",\n      \"paymentType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"valueDate\": \"<date>\",\n      \"createdAt\": \"<dateTime>\",\n      \"updatedAt\": \"<dateTime>\",\n      \"statusMessage\": \"<string>\"\n    },\n    {\n      \"paymentId\": \"<string>\",\n      \"clientReferenceId\": \"<string>\",\n      \"status\": \"processing\",\n      \"paymentType\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"valueDate\": \"<date>\",\n      \"createdAt\": \"<dateTime>\",\n      \"updatedAt\": \"<dateTime>\",\n      \"statusMessage\": \"<string>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"pageSize\": \"<integer>\",\n  \"offset\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:24:50.000Z",
+              "updatedAt": "2026-10-22T01:24:50.000Z",
+              "uid": "35240-8213ae7e-6473-4513-bdec-5915832af717"
             },
             {
-              "id": "5d4b2941-15fa-47dc-a59d-1be334ae0ab3",
+              "id": "b91e4543-f2fa-4ab7-9638-90f3c73582cc",
               "name": "Unauthorized",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "payments"
-                  ],
+                  "raw": "{{baseUrl}}/payments?fromDate=<date>&toDate=<date>&status=rejected&paymentType=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "payments"
+                  ],
                   "query": [
                     {
+                      "description": "Start date filter (ISO 8601)",
                       "key": "fromDate",
                       "value": "<date>"
                     },
                     {
+                      "description": "End date filter (ISO 8601)",
                       "key": "toDate",
                       "value": "<date>"
                     },
                     {
+                      "description": "Filter by payment status",
                       "key": "status",
-                      "value": "<string>"
+                      "value": "rejected"
                     },
                     {
+                      "description": "Filter by payment type",
                       "key": "paymentType",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:24:50.000Z",
+              "updatedAt": "2026-10-22T01:24:50.000Z",
+              "uid": "35240-b91e4543-f2fa-4ab7-9638-90f3c73582cc"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "454f331c-e032-470b-b3a6-a1e1838649a6",
-          "name": "Get Payment Status",
-          "request": {
-            "name": "Get Payment Status",
-            "description": {
-              "content": "Retrieve the current status and details of a specific payment transaction.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "payments",
-                ":paymentId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "paymentId",
-                  "description": "(Required) Unique payment transaction identifier"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "9dcac829-b673-48cb-a4f4-7d1a8108d314",
-              "name": "Payment details",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "payments",
-                    ":paymentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "paymentId",
-                      "description": "(Required) Unique payment transaction identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"paymentId\": \"string\",\n  \"clientReferenceId\": \"string\",\n  \"status\": \"processing\",\n  \"paymentType\": \"string\",\n  \"amount\": 8608.393054147975,\n  \"currency\": \"string\",\n  \"valueDate\": \"2017-02-15\",\n  \"createdAt\": \"1975-05-29T21:10:15.527Z\",\n  \"updatedAt\": \"1948-12-19T10:57:10.023Z\",\n  \"statusMessage\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "155d6e6c-d19b-4263-85e3-4e88d4dc78c4",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "payments",
-                    ":paymentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "paymentId",
-                      "description": "(Required) Unique payment transaction identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "4a6454d3-77aa-458b-aa21-2c4cc48e049f",
-              "name": "Payment not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "payments",
-                    ":paymentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "paymentId",
-                      "description": "(Required) Unique payment transaction identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "20e9157e-b586-4187-adab-f8e3ca5f2b1b",
-          "name": "Cancel Payment",
-          "request": {
-            "name": "Cancel Payment",
-            "description": {
-              "content": "Cancel a pending payment that has not yet been processed.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "payments",
-                ":paymentId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "paymentId",
-                  "description": "(Required) Unique payment identifier"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "557db6fc-a47a-4804-95df-2dfdad34bfb1",
-              "name": "Payment cancelled successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "payments",
-                    ":paymentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "paymentId",
-                      "description": "(Required) Unique payment identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"paymentId\": \"string\",\n  \"clientReferenceId\": \"string\",\n  \"status\": \"processing\",\n  \"paymentType\": \"string\",\n  \"amount\": 8608.393054147975,\n  \"currency\": \"string\",\n  \"valueDate\": \"2017-02-15\",\n  \"createdAt\": \"1975-05-29T21:10:15.527Z\",\n  \"updatedAt\": \"1948-12-19T10:57:10.023Z\",\n  \"statusMessage\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ee80f33e-dc54-4f2f-9537-f363c9d08119",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "payments",
-                    ":paymentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "paymentId",
-                      "description": "(Required) Unique payment identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "59561e9e-c02a-4e1a-8964-b993750fd6a2",
-              "name": "Conflict — payment cannot be cancelled in current state",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "payments",
-                    ":paymentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "paymentId",
-                      "description": "(Required) Unique payment identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Conflict",
-              "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:24:50.000Z",
+          "updatedAt": "2026-10-22T01:24:50.000Z",
+          "uid": "35240-9bab167c-a260-4ac1-82af-571d2d3af64a"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.bankofamerica.com",
-      "key": "baseUrl"
+      "id": "546a4355-793c-42bc-88f3-017446829b9d",
+      "createdAt": "2026-10-22T01:24:49.000Z",
+      "updatedAt": "2026-10-22T01:24:49.000Z",
+      "uid": "35240-546a4355-793c-42bc-88f3-017446829b9d"
     }
   ],
   "auth": {
-    "type": "bearer",
-    "bearer": [
+    "type": "oauth2",
+    "oauth2": [
       {
-        "key": "token",
-        "value": "{{bearerToken}}"
+        "key": "scope",
+        "value": "accounts:read transactions:read payments:write statements:read",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.bankofamerica.com/oauth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "833ea97b-9c22-4c93-b1dc-0f89d4fa17a7",
-    "name": "Bank of America Accounts Payments API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Bank of America provides developer APIs for banking services including payments, account management, and treasury services. The APIs enable corporate clients and fintech partners to integrate banking operations.\n\nContact Support:\n Name: Bank of America Developer Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.bankofamerica.com/cashpro/v1"
     }
-  }
+  ]
 }

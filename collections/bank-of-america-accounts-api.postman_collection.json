@@ -1,445 +1,447 @@
 {
+  "info": {
+    "_postman_id": "54d21438-3166-48c4-b29e-f900312ddc63",
+    "name": "Bank of America CashPro Accounts API",
+    "description": "The Bank of America CashPro API enables corporate treasury clients to programmatically access banking services including payments, account information, balance reporting, and transaction history. The API supports over 350 payment types and integrates with Treasury Management Systems (TMS) and ERP platforms.\n\nContact Support:\n Email: GlobalAPIOps@bofa.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:24:29.000Z",
+    "updatedAt": "2026-10-22T01:24:29.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-54d21438-3166-48c4-b29e-f900312ddc63"
+  },
   "item": [
     {
-      "id": "9f474d2c-2952-405b-bb78-c5c8b5fb9a74",
-      "name": "Accounts",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "accounts",
       "item": [
         {
-          "id": "200964c0-cb94-4dd8-a367-8399cad73213",
+          "name": "{accountId}",
+          "item": [
+            {
+              "name": "Get Account Details",
+              "id": "51572c64-011e-4b24-a835-0cb58f46f0bd",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts/:accountId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "9e97af3d-9b45-46eb-a9a7-725eaa30b015",
+                      "key": "accountId",
+                      "value": "<string>",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve detailed information for a specific account including current balance and account metadata."
+              },
+              "response": [
+                {
+                  "id": "75ffa217-d9bb-4354-be1c-f55d69465104",
+                  "name": "Account details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:accountId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":accountId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "accountId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"accountId\": \"<string>\",\n  \"accountNumber\": \"<string>\",\n  \"accountName\": \"<string>\",\n  \"accountType\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"routingNumber\": \"<string>\",\n  \"status\": \"inactive\",\n  \"openDate\": \"<date>\"\n}",
+                  "createdAt": "2026-10-22T01:24:29.000Z",
+                  "updatedAt": "2026-10-22T01:24:29.000Z",
+                  "uid": "35240-75ffa217-d9bb-4354-be1c-f55d69465104"
+                },
+                {
+                  "id": "1d31dc5d-f83f-42b5-a7e2-254d7db7a7c4",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:accountId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":accountId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "accountId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:24:29.000Z",
+                  "updatedAt": "2026-10-22T01:24:29.000Z",
+                  "uid": "35240-1d31dc5d-f83f-42b5-a7e2-254d7db7a7c4"
+                },
+                {
+                  "id": "7ee72068-22c1-414b-8ecf-6d999a0092f7",
+                  "name": "Account not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:accountId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":accountId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "accountId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:24:29.000Z",
+                  "updatedAt": "2026-10-22T01:24:29.000Z",
+                  "uid": "35240-7ee72068-22c1-414b-8ecf-6d999a0092f7"
+                }
+              ],
+              "createdAt": "2026-10-22T01:24:29.000Z",
+              "updatedAt": "2026-10-22T01:24:29.000Z",
+              "uid": "35240-51572c64-011e-4b24-a835-0cb58f46f0bd"
+            }
+          ],
+          "id": "bc626e30-0832-4c02-a991-ec9e15edb338",
+          "createdAt": "2026-10-22T01:24:29.000Z",
+          "updatedAt": "2026-10-22T01:24:29.000Z",
+          "uid": "35240-bc626e30-0832-4c02-a991-ec9e15edb338"
+        },
+        {
           "name": "List Accounts",
+          "id": "d0170268-ef2c-46b4-9446-164876666e17",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "List Accounts",
-            "description": {
-              "content": "Retrieve a list of accounts associated with the authenticated CashPro client.",
-              "type": "text/plain"
-            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/accounts?accountType=<string>&currency=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "accounts"
               ],
-              "host": [
-                "{{baseUrl}}"
-              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "Filter by account type (checking, savings, etc.)",
                   "key": "accountType",
-                  "value": "<string>",
-                  "description": "Filter by account type (checking, savings, etc.)"
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "Filter by currency code (ISO 4217)",
                   "key": "currency",
-                  "value": "<string>",
-                  "description": "Filter by currency code (ISO 4217)"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "f449b297-35de-4387-a530-c967fb5866bb",
-              "name": "Successful response with account list",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "accounts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "accountType",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "currency",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"accounts\": [\n    {\n      \"accountId\": \"string\",\n      \"accountNumber\": \"string\",\n      \"accountName\": \"string\",\n      \"accountType\": \"string\",\n      \"currency\": \"string\",\n      \"routingNumber\": \"string\",\n      \"status\": \"closed\",\n      \"openDate\": \"1959-09-22\"\n    },\n    {\n      \"accountId\": \"string\",\n      \"accountNumber\": \"string\",\n      \"accountName\": \"string\",\n      \"accountType\": \"string\",\n      \"currency\": \"string\",\n      \"routingNumber\": \"string\",\n      \"status\": \"active\",\n      \"openDate\": \"1989-05-23\"\n    }\n  ],\n  \"totalCount\": 6835,\n  \"pageSize\": 8182,\n  \"offset\": 6535\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3e2c348e-98fd-427c-8949-b2804009d5cc",
-              "name": "Unauthorized — invalid or missing credentials",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "accounts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "accountType",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "currency",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "120c9ed7-5e14-41d0-9500-3fa7b1920a26",
-              "name": "Forbidden — insufficient permissions",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "accounts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "accountType",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "currency",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8453cb5f-bc2b-4ec6-8edd-f4261bff041d",
-          "name": "Get Account Details",
-          "request": {
-            "name": "Get Account Details",
-            "description": {
-              "content": "Retrieve detailed information for a specific account including current balance and account metadata.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "accounts",
-                ":accountId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "accountId",
-                  "description": "(Required) Unique account identifier"
+                  "value": "<string>"
                 }
               ]
             },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
+            "description": "Retrieve a list of accounts associated with the authenticated CashPro client."
           },
           "response": [
             {
-              "id": "ed66168f-e58b-4f04-bc17-7d4adbb830f3",
-              "name": "Account details",
+              "id": "86df8ea7-f6c8-4fa9-af88-f3debacde387",
+              "name": "Successful response with account list",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "accounts",
-                    ":accountId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "accountId",
-                      "description": "(Required) Unique account identifier"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/accounts?accountType=<string>&currency=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter by account type (checking, savings, etc.)",
+                      "key": "accountType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by currency code (ISO 4217)",
+                      "key": "currency",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"accountId\": \"string\",\n  \"accountNumber\": \"string\",\n  \"accountName\": \"string\",\n  \"accountType\": \"string\",\n  \"currency\": \"string\",\n  \"routingNumber\": \"string\",\n  \"status\": \"closed\",\n  \"openDate\": \"1981-08-02\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"accounts\": [\n    {\n      \"accountId\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"accountName\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"routingNumber\": \"<string>\",\n      \"status\": \"active\",\n      \"openDate\": \"<date>\"\n    },\n    {\n      \"accountId\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"accountName\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"routingNumber\": \"<string>\",\n      \"status\": \"closed\",\n      \"openDate\": \"<date>\"\n    }\n  ],\n  \"totalCount\": \"<integer>\",\n  \"pageSize\": \"<integer>\",\n  \"offset\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:24:29.000Z",
+              "updatedAt": "2026-10-22T01:24:29.000Z",
+              "uid": "35240-86df8ea7-f6c8-4fa9-af88-f3debacde387"
             },
             {
-              "id": "4b1b2c7a-9ea6-4ec1-9408-f147ef5796a3",
-              "name": "Unauthorized",
+              "id": "eaf65f88-d051-40f5-aa8e-1f32245d8652",
+              "name": "Unauthorized \u2014 invalid or missing credentials",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "accounts",
-                    ":accountId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "accountId",
-                      "description": "(Required) Unique account identifier"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/accounts?accountType=<string>&currency=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter by account type (checking, savings, etc.)",
+                      "key": "accountType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by currency code (ISO 4217)",
+                      "key": "currency",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:24:29.000Z",
+              "updatedAt": "2026-10-22T01:24:29.000Z",
+              "uid": "35240-eaf65f88-d051-40f5-aa8e-1f32245d8652"
             },
             {
-              "id": "69ad7fd1-0c59-4caa-9277-e582a48ff0d6",
-              "name": "Account not found",
+              "id": "efc05800-2666-4d6b-b501-0d66d35fa479",
+              "name": "Forbidden \u2014 insufficient permissions",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "accounts",
-                    ":accountId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "accountId",
-                      "description": "(Required) Unique account identifier"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/accounts?accountType=<string>&currency=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter by account type (checking, savings, etc.)",
+                      "key": "accountType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by currency code (ISO 4217)",
+                      "key": "currency",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
-              "status": "Not Found",
-              "code": 404,
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"errorCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    \"string\",\n    \"string\"\n  ],\n  \"requestId\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"errorCode\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestId\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:24:29.000Z",
+              "updatedAt": "2026-10-22T01:24:29.000Z",
+              "uid": "35240-efc05800-2666-4d6b-b501-0d66d35fa479"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:24:29.000Z",
+          "updatedAt": "2026-10-22T01:24:29.000Z",
+          "uid": "35240-d0170268-ef2c-46b4-9446-164876666e17"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.bankofamerica.com",
-      "key": "baseUrl"
+      "id": "4cda204b-3f86-4581-adfe-649abcc63944",
+      "createdAt": "2026-10-22T01:24:29.000Z",
+      "updatedAt": "2026-10-22T01:24:29.000Z",
+      "uid": "35240-4cda204b-3f86-4581-adfe-649abcc63944"
     }
   ],
   "auth": {
-    "type": "bearer",
-    "bearer": [
+    "type": "oauth2",
+    "oauth2": [
       {
-        "key": "token",
-        "value": "{{bearerToken}}"
+        "key": "scope",
+        "value": "accounts:read transactions:read payments:write statements:read",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.bankofamerica.com/oauth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "80e191c2-9562-4a25-b58c-fcfac8607ac6",
-    "name": "Bank of America Accounts API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Bank of America provides developer APIs for banking services including payments, account management, and treasury services. The APIs enable corporate clients and fintech partners to integrate banking operations.\n\nContact Support:\n Name: Bank of America Developer Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.bankofamerica.com/cashpro/v1"
     }
-  }
+  ]
 }
